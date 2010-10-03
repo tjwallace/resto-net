@@ -15,7 +15,11 @@ class DataPage
     raw_html = open(url).read # avoid encoding issue...
     Nokogiri::HTML(raw_html).css('#mois_resultats td td table table').each do |table|
       header = table.css('td:nth-child(2) span')
-      puts header.map{ |s| s.inner_html.gsub(/<br>/, " ") }.join(' | ') unless header.empty?
+      unless header.empty?
+        header = header.map{ |s| s.inner_html.gsub(/<br>/, " ") }
+        header << table.at_css('td:nth-child(3) span').inner_html
+        puts header.join(' | ')
+      end
 
       details = table.css('td')
       puts details.map{ |s| s.content[0..30].strip }.reject{ |s| s.empty? }.join(' | ') if details.count == 6
