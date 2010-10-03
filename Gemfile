@@ -9,6 +9,12 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 
 gem 'nokogiri'
 
+gem 'rails3-generators'
+gem 'haml-rails', :git => 'git://github.com/indirect/haml-rails.git'
+gem 'rspec-rails', '>= 2.0.0.beta.22'
+
+gem 'factory_girl'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
