@@ -5,5 +5,5 @@ Factory.define :infraction do |f|
   f.description "MyText"
   f.amount 1
   f.infraction_date "2010-10-03"
-  f.jugement_date "2010-10-03"
+  f.judgment_date "2010-10-03"
 end

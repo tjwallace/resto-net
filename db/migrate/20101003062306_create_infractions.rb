@@ -5,7 +5,7 @@ class CreateInfractions < ActiveRecord::Migration
       t.text :description
       t.integer :amount
       t.date :infraction_date
-      t.date :jugement_date
+      t.date :judgment_date
 
       t.timestamps
     end
