@@ -15,6 +15,8 @@ gem 'rspec-rails', '>= 2.0.0.beta.22'
 
 gem 'factory_girl'
 
+gem 'globalize3'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
