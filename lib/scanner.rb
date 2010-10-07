@@ -12,8 +12,7 @@ class DataPage
   end
 
   def scan
-    raw_html = open(url).read # avoid encoding issue...
-    Nokogiri::HTML(raw_html).css('#mois_resultats td td table table').each do |table|
+    Nokogiri::HTML(content).css('#mois_resultats td td table table').each do |table|
       header = table.css('td:nth-child(2) span')
       unless header.empty?
         header = header.map{ |s| s.inner_html.gsub(/<br>/, " ") }
@@ -32,5 +31,14 @@ class DataPage
 
   def url
     URI.encode "http://ville.montreal.qc.ca/portal/page?_pageid=2136,2655580&_dad=portal&_schema=PORTAL&mois=#{month_name}&annee=#{year}"
+  end
+
+  def content
+    local_file = File.join Rails.root, 'data', sprintf("%d_%02d.html", @year, @month)
+    if File.exists? local_file
+      File.read local_file
+    else
+      open(url).read
+    end
   end
 end
