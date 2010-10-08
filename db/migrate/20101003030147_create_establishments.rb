@@ -3,6 +3,7 @@ class CreateEstablishments < ActiveRecord::Migration
     create_table :establishments do |t|
       t.string :name
       t.string :address
+      t.belongs_to :owner
       t.belongs_to :type
 
       t.timestamps
