@@ -6,6 +6,14 @@ class CreateEstablishments < ActiveRecord::Migration
       t.belongs_to :owner
       t.belongs_to :type
 
+      t.float :latitude
+      t.float :longitude
+      t.string :street
+      t.string :region
+      t.string :locality
+      t.string :country
+      t.string :postal_code
+
       t.timestamps
     end
 

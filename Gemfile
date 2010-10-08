@@ -17,6 +17,8 @@ gem 'factory_girl'
 
 gem 'globalize3'
 
+gem 'graticule'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

@@ -32,12 +32,13 @@ namespace :scan do
           owner = Owner.find_or_create_by_name est_data[:owner]
           establishment = owner.establishments.find_or_create_by_name est_data[:name]
           establishment.address ||= est_data[:address]
-          establishment.type ||= Type.find_first_by_name(est_data[:type]) || Type.create(:name => est_data[:type])
+          establishment.type ||= ( Type.find_first_by_name(est_data[:type]) || Type.create(:name => est_data[:type]) )
 
           est_data[:infractions].each do |inf_data|
             establishment.infractions.create inf_data
           end
 
+          establishment.geocode! unless establishment.geocoded?
           establishment.save
         end
       end

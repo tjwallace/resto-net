@@ -47,8 +47,15 @@ GEM
     factory_girl (1.3.2)
     globalize3 (0.0.7)
       activerecord (>= 3.0.0.rc)
+    graticule (2.0.0)
+      activesupport
+      happymapper (>= 0.3.0)
+      i18n
     haml (3.0.21)
+    happymapper (0.3.2)
+      libxml-ruby (~> 1.1.3)
     i18n (0.4.1)
+    libxml-ruby (1.1.4)
     mail (2.2.6.1)
       activesupport (>= 2.3.6)
       mime-types
@@ -100,6 +107,7 @@ PLATFORMS
 DEPENDENCIES
   factory_girl
   globalize3
+  graticule
   haml-rails!
   nokogiri
   rails (= 3.0.0)
