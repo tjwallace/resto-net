@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'nokogiri'
 require 'open-uri'
 
@@ -12,17 +13,39 @@ class DataPage
   end
 
   def scan
+    establishments = []
+    establishment = nil
     Nokogiri::HTML(content).css('#mois_resultats td td table table').each do |table|
       header = table.css('td:nth-child(2) span')
       unless header.empty?
-        header = header.map{ |s| s.inner_html.gsub(/<br>/, " ") }
+        header = header.map{ |s| s.inner_html.gsub(/<br>/, " ").strip }
         header << table.at_css('td:nth-child(3) span').inner_html
-        puts header.join(' | ')
+
+        establishments << establishment unless establishment.nil?
+
+        establishment = {
+          :owner => header[0],
+          :name => header[1],
+          :address => header[2],
+          :type => header[3],
+          :infractions => []
+        }
       end
 
       details = table.css('td')
-      puts details.map{ |s| s.content[0..30].strip }.reject{ |s| s.empty? }.join(' | ') if details.count == 6
+      if details.count == 6
+        details = details.map{ |s| s.content.strip }.reject{ |s| s.empty? }
+
+        establishment[:infractions] << {
+          :description => details[0],
+          :infraction_date => clean_date(details[1]),
+          :judgment_date => clean_date(details[2]),
+          :amount => details[3].to_i,
+          :locale => :fr
+        }
+      end
     end
+    establishments
   end
 
   def month_name
@@ -40,5 +63,18 @@ class DataPage
     else
       open(url).read
     end
+  end
+
+  private
+
+  def clean_date(fr_date)
+    fr_date.gsub /(\d+) (\S+) (\d+)/ do |s|
+      "#{clean_month($2)} #{$1}, #{$3}"
+    end
+  end
+
+  def clean_month(fr_month)
+    fr_month = fr_month.gsub(/é/, 'e').gsub(/û/, 'u').upcase
+    Date::MONTHNAMES[ MONTHS.index(fr_month) + 1 ]
   end
 end
