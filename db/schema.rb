@@ -17,6 +17,13 @@ ActiveRecord::Schema.define(:version => 20101003062306) do
     t.string   "address"
     t.integer  "owner_id"
     t.integer  "type_id"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "street"
+    t.string   "region"
+    t.string   "locality"
+    t.string   "country"
+    t.string   "postal_code"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
