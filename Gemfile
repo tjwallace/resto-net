@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0'
+gem 'rails', '3.0.1'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -11,7 +11,9 @@ gem 'nokogiri'
 
 gem 'rails3-generators'
 gem 'haml-rails', :git => 'git://github.com/indirect/haml-rails.git'
-gem 'rspec-rails', '>= 2.0.0.beta.22'
+
+gem 'rspec-rails', '>= 2.0.0.rc'
+gem 'shoulda'
 
 gem 'factory_girl'
 

@@ -3,6 +3,8 @@ class Establishment < ActiveRecord::Base
   belongs_to :type
   has_many :infractions
 
+  validates_presence_of :name, :address, :owner, :type
+
   after_create :geocode!
 
   def geocode!
