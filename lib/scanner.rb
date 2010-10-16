@@ -56,13 +56,12 @@ class DataPage
     URI.encode "http://ville.montreal.qc.ca/portal/page?_pageid=2136,2655580&_dad=portal&_schema=PORTAL&mois=#{month_name}&annee=#{year}"
   end
 
+  def filename
+    File.join Rails.root, 'data', sprintf("%d_%02d.html", @year, @month)
+  end
+
   def content
-    local_file = File.join Rails.root, 'data', sprintf("%d_%02d.html", @year, @month)
-    if File.exists? local_file
-      File.read local_file
-    else
-      open(url).read
-    end
+    File.exists? filename ? File.read(filename) : open(url).read
   end
 
   private

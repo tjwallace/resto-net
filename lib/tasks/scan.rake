@@ -12,12 +12,11 @@ namespace :scan do
   task :download do
     (2007..2010).each do |year|
       (1..12).each do |month|
-        url = DataPage.new(month, year).url
-        output_file = File.join Rails.root, 'data', sprintf("%d_%02d.html", year, month)
-        File.open output_file, 'w' do |f|
-          puts "Downloading #{year} - #{month} from #{url}"
-          f.write open(url).read
-        end unless File.exists? output_file
+        page = DataPage.new(month, year)
+        File.open page.filename, 'w' do |f|
+          puts "Downloading #{year} - #{month} from #{page.url}"
+          f.write open(page.url).read
+        end unless File.exists? page.filename
       end
     end
   end
