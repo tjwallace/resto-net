@@ -18,6 +18,7 @@ class CreateEstablishments < ActiveRecord::Migration
     end
 
     add_index :establishments, :type_id
+    add_index :establishments, :owner_id
   end
 
   def self.down
