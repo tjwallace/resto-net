@@ -38,13 +38,18 @@ GEM
       activemodel (= 3.0.1)
       activesupport (= 3.0.1)
     activesupport (3.0.1)
+    archive-tar-minitar (0.5.2)
     arel (1.0.1)
       activesupport (~> 3.0.0)
     builder (2.1.2)
+    columnize (0.3.1)
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     factory_girl (1.3.2)
+    factory_girl_rails (1.0)
+      factory_girl (~> 1.3)
+      rails (>= 3.0.0.beta4)
     globalize3 (0.0.7)
       activerecord (>= 3.0.0.rc)
     graticule (2.0.0)
@@ -56,6 +61,8 @@ GEM
       libxml-ruby (~> 1.1.3)
     i18n (0.4.1)
     libxml-ruby (1.1.4)
+    linecache19 (0.5.11)
+      ruby_core_source (>= 0.1.4)
     mail (2.2.7)
       activesupport (>= 2.3.6)
       mime-types
@@ -95,6 +102,16 @@ GEM
       rspec-expectations (= 2.0.0)
     rspec-rails (2.0.1)
       rspec (~> 2.0.0)
+    ruby-debug-base19 (0.11.24)
+      columnize (>= 0.3.1)
+      linecache19 (>= 0.5.11)
+      ruby_core_source (>= 0.1.4)
+    ruby-debug19 (0.11.6)
+      columnize (>= 0.3.1)
+      linecache19 (>= 0.5.11)
+      ruby-debug-base19 (>= 0.11.19)
+    ruby_core_source (0.1.4)
+      archive-tar-minitar (>= 0.5.2)
     shoulda (2.11.3)
     sqlite3-ruby (1.3.1)
     thor (0.14.3)
@@ -106,7 +123,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  factory_girl
+  factory_girl_rails
   globalize3
   graticule
   haml-rails!
@@ -114,5 +131,6 @@ DEPENDENCIES
   rails (= 3.0.1)
   rails3-generators
   rspec-rails (>= 2.0.0.rc)
+  ruby-debug19
   shoulda
   sqlite3-ruby

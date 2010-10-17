@@ -8,18 +8,18 @@ gem 'rails', '3.0.1'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
 gem 'nokogiri'
+gem 'globalize3'
+gem 'graticule'
 
-gem 'rails3-generators'
 gem 'haml-rails', :git => 'git://github.com/indirect/haml-rails.git'
 
-gem 'rspec-rails', '>= 2.0.0.rc'
-gem 'shoulda'
-
-gem 'factory_girl'
-
-gem 'globalize3'
-
-gem 'graticule'
+group :development, :test do
+  gem 'rails3-generators'
+  gem 'rspec-rails', '>= 2.0.0.rc'
+  gem 'shoulda'
+  gem 'factory_girl_rails'
+  gem 'ruby-debug19', :require => 'ruby-debug'
+end
 
 # Use unicorn as the web server
 # gem 'unicorn'

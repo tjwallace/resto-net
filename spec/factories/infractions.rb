@@ -1,9 +1,12 @@
 # Read about factories at http://github.com/thoughtbot/factory_girl
 
 Factory.define :infraction do |f|
-  f.establishment nil
-  f.description "MyText"
-  f.amount 1
-  f.infraction_date "2010-10-03"
-  f.judgment_date "2010-10-03"
+  f.description "infraction description"
+  f.amount Random.new.rand(500..3000)
+  f.infraction_date Date.today
+  f.judgment_date Date.today
+end
+
+Factory.define :associated_infraction, :parent => :infraction do |f|
+  f.association :establishment
 end

@@ -13,4 +13,18 @@ describe Type do
     I18n.locale = :en
     t.name.should eq('english')
   end
+
+  describe "find_or_create_by_name" do
+    it "should create a new type if it doesn't exist" do
+      Type.find_or_create_by_name('foo')
+      Type.count.should eq(1)
+    end
+
+    it "should find a type if it already exists" do
+      type_1 = Type.create(:name => 'bar')
+      type_2 = Type.find_or_create_by_name('bar')
+      type_1.id.should eq(type_2.id)
+      Type.count.should eq(1)
+    end
+  end
 end
