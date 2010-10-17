@@ -1,7 +1,8 @@
 # Read about factories at http://github.com/thoughtbot/factory_girl
 
 Factory.define :establishment do |f|
-  f.name "MyString"
-  f.address "MyString"
-  f.type nil
+  f.sequence(:name) { |n| "establishment #{n}" }
+  f.sequence(:address) { |n| "try and geocode address #{n}" }
+  f.association :owner
+  f.association :type
 end
