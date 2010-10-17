@@ -25,9 +25,9 @@ class DataPage
 
         establishment = {
           :owner => header[0],
-          :name => header[1],
+          :name => header[1].empty? ? header[0] : header[1],
           :address => header[2],
-          :type => header[3],
+          :type => header[3].empty? ? 'Inconnue' : header[3],
           :infractions => []
         }
       end
@@ -40,8 +40,7 @@ class DataPage
           :description => details[0],
           :infraction_date => clean_date(details[1]),
           :judgment_date => clean_date(details[2]),
-          :amount => details[3].to_i,
-          :locale => :fr
+          :amount => details[3].to_i
         }
       end
     end
@@ -61,7 +60,7 @@ class DataPage
   end
 
   def content
-    File.exists? filename ? File.read(filename) : open(url).read
+    File.exists?(filename) ? File.read(filename) : open(url).read
   end
 
   private
