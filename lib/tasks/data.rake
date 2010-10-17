@@ -1,11 +1,12 @@
 # encoding: utf-8
 
-namespace :scan do
-  require 'scanner'
+namespace :data do
+  require 'data_page'
 
   desc "Test the scanner"
-  task :test do
-    pp DataPage.new(1, 2007).scan
+  task :test, :month, :year do |t, args|
+    args.with_defaults(:month => 1, :year => 2007)
+    pp DataPage.new(args[:month], args[:year]).scan
   end
 
   desc "Download HTML files"
@@ -29,16 +30,16 @@ namespace :scan do
         puts "Importing #{$1} - #{$2}"
         DataPage.new($2.to_i, $1.to_i).scan.each do |est_data|
           owner = Owner.find_or_create_by_name est_data[:owner]
-          establishment = owner.establishments.find_or_create_by_name est_data[:name]
-          establishment.address ||= est_data[:address]
-          establishment.type ||= ( Type.find_first_by_name(est_data[:type]) || Type.create(:name => est_data[:type]) )
+
+          establishment = owner.establishments.find_by_name(est_data[:name]) || owner.establishments.create({
+            :name    => est_data[:name],
+            :address => est_data[:address],
+            :type_id => Type.find_or_create_by_name(est_data[:type]).id
+          })
 
           est_data[:infractions].each do |inf_data|
             establishment.infractions.create inf_data
           end
-
-          establishment.geocode! unless establishment.geocoded?
-          establishment.save
         end
       end
     end
