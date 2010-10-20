@@ -7,9 +7,8 @@ class Establishment < ActiveRecord::Base
 
   before_create :geocode
 
-
   def geocode
-    @@geocoder ||= Graticule.service(:google).new API_KEY
+    @@geocoder ||= Graticule.service(:google).new APP_CONFIG['gmaps_api_key']
 
     begin
       location = @@geocoder.locate address
