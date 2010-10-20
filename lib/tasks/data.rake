@@ -29,11 +29,10 @@ namespace :data do
       if file =~ /(\d{4})_(\d{2}).html/
         puts "Importing #{$1} - #{$2}"
         DataPage.new($2.to_i, $1.to_i).scan.each do |est_data|
-          establishment = Establishment.find_by_name(est_data[:name]) || Establishment.create({
-            :name    => est_data[:name],
+          establishment = Establishment.find_or_create_by_name(est_data[:name],
             :address => est_data[:address],
             :type_id => Type.find_or_create_by_name(est_data[:type]).id
-          })
+          )
 
           est_data[:infractions].each do |inf_data|
             establishment.infractions.create inf_data
