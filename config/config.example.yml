@@ -1,0 +1,8 @@
+development:
+  gmaps_api_key: "google maps api key here"
+
+test:
+  gmaps_api_key: "google maps api key here"
+
+production:
+  gmaps_api_key: "google maps api key here"
