@@ -12,6 +12,7 @@ gem 'globalize3'
 gem 'graticule'
 
 gem 'haml-rails', :git => 'git://github.com/indirect/haml-rails.git'
+gem 'will_paginate', '~> 3.0.pre2'
 
 group :development, :test do
   gem 'rails3-generators'
