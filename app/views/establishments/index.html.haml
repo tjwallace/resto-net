@@ -1,0 +1,5 @@
+%ul
+  - @establishments.each do |e|
+    %li= raw "#{e.name} - $#{e.total_infractions_amount}.00"
+
+= will_paginate @establishments

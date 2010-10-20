@@ -3,6 +3,5 @@
 Factory.define :establishment do |f|
   f.sequence(:name) { |n| "establishment #{n}" }
   f.sequence(:address) { |n| "try and geocode address #{n}" }
-  f.association :owner
   f.association :type
 end
