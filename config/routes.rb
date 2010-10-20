@@ -1,4 +1,8 @@
 InspectionsOuvert::Application.routes.draw do
+  resources :establishments, :only => [:index]
+
+  root :to => 'establishments#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
