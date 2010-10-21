@@ -3,7 +3,6 @@ class CreateEstablishments < ActiveRecord::Migration
     create_table :establishments do |t|
       t.string :name
       t.string :address
-      t.belongs_to :owner
       t.belongs_to :type
 
       t.float :latitude
@@ -19,7 +18,6 @@ class CreateEstablishments < ActiveRecord::Migration
 
     add_index :establishments, :name, :unique => true
     add_index :establishments, :type_id
-    add_index :establishments, :owner_id
   end
 
   def self.down

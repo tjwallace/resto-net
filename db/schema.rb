@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(:version => 20101003062306) do
   create_table "establishments", :force => true do |t|
     t.string   "name"
     t.string   "address"
-    t.integer  "owner_id"
     t.integer  "type_id"
     t.float    "latitude"
     t.float    "longitude"
@@ -28,7 +27,6 @@ ActiveRecord::Schema.define(:version => 20101003062306) do
     t.datetime "updated_at"
   end
 
-  add_index "establishments", ["owner_id"], :name => "index_establishments_on_owner_id"
   add_index "establishments", ["name"], :name => "index_establishments_on_name", :unique => true
   add_index "establishments", ["type_id"], :name => "index_establishments_on_type_id"
 
@@ -47,12 +45,6 @@ ActiveRecord::Schema.define(:version => 20101003062306) do
     t.integer  "amount"
     t.date     "infraction_date"
     t.date     "judgment_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "owners", :force => true do |t|
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
