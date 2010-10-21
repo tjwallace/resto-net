@@ -17,6 +17,7 @@ class CreateEstablishments < ActiveRecord::Migration
       t.timestamps
     end
 
+    add_index :establishments, :name, :unique => true
     add_index :establishments, :type_id
     add_index :establishments, :owner_id
   end
