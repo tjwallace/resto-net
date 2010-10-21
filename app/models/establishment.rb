@@ -4,6 +4,7 @@ class Establishment < ActiveRecord::Base
   has_many :infractions, :dependent => :destroy
 
   validates_presence_of :name, :address, :owner, :type
+  validates_uniqueness_of :name
 
   before_create :geocode
 
