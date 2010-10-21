@@ -4,11 +4,10 @@ require 'spec_helper'
 describe Establishment do
   before(:each) { Factory.create(:establishment) }
 
-  it { should belong_to(:owner) }
   it { should belong_to(:type) }
   it { should have_many(:infractions).dependent(:destroy) }
 
-  %w(name address owner type).each do |attr|
+  %w(name address type).each do |attr|
     it { should validate_presence_of(attr) }
   end
   it { should validate_uniqueness_of(:name) }

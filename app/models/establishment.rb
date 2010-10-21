@@ -1,9 +1,8 @@
 class Establishment < ActiveRecord::Base
-  belongs_to :owner
   belongs_to :type
   has_many :infractions, :dependent => :destroy
 
-  validates_presence_of :name, :address, :owner, :type
+  validates_presence_of :name, :address, :type
   validates_uniqueness_of :name
 
   before_create :geocode

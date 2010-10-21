@@ -19,7 +19,7 @@ class DataPage
       header = table.css('td:nth-child(2) span')
       unless header.empty?
         header = header.map{ |s| s.inner_html.gsub(/<br>/, " ").strip }
-        header << table.at_css('td:nth-child(3) span').inner_html
+        header << table.at_css('td:nth-child(3) span').inner_html.strip
 
         establishments << establishment unless establishment.nil?
 
