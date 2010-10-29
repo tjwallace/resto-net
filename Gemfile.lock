@@ -68,6 +68,7 @@ GEM
       mime-types
       treetop (>= 1.4.5)
     mime-types (1.16)
+    mysql2 (0.2.6)
     nokogiri (1.4.3.1)
     polyglot (0.3.1)
     rack (1.2.1)
@@ -128,6 +129,7 @@ DEPENDENCIES
   globalize3
   graticule
   haml-rails!
+  mysql2
   nokogiri
   rails (= 3.0.1)
   rails3-generators
