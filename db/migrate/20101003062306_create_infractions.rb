@@ -8,7 +8,10 @@ class CreateInfractions < ActiveRecord::Migration
 
       t.timestamps
     end
+
     Infraction.create_translation_table! :description => :text
+
+    add_index :infractions, :establishment_id
   end
 
   def self.down

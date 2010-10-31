@@ -45,19 +45,24 @@ describe Establishment do
     end
   end
 
-  describe "total_infractions_amount" do
-    before(:each) do
-      @e = Factory.create :establishment
+  describe "#infractions_amount" do
+    subject { Factory.create :establishment }
+
+    it "returns 0 for no infractions" do
+      subject.infractions_amount.should == 0
     end
 
-    it "should return 0 for no infractions" do
-      @e.infractions.count.should == 0
-      @e.total_infractions_amount.should == 0
+    it "returns the sum of its infraction amounts" do
+      3.times { subject.infractions.create Factory.attributes_for(:infraction) }
+      subject.reload # since total_infractions is cached
+      subject.infractions_amount.should == subject.infractions.sum(:amount)
     end
 
-    it "should return the sum of the infractions amount" do
-      total = 3.times.map{ @e.infractions.create(Factory.attributes_for :infraction).amount }.sum
-      @e.total_infractions_amount.should == total
+    it "recalculates after infraction removal" do
+      3.times { subject.infractions.create Factory.attributes_for(:infraction) }
+      subject.infractions.first.destroy
+      subject.reload # since total_infractions is cached
+      subject.infractions_amount.should == subject.infractions.sum(:amount)
     end
   end
 end

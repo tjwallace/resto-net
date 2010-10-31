@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(:version => 20101003062306) do
     t.string   "name"
     t.string   "address"
     t.integer  "type_id"
+    t.integer  "infractions_amount", :default => 0
     t.float    "latitude"
     t.float    "longitude"
     t.string   "street"
@@ -48,6 +49,8 @@ ActiveRecord::Schema.define(:version => 20101003062306) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "infractions", ["establishment_id"], :name => "index_infractions_on_establishment_id"
 
   create_table "type_translations", :force => true do |t|
     t.integer  "type_id"

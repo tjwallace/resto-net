@@ -14,11 +14,21 @@ development:
   password: "!inspectionS"
   socket: /tmp/mysql.sock
 
+#test:
+  #adapter: sqlite3
+  #database: db/test.sqlite3
+  #pool: 5
+  #timeout: 5000
+
 test:
-  adapter: sqlite3
-  database: db/test.sqlite3
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: inspections_test
   pool: 5
-  timeout: 5000
+  username: inspections
+  password: "!inspectionS"
+  socket: /tmp/mysql.sock
 
 production:
   adapter: sqlite3

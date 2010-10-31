@@ -1,6 +1,6 @@
 class Establishment < ActiveRecord::Base
   belongs_to :type
-  has_many :infractions, :dependent => :destroy
+  has_many :infractions, :dependent => :destroy, :after_remove => :update_infractions_amount!
 
   validates_presence_of :name, :address, :type
   validates_uniqueness_of :name
@@ -31,7 +31,7 @@ class Establishment < ActiveRecord::Base
     !!(latitude && longitude)
   end
 
-  def total_infractions_amount
-    infractions.sum(:amount)
+  def update_infractions_amount!
+    update_attribute :infractions_amount, infractions.sum(:amount)
   end
 end
