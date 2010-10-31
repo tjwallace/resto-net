@@ -1,5 +1,5 @@
 class Infraction < ActiveRecord::Base
-  belongs_to :establishment
+  belongs_to :establishment, :counter_cache => true
 
   validates_presence_of :establishment, :amount, :infraction_date, :judgment_date
   validates_numericality_of :amount, :only_integer => true, :greater_than => 0
