@@ -1,5 +1,6 @@
 class EstablishmentsController < ApplicationController
   def index
-    @establishments = Establishment.order('name ASC').paginate :page => params[:page]
+    @by_count = Establishment.order('infractions_count DESC').limit(10)
+    @by_amount = Establishment.order('infractions_amount DESC').limit(10)
   end
 end

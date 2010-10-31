@@ -1,5 +1,15 @@
-%ul
-  - @establishments.each do |e|
-    %li= raw "#{e.name} - $#{e.total_infractions_amount}.00"
-
-= will_paginate @establishments
+%table
+  %tr
+    %td
+      Most infractions
+    %td
+      Largest infractions
+  %tr
+    %td
+      %ul
+        - @by_count.each do |est|
+          %li= "#{est.name} (#{est.infractions_count})"
+    %td
+      %ul
+        - @by_amount.each do |est|
+          %li= "#{est.name} (#{number_to_currency est.infractions_amount})"
