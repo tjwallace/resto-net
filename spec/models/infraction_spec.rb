@@ -13,19 +13,4 @@ describe Infraction do
   [1, 100, 1000].each do |value|
     it { should allow_value(value).for(:amount) }
   end
-
-  before(:each) do
-    @i = Factory.build :infraction
-  end
-
-  it "should translate description" do
-    I18n.locale = :en
-    @i.description = 'english'
-    @i.description.should == 'english'
-    I18n.locale = :fr
-    @i.description = 'french'
-    @i.description.should == 'french'
-    I18n.locale = :en
-    @i.description.should == 'english'
-  end
 end
