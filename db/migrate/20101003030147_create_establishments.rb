@@ -4,6 +4,7 @@ class CreateEstablishments < ActiveRecord::Migration
       t.string :name
       t.string :address
       t.belongs_to :type
+      t.integer :infractions_amount, :default => 0
 
       t.float :latitude
       t.float :longitude
