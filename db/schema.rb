@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(:version => 20101003062306) do
     t.string   "address"
     t.integer  "type_id"
     t.integer  "infractions_amount", :default => 0
+    t.integer  "infractions_count",  :default => 0
     t.float    "latitude"
     t.float    "longitude"
     t.string   "street"
