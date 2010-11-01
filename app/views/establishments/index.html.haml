@@ -8,8 +8,8 @@
     %td
       %ul
         - @by_count.each do |est|
-          %li= "#{est.name} (#{est.infractions_count})"
+          %li #{link_to est.name, est} (#{est.infractions_count})
     %td
       %ul
         - @by_amount.each do |est|
-          %li= "#{est.name} (#{number_to_currency est.infractions_amount})"
+          %li #{link_to est.name, est} (#{number_to_currency est.infractions_amount})

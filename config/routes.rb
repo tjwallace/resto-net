@@ -1,5 +1,5 @@
 InspectionsOuvert::Application.routes.draw do
-  resources :establishments, :only => [:index]
+  resources :establishments, :only => [:index, :show]
 
   root :to => 'establishments#index'
 
