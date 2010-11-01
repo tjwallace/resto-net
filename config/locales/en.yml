@@ -2,4 +2,8 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  total_infractions: "Total infractions"
+  infraction_date: "Infraction date"
+  judgment_date: "Judgment date"
+  amount: "Amount"
+  description: "Description"

@@ -1,0 +1,31 @@
+- javascript "http://maps.google.com/maps/api/js?sensor=false"
+
+:javascript
+  $(function() {
+    var latlng = new google.maps.LatLng(#{@establishment.latitude}, #{@establishment.longitude});
+    var map = new google.maps.Map(document.getElementById("map_canvas"), {
+      zoom: 15,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControl: false
+    });
+    var marker = new google.maps.Marker({
+      position: latlng,
+      title:"#{@establishment.name}",
+      map: map
+    });
+  });
+
+%div[@establishment]
+  .attribute.name= @establishment.name
+  .attribute #{t :total_infractions} : #{number_to_currency @establishment.infractions_amount} (#{@establishment.infractions_count.to_s})
+  #map_canvas
+  #infractions
+    - @establishment.infractions.order('judgment_date DESC').each do |infraction|
+      %div[infraction]
+        .attribute #{t :infraction_date}: #{l infraction.infraction_date}
+        .attribute #{t :judgment_date}: #{l infraction.judgment_date}
+        .attribute #{t :amount}: #{number_to_currency infraction.amount}
+        .description
+          %h1 #{t :description}:
+          = infraction.description(:fr)
