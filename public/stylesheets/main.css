@@ -1,16 +1,84 @@
+#main {
+  background-color: #228d00;
+}
+
+#header h1 {
+  font-size: 5em;
+}
+
+h1, h2 {
+  text-shadow: 2px 2px 2px #ccc;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.column {
+  border-radius: 15px;
+  background-color: #46a229;
+  box-shadow: 1px 2px 6px #000;
+  -webkit-box-shadow: 1px 2px 6px #000;
+}
+
+.column h1 {
+  text-align: center;
+}
+
+.column h1,
+.column > div {
+  margin: 10px;
+}
+
+.column > div {
+  padding: 5px;
+  background-color: #f93e58;
+  border-radius: 6px;
+  /* box-shadow: 1px 2px 6px #000;
+  -webkit-box-shadow: 1px 2px 6px #000; */
+}
+
+.column .name {
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.column a {
+  color: white;
+  text-decoration: none;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.column a:hover {
+  color: #bdbdbd;
+}
+
+.column .stat {
+  width: 100%;
+  text-align: right;
+  font-size: 1.2em;
+}
+
+.stat span,
+.stat a {
+  color: black;
+  font-weight: 500;
+  text-shadow: 1px 1px 2px #444;
+}
+
+.stat a {
+  border-bottom: 1px dashed black;
+}
+
+.stat a:hover {
+  border-bottom: 1px dashed #bdbdbd;
+}
+
 #map_canvas {
   width: 300px;
   height: 300px;
-}
-
-.infraction {
-  background: gray;
-  margin: 10px 0;
-  padding: 10px;
-}
-
-.infraction .description h1 {
-  margin: 5px 0;
-  padding: 0;
-  font-size: 14px;
 }

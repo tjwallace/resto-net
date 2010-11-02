@@ -10,4 +10,6 @@ class Infraction < ActiveRecord::Base
   after_destroy :update_infractions_amount!
 
   delegate :update_infractions_amount!, :to => :establishment
+
+  scope :latest, order("judgment_date DESC")
 end

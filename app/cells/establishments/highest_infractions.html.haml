@@ -1,0 +1,6 @@
+- @establishments.each do |establishment|
+  %div
+    .name= link_to establishment.name, establishment
+    .stat
+      %span= number_to_currency establishment.infractions_amount, :precision => 0
+      = t :in_infractions
