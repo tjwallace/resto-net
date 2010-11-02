@@ -7,6 +7,9 @@ class Establishment < ActiveRecord::Base
 
   before_create :geocode
 
+  scope :by_most_infractions, order("infractions_count DESC")
+  scope :by_highest_infractions, order("infractions_amount DESC")
+
   def geocode
     @@geocoder ||= Graticule.service(:google).new APP_CONFIG['gmaps_api_key']
 

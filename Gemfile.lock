@@ -42,6 +42,7 @@ GEM
     arel (1.0.1)
       activesupport (~> 3.0.0)
     builder (2.1.2)
+    cells (3.4.2)
     columnize (0.3.1)
     diff-lcs (1.1.2)
     erubis (2.6.6)
@@ -127,6 +128,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  cells
   factory_girl_rails
   globalize3
   graticule
