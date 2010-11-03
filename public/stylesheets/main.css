@@ -1,5 +1,5 @@
 #main {
-  background-color: #228d00;
+  background-color: #46a229;
 }
 
 #header h1 {
@@ -18,9 +18,10 @@ a:hover {
   text-decoration: none;
 }
 
-.column {
+.column,
+.box {
   border-radius: 15px;
-  background-color: #46a229;
+  background-color: #89ec6a;
   box-shadow: 1px 2px 6px #000;
   -webkit-box-shadow: 1px 2px 6px #000;
 }
@@ -31,15 +32,19 @@ a:hover {
 
 .column h1,
 .column > div {
-  margin: 10px;
+  margin: 5px 10px;
 }
 
 .column > div {
   padding: 5px;
-  background-color: #f93e58;
-  border-radius: 6px;
-  /* box-shadow: 1px 2px 6px #000;
-  -webkit-box-shadow: 1px 2px 6px #000; */
+}
+
+.column hr {
+  margin: 3px 35px;
+  height: 1px;
+  color: #000;
+  background-color: #000;
+  border: none;
 }
 
 .column .name {
@@ -78,7 +83,12 @@ a:hover {
   border-bottom: 1px dashed #bdbdbd;
 }
 
+.box div {
+  margin: 10px;
+}
+
 #map_canvas {
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
+  padding: 10px;
 }
