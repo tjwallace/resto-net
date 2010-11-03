@@ -1,11 +1,11 @@
-#latest_infractions.grid_4.column.infractions
+.grid_4.column
   %h1= t :latest_infractions
-  = render_cell :infractions, :latest
+  = render :partial => 'infractions/infraction', :collection => @infractions, :spacer_template => "hr"
 
-#most_infractions.grid_4.column.establishments
+.grid_4.column
   %h1= t :most_infractions
-  = render_cell :establishments, :most_infractions
+  = render :partial => 'establishments/count', :as => :establishment, :collection => @most_infractions, :spacer_template => "hr"
 
-#highest_infractions.grid_4.column.establishments
+.grid_4.column
   %h1= t :highest_infractions
-  = render_cell :establishments, :highest_infractions
+  = render :partial => 'establishments/amount', :as => :establishment, :collection => @highest_infractions, :spacer_template => "hr"

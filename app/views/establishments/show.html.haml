@@ -1,28 +1,32 @@
-- javascript "http://maps.google.com/maps/api/js?sensor=false"
-
-:javascript
-  $(function() {
-    var latlng = new google.maps.LatLng(#{@establishment.latitude}, #{@establishment.longitude});
-    var map = new google.maps.Map(document.getElementById("map_canvas"), {
-      zoom: 15,
-      center: latlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      mapTypeControl: false
+- if @establishment.geocoded?
+  - javascript "http://maps.google.com/maps/api/js?sensor=false"
+  :javascript
+    $(function() {
+      var latlng = new google.maps.LatLng(#{@establishment.latitude}, #{@establishment.longitude});
+      var map = new google.maps.Map(document.getElementById("map_canvas"), {
+        zoom: 15,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: false
+      });
+      var marker = new google.maps.Marker({
+        position: latlng,
+        title:"#{@establishment.name}",
+        map: map
+      });
     });
-    var marker = new google.maps.Marker({
-      position: latlng,
-      title:"#{@establishment.name}",
-      map: map
-    });
-  });
 
 %div[@establishment]
-  .attribute.name= @establishment.name
-  .attribute #{t :total_infractions} : #{number_to_currency @establishment.infractions_amount} (#{@establishment.infractions_count.to_s})
-  #map_canvas
-  #infractions
-    - @establishment.infractions.order('judgment_date DESC').each do |infraction|
-      %div[infraction]
+  .grid_6
+    %div.box
+      %h1= @establishment.name
+      %h2 #{t :total_infractions} : #{number_to_currency @establishment.infractions_amount} (#{@establishment.infractions_count.to_s})
+  .grid_6
+    #map_canvas.box No location information
+  %div.clear
+  #infractions.grid_12
+    - @establishment.infractions.latest.each do |infraction|
+      %div.box[infraction]
         .attribute #{t :infraction_date}: #{l infraction.infraction_date}
         .attribute #{t :judgment_date}: #{l infraction.judgment_date}
         .attribute #{t :amount}: #{number_to_currency infraction.amount}

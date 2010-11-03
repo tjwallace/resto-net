@@ -8,7 +8,6 @@ gem 'mysql2'
 gem 'nokogiri'
 gem 'globalize3'
 gem 'graticule'
-gem 'cells'
 
 gem 'haml-rails', :git => 'git://github.com/indirect/haml-rails.git'
 gem 'will_paginate', '~> 3.0.pre2'
