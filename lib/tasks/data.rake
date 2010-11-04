@@ -28,13 +28,13 @@ namespace :data do
     Dir[ File.join(Rails.root, 'data', '*.html') ].each do |file|
       if file =~ /(\d{4})_(\d{2}).html/
         puts "Importing #{$1} - #{$2}"
-        DataPage.new($2.to_i, $1.to_i).scan.each do |est_data|
-          establishment = Establishment.find_or_create_by_name est_data[:name],
-            :address => est_data[:address],
-            :type_id => Type.find_or_create_by_name(est_data[:type]).id
+        DataPage.new($2.to_i, $1.to_i).scan.each do |data|
+          establishment = Establishment.find_or_create_by_name data[:name],
+            :address => data[:address],
+            :type_id => Type.find_or_create_by_name(data[:type]).id
 
-          est_data[:infractions].each do |inf_data|
-            establishment.infractions.create inf_data
+          data[:infractions].each do |infraction|
+            establishment.infractions.create infraction
           end
         end
       end
