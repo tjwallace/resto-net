@@ -6,6 +6,7 @@ describe Establishment do
 
   it { should belong_to(:type) }
   it { should have_many(:infractions).dependent(:destroy) }
+  it { should have_many(:owners).through(:infractions) }
 
   %w(name address type).each do |attr|
     it { should validate_presence_of(attr) }
@@ -43,20 +44,30 @@ describe Establishment do
   end
 
   describe "#infractions_amount" do
+    before(:each) do
+      @owner = Factory.create :owner
+    end
+
     it "returns 0 for no infractions" do
       subject.infractions_amount.should == 0
     end
 
     it "returns the sum of its infraction amounts" do
-      3.times { subject.infractions.create Factory.attributes_for(:infraction) }
-      subject.reload # since total_infractions is cached
+      3.times do
+        subject.infractions.create Factory.attributes_for(:infraction).merge(:owner_id => @owner.id)
+      end
+      subject.reload # since subject is cached
+      subject.infractions_count.should == 3
       subject.infractions_amount.should == subject.infractions.sum(:amount)
     end
 
     it "recalculates after infraction removal" do
-      3.times { subject.infractions.create Factory.attributes_for(:infraction) }
+      3.times do
+        subject.infractions.create Factory.attributes_for(:infraction).merge(:owner_id => @owner.id)
+      end
       subject.infractions.first.destroy
-      subject.reload # since total_infractions is cached
+      subject.reload # since subject is cached
+      subject.infractions_count.should == 2
       subject.infractions_amount.should == subject.infractions.sum(:amount)
     end
   end

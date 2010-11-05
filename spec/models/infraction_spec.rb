@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe Infraction do
   it { should belong_to(:establishment) }
+  it { should belong_to(:owner) }
 
-  %w(establishment amount infraction_date judgment_date).each do |attr|
+  %w(establishment owner amount infraction_date judgment_date).each do |attr|
     it { should validate_presence_of(attr) }
   end
   it { should validate_numericality_of(:amount) }

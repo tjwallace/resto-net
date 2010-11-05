@@ -1,7 +1,8 @@
 class Infraction < ActiveRecord::Base
   belongs_to :establishment, :counter_cache => true
+  belongs_to :owner, :counter_cache => true
 
-  validates_presence_of :establishment, :amount, :infraction_date, :judgment_date
+  validates_presence_of :establishment, :owner, :amount, :infraction_date, :judgment_date
   validates_numericality_of :amount, :only_integer => true, :greater_than => 0
 
   translates :description
