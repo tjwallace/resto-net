@@ -10,6 +10,15 @@ class Establishment < ActiveRecord::Base
 
   scope :by_most_infractions, order("infractions_count DESC")
   scope :by_highest_infractions, order("infractions_amount DESC")
+  scope :by_judgment_date, includes(:infractions).order("infractions.judgment_date DESC")
+
+  def full_address
+    if geocoded? && street && locality
+      street << ", " << locality
+    else
+      address
+    end
+  end
 
   def geocode
     @@geocoder ||= Graticule.service(:google).new APP_CONFIG['gmaps_api_key']

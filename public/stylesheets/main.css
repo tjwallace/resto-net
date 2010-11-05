@@ -92,3 +92,11 @@ a:hover {
   height: 400px;
   padding: 10px;
 }
+
+table.pretty {
+  border-collapse: collapse;
+}
+
+.pretty td, .pretty th {
+  padding: 4px 10px;
+  border: 1px solid #AAA;

@@ -1,10 +1,25 @@
 class EstablishmentsController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   def index
-    @by_count = Establishment.order('infractions_count DESC').limit(10)
-    @by_amount = Establishment.order('infractions_amount DESC').limit(10)
+    @establishments = Establishment.includes(:infractions).order(sort_column + " " + sort_direction).paginate(:per_page => 20, :page => params[:page])
   end
 
   def show
     @establishment = Establishment.includes(:infractions => [:translations]).find params['id']
+  end
+
+  private
+
+  def sort_column
+    %w(name infractions_count infractions_amount infractions.judgment_date).include?(params[:sort]) ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    if sort_column == "infractions.judgment_date"
+      "desc"
+    else
+      %w(asc desc).include?(params[:direction]) ? params[:direction] : "asc"
+    end
   end
 end
