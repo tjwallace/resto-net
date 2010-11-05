@@ -1,6 +1,5 @@
 InspectionsOuvert::Application.routes.draw do
   resources :establishments, :only => [:index, :show]
-  resources :infractions, :only => [:index, :show]
 
   root :to => 'pages#home'
 
