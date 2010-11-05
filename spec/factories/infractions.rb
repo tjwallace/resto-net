@@ -9,4 +9,5 @@ end
 
 Factory.define :associated_infraction, :parent => :infraction do |f|
   f.association :establishment
+  f.association :owner
 end

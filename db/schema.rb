@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101003062306) do
+ActiveRecord::Schema.define(:version => 20101104025120) do
 
   create_table "establishments", :force => true do |t|
     t.string   "name"
@@ -49,9 +49,18 @@ ActiveRecord::Schema.define(:version => 20101003062306) do
     t.date     "judgment_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "owner_id"
   end
 
   add_index "infractions", ["establishment_id"], :name => "index_infractions_on_establishment_id"
+  add_index "infractions", ["owner_id"], :name => "index_infractions_on_owner_id"
+
+  create_table "owners", :force => true do |t|
+    t.string   "name"
+    t.integer  "infractions_count", :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "type_translations", :force => true do |t|
     t.integer  "type_id"
