@@ -2,15 +2,17 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  app_title: "Inspections Ouvert"
+  app_sub_title: "An open database of Montreal's health inspections"
   infractions: "Infractions"
   total_infractions: "Total infractions"
   infraction_date: "Infraction date"
   judgment_date: "Judgment date"
   amount: "Amount"
   description: "Description"
-  latest_infractions: "latest infractions"
-  most_infractions: "most infractions"
-  highest_infractions: "highest infractions"
+  latest_infractions: "Latest Infractions"
+  most_infractions: "Most Infractions"
+  highest_infractions: "Highest Infractions"
   "on": "on"
   in_infractions: "in infractions"
   name: "Name"

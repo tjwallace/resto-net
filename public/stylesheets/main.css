@@ -1,13 +1,6 @@
-#main {
-  background-color: #46a229;
-}
-
-#header h1 {
-  font-size: 5em;
-}
-
-h1, h2 {
-  text-shadow: 2px 2px 2px #ccc;
+body {
+  background-color: #ffc773;
+  font-family: 'Droid Serif', serif;
 }
 
 a {
@@ -18,16 +11,28 @@ a:hover {
   text-decoration: none;
 }
 
-.column,
-.box {
-  border-radius: 15px;
-  background-color: #89ec6a;
-  box-shadow: 1px 2px 6px #000;
-  -webkit-box-shadow: 1px 2px 6px #000;
+#main {
+  background-color: #ffebcc;
+  -webkit-box-shadow: 0px 5px 5px rgba(0,0,0,0.4)
+}
+
+#header {
+  padding: 0 20px;
+}
+
+#header h1 {
+  font-family: 'Lobster', serif;
+  font-size: 5em;
+}
+
+h1, h2 {
+  text-shadow: 1px 1px 1px #ccc;
 }
 
 .column h1 {
   text-align: center;
+  /*font-family: 'Lobster', serif;*/
+  font-size: 2.1em;
 }
 
 .column h1,
@@ -53,13 +58,14 @@ a:hover {
 }
 
 .column a {
-  color: white;
-  text-decoration: none;
-  text-shadow: 1px 1px 2px #000;
+  font-family: 'Droid Sans', serif;
+  color: #575757;
+  text-shadow: 1px 1px 2px #ccc;
+  border-bottom: 1px dashed #575757;
 }
 
 .column a:hover {
-  color: #bdbdbd;
+  border: none;
 }
 
 .column .stat {
@@ -100,3 +106,4 @@ table.pretty {
 .pretty td, .pretty th {
   padding: 4px 10px;
   border: 1px solid #AAA;
+}
