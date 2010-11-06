@@ -2,7 +2,7 @@
 %html
   %head
     %title= content_for?(:title) ? content_for(:title) : t(:app_title)
-    - %w(reset text 960 main).each do |css_file|
+    - %w(reset text 960 menu main).each do |css_file|
       = stylesheet_link_tag css_file
     - fonts = %w(Lobster Droid+Serif Droid+Sans).join('|')
     = stylesheet_link_tag "http://fonts.googleapis.com/css?family=#{fonts}"
@@ -12,7 +12,7 @@
   %body
     #main.container_12
       #header.grid_12
-        %h1= t :app_title
+        = link_to image_tag('logo.png', :alt=>"Resto-Net"), root_path
         %h2= t :app_sub_title
       %div.clear
       #menu.grid_12

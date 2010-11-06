@@ -1,6 +1,27 @@
 body {
-  background-color: #ffc773;
   font-family: 'Droid Serif', serif;
+}
+
+h1, h2, h3 {
+  text-align: left;
+  font-weight: normal;
+}
+
+h1 {
+  font-size: 24px;
+  line-height: 27px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+h2 {
+  font-size: 20px;
+  line-height: 24px;
+  margin: 2px 0px;
+}
+
+h3 {
+  font-size: 17px;
 }
 
 a {
@@ -11,13 +32,31 @@ a:hover {
   text-decoration: none;
 }
 
-#main {
-  background-color: #ffebcc;
-  -webkit-box-shadow: 0px 5px 5px rgba(0,0,0,0.4)
+p {
+  margin: 15px 0;
 }
 
-#header {
-  padding: 0 20px;
+#header h1 {
+  font-size: 30px;
+  margin-bottom: 0px;
+}
+
+#header h2 {
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+#header h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.column,
+.box {
+  background-color: #FFF;
+  border-top: 6px solid #990000;
+  box-shadow: 1px 2px 6px #000;
+  -webkit-box-shadow: 1px 2px 6px #000;
 }
 
 #header h1 {
@@ -25,14 +64,21 @@ a:hover {
   font-size: 5em;
 }
 
-h1, h2 {
-  text-shadow: 1px 1px 1px #ccc;
+div.grid_6 div.box {
+  padding: 10px;
 }
 
-.column h1 {
-  text-align: center;
-  /*font-family: 'Lobster', serif;*/
-  font-size: 2.1em;
+div.description {
+  padding-bottom: 5px;
+  float: right;
+  width: 420px;
+  margin-right: 40px;
+  margin-top: -10px;
+}
+
+div.clear {
+  clear: both;
+  height: 20px;
 }
 
 .column h1,
@@ -40,52 +86,64 @@ h1, h2 {
   margin: 5px 10px;
 }
 
-.column > div {
-  padding: 5px;
+.column h1 {
+ text-align: center;
+ margin: 15px 0px 10px 0px;
+ height: 60px;
 }
 
 .column hr {
   margin: 3px 35px;
-  height: 1px;
-  color: #000;
-  background-color: #000;
-  border: none;
+  border: solid 1px #999;
 }
 
 .column .name {
   font-weight: 600;
-  font-size: 1.2em;
 }
 
 .column a {
+  color: #000;
+  text-decoration: none;
   font-family: 'Droid Sans', serif;
   color: #575757;
-  text-shadow: 1px 1px 2px #ccc;
-  border-bottom: 1px dashed #575757;
 }
 
 .column a:hover {
-  border: none;
+  text-decoration: underline;
 }
 
 .column .stat {
   width: 100%;
-  text-align: right;
-  font-size: 1.2em;
+  text-align: left;
+  font-size: 1.1em;
 }
 
 .stat span {
-  color: black;
+  color: #000000;
   font-weight: 500;
-  text-shadow: 1px 1px 2px #444;
 }
 
 .box div {
-  margin: 10px;
+  margin: 0px;
+}
+
+div.infraction {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+#footer {
+  border-top: 1px solid #000;
+  padding-top: 15px;
+}
+
+div.description {
+  float: right;
+  width: 440px;
+  margin-right: 40px;
 }
 
 #map_canvas {
-  width: 460px;
   height: 460px;
 }
 
@@ -100,4 +158,25 @@ table.pretty {
 
 #infractions > div {
   padding: 10px;
+  border-top: 6px solid #990000;
+  box-shadow: 1px 2px 6px #000;
+  -webkit-box-shadow: 1px 2px 6px #000;
+  margin-bottom: 20px;
+  height: 100px;
 }
+
+#infractions ul li {
+  font-size: 16px;
+  line-height: 19px;
+}
+
+#main {
+  padding-top: 10px;
+}
+
+div.name,
+div.description,
+div.stat {
+  padding: 5px;
+}
+

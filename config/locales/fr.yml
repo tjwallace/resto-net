@@ -1,0 +1,28 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  owner: Proprietaire
+  app_title: "Resto-Net.ca : Inspections des aliments à Montréal"
+  app_sub_title: "Inspections sanitaires des établissements alimentaire montréalais"
+  infractions: "Infractions"
+  total_infractions: "Infractions"
+  infraction_date: "Date de l'infraction"
+  judgment_date: "Date du jugement"
+  amount: "Amende"
+  description: "Nature de l'infraction"
+  latest_infractions: "Derniers amendes"
+  most_infractions: "Le plus d'amendes"
+  highest_infractions: "Les plus grands amendes"
+  "on": "on"
+  in_infractions: "in infractions"
+  name: "Name"
+  address: "Address"
+  infraction_count: "Quantité d'infractions"
+  infraction_amount: "Amende"
+  latest_infraction: "Dernière infraction"
+  type: "Type"
+
+  date:
+    formats:
+      default: "%b %e, %Y"
