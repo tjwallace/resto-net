@@ -15,12 +15,12 @@
         %h1= t :app_title
         %h2= t :app_sub_title
       %div.clear
+      #menu.grid_12
+        = render 'shared/menu'
+      %div.clear
       #content
         = yield
       %div.clear
       #footer.grid_12
-        .links
-          Links go here...
-        .attribution
-          This site was created by <a href="http://tjwallace.ca">Jeff Wallace</a>
+        = render 'shared/footer'
       %div.clear
