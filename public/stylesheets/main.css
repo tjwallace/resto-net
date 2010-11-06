@@ -97,3 +97,7 @@ table.pretty {
   padding: 4px 10px;
   border: 1px solid #AAA;
 }
+
+#infractions > div {
+  padding: 10px;
+}

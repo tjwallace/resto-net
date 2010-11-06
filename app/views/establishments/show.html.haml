@@ -16,7 +16,7 @@
       });
     });
 
-%div[@establishment]
+%div
   .grid_6
     %div.box
       %h1= @establishment.name
@@ -27,11 +27,4 @@
     #map_canvas.box No location information
   %div.clear
   #infractions.grid_12
-    - @establishment.infractions.latest.each do |infraction|
-      %div.box[infraction]
-        .attribute #{t :infraction_date}: #{l infraction.infraction_date}
-        .attribute #{t :judgment_date}: #{l infraction.judgment_date}
-        .attribute #{t :amount}: #{number_to_currency infraction.amount}
-        .description
-          %h1 #{t :description}:
-          = infraction.description(:fr)
+    = render :partial => 'infractions/infraction', :collection => @infractions, :spacer_template => 'shared/hr'

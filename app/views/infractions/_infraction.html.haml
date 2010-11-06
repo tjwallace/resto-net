@@ -1,7 +1,9 @@
 %div
-  .name= link_to infraction.establishment.name, infraction.establishment
-  .stat
-    %span= number_to_currency infraction.amount, :precision => 0
-    = t :on
-    = l infraction.judgment_date
-  .description= infraction.description
+  %ul
+    %li #{t :owner}: #{infraction.owner.name}
+    %li #{t :infraction_date}: #{l infraction.infraction_date}
+    %li #{t :judgment_date}: #{l infraction.judgment_date}
+    %li #{t :amount}: #{number_to_currency infraction.amount}
+  .description
+    %h1 #{t :description}:
+    = infraction.description(:fr)

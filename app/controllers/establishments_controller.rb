@@ -7,6 +7,7 @@ class EstablishmentsController < ApplicationController
 
   def show
     @establishment = Establishment.includes(:infractions => [:translations]).find params['id']
+    @infractions = @establishment.infractions.includes(:owner).latest
   end
 
   private
