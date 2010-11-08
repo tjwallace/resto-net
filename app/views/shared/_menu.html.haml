@@ -1,6 +1,6 @@
 .left
   %ul#nav
-    %li= link_to ('Home'), root_path
-    %li <a href="/establishments#index">Tous les restaurants</a>
-    %li <a href="/establishments#index">À propos</a>
+    %li= link_to t(:home), root_path
+    %li= link_to t(:all_establishments), establishments_path
+    %li= link_to t(:about), "#"
     %li.search Search field - enter here

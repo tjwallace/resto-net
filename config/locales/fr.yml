@@ -23,6 +23,10 @@ fr:
   latest_infraction: "Dernière infraction"
   type: "Type"
 
+  home: "Accueil"
+  all_establishments: "Tous les établissements"
+  about: "À propos"
+
   date:
     formats:
       default: "%b %e, %Y"
