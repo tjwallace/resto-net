@@ -27,16 +27,23 @@ namespace :data do
     I18n.locale = :fr
     Dir[ File.join(Rails.root, 'data', '*.html') ].each do |file|
       if file =~ /(\d{4})_(\d{2}).html/
-        puts "Importing #{$1} - #{$2}"
-        DataPage.new($2.to_i, $1.to_i).scan.each do |data|
-          owner = Owner.find_or_create_by_name data[:owner]
-
-          establishment = Establishment.find_or_create_by_name data[:name],
-            :address => data[:address],
+        month, year = $2.to_i, $1.to_i
+        puts "Importing #{year} - #{month}"
+        DataPage.new(month, year).scan.each do |data|
+          establishment = Establishment.find_or_create_by_name_and_address data[:name],
+            data[:address],
             :type_id => Type.find_or_create_by_name(data[:type]).id
 
+          owner = Owner.find_or_create_by_name data[:owner]
+          unless establishment.owners.exists? owner.id
+            old = establishment.ownerships.last
+            old.update_attribute(:end_date, Date.new(year, month, 1) - 1) if old
+
+            new = establishment.ownerships.create :owner_id => owner.id, :start_date => Date.new(year, month, 1)
+          end
+
           data[:infractions].each do |infraction|
-            establishment.infractions.create infraction.merge(:owner_id => owner.id)
+            establishment.infractions.create infraction
           end
         end
       end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101104025120) do
+ActiveRecord::Schema.define(:version => 20101107055151) do
 
   create_table "establishments", :force => true do |t|
     t.string   "name"
@@ -27,9 +27,10 @@ ActiveRecord::Schema.define(:version => 20101104025120) do
     t.string   "postal_code"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "owners_count",       :default => 0
   end
 
-  add_index "establishments", ["name"], :name => "index_establishments_on_name", :unique => true
+  add_index "establishments", ["name"], :name => "index_establishments_on_name"
   add_index "establishments", ["type_id"], :name => "index_establishments_on_type_id"
 
   create_table "infraction_translations", :force => true do |t|
@@ -49,18 +50,29 @@ ActiveRecord::Schema.define(:version => 20101104025120) do
     t.date     "judgment_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "owner_id"
   end
 
   add_index "infractions", ["establishment_id"], :name => "index_infractions_on_establishment_id"
-  add_index "infractions", ["owner_id"], :name => "index_infractions_on_owner_id"
 
   create_table "owners", :force => true do |t|
     t.string   "name"
-    t.integer  "infractions_count", :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "establishments_count", :default => 0
+  end
+
+  create_table "ownerships", :force => true do |t|
+    t.integer  "owner_id"
+    t.integer  "establishment_id"
+    t.date     "start_date"
+    t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "ownerships", ["establishment_id"], :name => "index_ownerships_on_establishment_id"
+  add_index "ownerships", ["owner_id", "establishment_id"], :name => "index_ownerships_on_owner_id_and_establishment_id", :unique => true
+  add_index "ownerships", ["owner_id"], :name => "index_ownerships_on_owner_id"
 
   create_table "type_translations", :force => true do |t|
     t.integer  "type_id"

@@ -6,7 +6,8 @@ describe Establishment do
 
   it { should belong_to(:type) }
   it { should have_many(:infractions).dependent(:destroy) }
-  it { should have_many(:owners).through(:infractions) }
+  it { should have_many(:ownerships) }
+  it { should have_many(:owners).through(:ownerships) }
 
   %w(name address type).each do |attr|
     it { should validate_presence_of(attr) }
