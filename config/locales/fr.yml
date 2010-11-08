@@ -1,8 +1,8 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
-en:
-  owner: Proprietaire
+fr:
+  owner: "Proprietaire"
   app_title: "Resto-Net.ca : Inspections des aliments à Montréal"
   app_sub_title: "Inspections sanitaires des établissements alimentaire montréalais"
   infractions: "Infractions"
@@ -26,3 +26,5 @@ en:
   date:
     formats:
       default: "%b %e, %Y"
+
+    abbr_month_names: [~, Janv, Fevr, Mars, Avril, Mai, Juin, Juil, Aout, Sept, Oct, Nov, Dec]
