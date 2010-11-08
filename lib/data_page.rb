@@ -25,8 +25,8 @@ class DataPage
 
         establishment = {
           :owner => header[0],
-          :name => header[1].empty? ? header[0] : header[1],
-          :address => header[2],
+          :name => clean_name(header[1].empty? ? header[0] : header[1]),
+          :address => clean_address(header[2]),
           :type => header[3].empty? ? 'Inconnue' : header[3],
           :infractions => []
         }
@@ -64,6 +64,14 @@ class DataPage
   end
 
   private
+
+  def clean_address(adr)
+    adr.mb_chars.delete(",").gsub(/Pointe-aux-Trembles/, "Montréal").gsub(/de la/i, "la").gsub(/(\w+)\./, '\1').titlecase.to_s
+  end
+
+  def clean_name(name)
+    name.mb_chars.gsub(/&amp;/, '&').titlecase.gsub(/'S/, "'s").to_s
+  end
 
   def clean_date(fr_date)
     fr_date.gsub /(\d+) (\S+) (\d+)/ do |s|
