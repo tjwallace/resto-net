@@ -27,6 +27,8 @@ fr:
   about: "À propos"
   search: "Recherche"
 
+  meta_description: "Inspections sanitaires des établissements alimentaire montréalais"
+
   date:
     formats:
       default: "%b %e, %Y"

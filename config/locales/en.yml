@@ -27,6 +27,8 @@ en:
   about: "About"
   search: "Search"
 
+  meta_description: "An open database of Montreal's health inspections"
+
   date:
     formats:
       default: "%b %e, %Y"
