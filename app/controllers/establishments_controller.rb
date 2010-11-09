@@ -1,8 +1,13 @@
 class EstablishmentsController < ApplicationController
-  helper_method :sort_column, :sort_direction
+  helper_method :sort_column, :sort_direction, :searching?
 
   def index
-    @establishments = Establishment.includes(:infractions).order(sort_column + " " + sort_direction).paginate(:per_page => 20, :page => params[:page])
+    establishments = Establishment
+
+    establishments = establishments.includes(:infractions) if sort_column == "infractions.judgment_date"
+    establishments = establishments.where("name LIKE :search", :search => "%#{params['search']}%") if searching?
+
+    @establishments = establishments.order(sort_column + " " + sort_direction).paginate(:per_page => 20, :page => params[:page])
   end
 
   def show
@@ -22,5 +27,9 @@ class EstablishmentsController < ApplicationController
     else
       %w(asc desc).include?(params[:direction]) ? params[:direction] : "asc"
     end
+  end
+
+  def searching?
+    params[:search] && params[:search].size > 0
   end
 end

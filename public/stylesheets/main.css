@@ -147,6 +147,7 @@ div.description {
 
 table.pretty {
   border-collapse: collapse;
+  width: 100%;
 }
 
 .pretty td, .pretty th {
@@ -178,3 +179,6 @@ div.stat {
   padding: 5px;
 }
 
+#nav .search {
+  float: right;
+}

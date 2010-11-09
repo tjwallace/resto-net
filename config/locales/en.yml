@@ -25,6 +25,7 @@ en:
   home: "Home"
   all_establishments: "All establishments"
   about: "About"
+  search: "Search"
 
   date:
     formats:

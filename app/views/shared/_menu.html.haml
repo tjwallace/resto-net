@@ -3,4 +3,4 @@
     %li= link_to t(:home), root_path
     %li= link_to t(:all_establishments), establishments_path
     %li= link_to t(:about), "#"
-    %li.search Search field - enter here
+    %li.search= render 'shared/search_form'
