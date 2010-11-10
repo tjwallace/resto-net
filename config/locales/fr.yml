@@ -21,6 +21,12 @@ fr:
   infraction_amount: "Amende"
   latest_infraction: "Dernière infraction"
   type: "Type"
+  charts:
+    days_between_infraction_and_judgment: "Nombre de jours entre infraction et jugement"
+    infractions_count_by_establishment_type: "Nombre d'infractions par type d'établissement"
+    infractions_amount_by_establishment_type: "Valeur d'infractions par type d'établissement"
+    infractions_count_by_infraction_type: "Nombre d'infractions par type d'infraction"
+    infractions_amount_by_infraction_type: "Valeur d'infractions par type d'infraction"
 
   home: "Accueil"
   all_establishments: "Tous les établissements"

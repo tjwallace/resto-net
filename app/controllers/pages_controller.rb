@@ -11,6 +11,10 @@ class PagesController < ApplicationController
   end
 
   def statistics
+    @charts = []
+
+    # --- Column charts
+
     # Collect the number of days between infraction and judgement
     spans = Infraction.all.map do |x|
       (x.judgment_date - x.infraction_date).to_i
@@ -23,33 +27,97 @@ class PagesController < ApplicationController
     end
 
     # Collect statistics about spans
-    @max      = spans.max
+    max       = spans.max
     mean      = spans.mean.round
     deviation = spans.deviation.round
-    @step     = 60 # 60 days ~ 2 months
+    step      = 60 # 60 days ~ 2 months
 
-    # Collect outliers
-    @first_cutoff = ([mean - 2 * deviation, 0].max / @step.to_f).round * @step
-    @first_value = (0..@first_cutoff - 1).to_a.reduce(0) do |sum,x|
-      sum + spans_count[x].to_i
-    end
-
-    @last_cutoff  = ([mean + 2 * deviation, @max].min / @step.to_f).round * @step
-    if @last_cutoff < @max
-      @last_value = (@last_cutoff..@max).to_a.reduce(0) do |sum,x|
-        sum + spans_count[x].to_i
-      end
-    end
+    # Deliminate outliers
+    first = ([mean - 2 * deviation, 0].max / step.to_f).round * step
+    last  = ([mean + 2 * deviation, max].min / step.to_f).round * step
 
     # Collect data
-    @bars = []
-    (@first_cutoff..@last_cutoff - 1).to_a.each_slice(@step) do |slice|
-      @bars << slice.reduce(0) do |sum,x|
-        sum + spans_count[x].to_i
-      end
+    chart = Chart.new(I18n.t('charts.days_between_infraction_and_judgment'))
+    if first > 0
+      chart << {
+        :kind => 'outlier',
+        :label => "0-#{first - 1}",
+        :count => (0..first - 1).to_a.reduce(0) { |sum,x|
+          sum + spans_count[x].to_i
+        }
+      }
     end
+    (first..last - 1).to_a.each_slice(step) do |slice|
+      chart << {
+        :label => "#{slice.first}-#{slice.last}",
+        :count => slice.reduce(0) { |sum,x|
+          sum + spans_count[x].to_i
+        }
+      }
+    end
+    if last < max
+      chart << {
+        :kind => 'outlier',
+        :label => "#{last}-#{max}",
+        :count => (last..max).to_a.reduce(0) { |sum,x|
+          sum + spans_count[x].to_i
+        }
+      }
+    end
+    @charts << chart
 
-    # Needed to set column height
-    @max_value = [ @first_value, *@bars, @last_value ].max
+    # --- Bar charts
+
+    chart = Chart.new(I18n.t('charts.infractions_count_by_establishment_type'))
+    chart + Type.all.map do |type|
+      {
+        :label => type.name,
+        :count => type.establishments.reduce(0) { |sum,establishment|
+          sum + establishment.infractions_count
+        }
+      }
+    end
+    chart.sort.first(10)
+    @charts << chart
+
+    chart = Chart.new(I18n.t('charts.infractions_amount_by_establishment_type'))
+    chart + Type.all.map do |type|
+      {
+        :label => type.name,
+        :count => type.establishments.reduce(0) { |sum,establishment|
+          sum + establishment.infractions_amount
+        }
+      }
+    end
+    chart.sort.first(10)
+    @charts << chart
+
+    chart = Chart.new(I18n.t('charts.infractions_count_by_infraction_type'))
+    types_count = {}
+    Infraction.all.each do |infraction|
+      types_count[infraction.description] = types_count[infraction.description].to_i + 1
+    end
+    types_count.each do |label,count|
+      chart << {
+        :label => label,
+        :count => count
+      }
+    end
+    chart.sort.first(10)
+    @charts << chart
+
+    chart = Chart.new(I18n.t('charts.infractions_amount_by_infraction_type'))
+    types_count = {}
+    Infraction.all.each do |infraction|
+      types_count[infraction.description] = types_count[infraction.description].to_i + infraction.amount
+    end
+    types_count.each do |label,count|
+      chart << {
+        :label => label,
+        :count => count
+      }
+    end
+    chart.sort.first(10)
+    @charts << chart
   end
 end

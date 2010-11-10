@@ -1,0 +1,6 @@
+.chart
+  %h2
+    = chart.title
+  %ul(class=style)
+    - chart.counts.each do |count|
+      = render "pages/#{kind}", :count => count, :max_count => chart.max_count

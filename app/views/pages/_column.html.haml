@@ -1,6 +1,6 @@
-%li(class=klass)
-  %div(title="#{first}-#{last}: #{value}")
+%li(class="#{count.kind}")
+  %div(title="#{count.label}: #{count.count}")
     %span.label
-      = "#{first}-#{last}"
-    %span.count(style="height: #{(value / @max_value.to_f * 100).round}%")
-      = "(#{value})"
+      = "#{count.label}"
+    %span.count(style="height: #{(count.count / max_count.to_f * 100).round}%")
+      = "(#{count.count})"

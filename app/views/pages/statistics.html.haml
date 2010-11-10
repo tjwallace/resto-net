@@ -1,10 +1,11 @@
-- stylesheet 'visualization'
-%h2 Nombre de jours entre infraction et jugement
+- stylesheet 'statistics'
 
-%ul.timeline
-  - if @first_cutoff > 0
-    = render 'pages/column', :first => 0, :last => @first_cutoff - 1, :value => @first_value, :klass => 'outlier'
-  - @bars.each_with_index do |x,i|
-    = render 'pages/column', :first => i * @step, :last => i * @step + @step - 1, :value => x, :klass => ''
-  - if @last_cutoff < @max
-    = render 'pages/column', :first => @last_cutoff, :last => @max, :value => @last_value, :klass => 'outlier'
+= render 'pages/chart', :chart => @charts[0], :style => 'columnchart', :kind => 'column'
+
+.side-by-side
+  .first
+    = render 'pages/chart', :chart => @charts[1], :style => 'barchart wide', :kind => 'bar'
+  .last
+    = render 'pages/chart', :chart => @charts[2], :style => 'barchart wide', :kind => 'bar'
+
+= render 'pages/chart', :chart => @charts[3], :style => 'barchart wide', :kind => 'bar'

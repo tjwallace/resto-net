@@ -1,0 +1,156 @@
+/* http://www.alistapart.com/articles/accessibledatavisualization */
+
+h2 {
+  clear: left;
+}
+
+.side-by-side h2 {
+  float: none;
+}
+.side-by-side .chart {
+  float: left;
+  width: 100%;
+}
+.side-by-side .first {
+  float: left;
+  width: 49%;
+  padding-right: 1%;
+}
+.side-by-side .last {
+  float: left;
+  width: 49%;
+  padding-left: 1%;
+}
+
+/* BAR CHARTS */
+.barchart {
+  float: left;
+  border-top: 1px solid #EEE;
+  width: 35em;
+}
+.barchart.wide {
+  width: 100%;
+}
+.barchart li {
+  position: relative;
+  display: block;
+  border-bottom: 1px solid #EEE;
+  _zoom: 1;
+  margin: 0;
+  padding: 0;
+}
+.barchart li div {
+  display: block;
+  padding: 0.4em 4.5em 0.4em 0.5em;
+  position: relative;
+  z-index: 2;
+}
+.barchart .count {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0 0.3em;
+  text-align: right;
+  color: #999;
+  font-weight: bold;
+  font-size: 0.875em;
+  line-height: 2em;
+  z-index: 9999;
+}
+.barchart .index {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #B8E4F5;
+  text-indent: -9999px;
+  overflow: hidden;
+  line-height: 2em;
+}
+.barchart li:hover {
+  background: #EFEFEF;
+}
+
+/* COLUMN CHARTS */
+.columnchart {
+  font-size: 0.75em;
+  height: 10em;
+  margin-top: 2em;
+  list-style-type: none;
+}
+.columnchart li {
+  position: relative;
+  float: left;
+  width: 5em;
+  margin: 0 0.2em;
+  height: 8em;
+}
+.columnchart li a {
+  display: block;
+  height: 100%;
+}
+.columnchart li .label {
+  display: block;
+  position: absolute;
+  bottom: -2em;
+  left: 0;
+  background: #fff;
+  width: 100%;
+  height: 2em;
+  line-height: 2em;
+  text-align: center;
+}
+.columnchart li div .count {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 0;
+  width: 100%;
+  background: #aaa;
+  text-indent: -9999px;
+  overflow: hidden;
+}
+.columnchart li:hover {
+  background: #efefef;
+}
+.columnchart li div:hover .count {
+  background: #2d7bb2;
+}
+.columnchart .outlier div .count {
+  background: #ccc;
+}
+.columnchart li.outlier .label {
+  color: #666;
+}
+
+/* SPARKLINES */
+.sparkline {
+  float: left;
+  height: 1em;
+  margin: 0 0.5em;
+}
+.sparkline .index {
+  position: relative;
+  float: left;
+  width: 2px;
+  height: 100%;
+}
+.sparkline .index .count {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: #AAA;
+  overflow: hidden;
+  text-indent: -9999px;
+}
+
+/* SPARKLINE LISTS */
+.sparklist li {
+  padding: 0.4em 0;
+}

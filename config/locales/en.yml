@@ -21,6 +21,12 @@ en:
   infraction_amount: "Infraction amount"
   latest_infraction: "Latest infraction"
   type: "Type"
+  charts:
+    days_between_infraction_and_judgment: "Days between infraction and judgment"
+    infractions_count_by_establishment_type: "Infractions by establishment type"
+    infractions_amount_by_establishment_type: "Infraction amount by establishment type"
+    infractions_count_by_infraction_type: "Infractions by infraction type"
+    infractions_amount_by_infraction_type: "Infraction amount by infraction type"
 
   home: "Home"
   all_establishments: "All establishments"
