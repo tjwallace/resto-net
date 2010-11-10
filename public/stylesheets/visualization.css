@@ -1,0 +1,128 @@
+/* http://www.alistapart.com/articles/accessibledatavisualization */
+
+/* CHART LISTS */
+.chartlist { 
+  float: left; 
+  border-top: 1px solid #EEE; 
+  width: 15em;
+}
+.chartlist li { 
+  position: relative;
+  display: block;  
+  border-bottom: 1px solid #EEE; 
+  _zoom: 1;
+}
+.chartlist li a { 
+  display: block; 
+  padding: 0.4em 4.5em 0.4em 0.5em;
+  position: relative; 
+  z-index: 2; 
+}
+.chartlist .count { 
+  display: block; 
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  margin: 0 0.3em; 
+  text-align: right; 
+  color: #999; 
+  font-weight: bold; 
+  font-size: 0.875em; 
+  line-height: 2em; 
+}
+.chartlist .index { 
+  display: block; 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  height: 100%; 
+  background: #B8E4F5; 
+  text-indent: -9999px; 
+  overflow: hidden; 
+  line-height: 2em;
+}
+.chartlist li:hover { 
+  background: #EFEFEF; 
+}
+
+/* TIMELINE CHARTS */
+.timeline { 
+  font-size: 0.75em; 
+  height: 10em; 
+  margin-top: 2em;
+  list-style-type: none;
+}
+.timeline li { 
+  position: relative;
+  float: left;
+  width: 5em; 
+  margin: 0 0.2em;
+  height: 8em; 
+}
+.timeline li a { 
+  display: block;
+  height: 100%;  
+}
+.timeline li .label { 
+  display: block; 
+  position: absolute; 
+  bottom: -2em; 
+  left: 0; 
+  background: #fff; 
+  width: 100%; 
+  height: 2em; 
+  line-height: 2em; 
+  text-align: center;
+}
+.timeline li div .count { 
+  display: block; 
+  position: absolute; 
+  bottom: 0; 
+  left: 0; 
+  height: 0; 
+  width: 100%; 
+  background: #aaa; 
+  text-indent: -9999px; 
+  overflow: hidden; 
+}
+.timeline li:hover { 
+  background: #efefef; 
+}
+.timeline li div:hover .count { 
+  background: #2d7bb2; 
+}
+.timeline .outlier div .count {
+  background: #ccc;
+}
+.timeline li.outlier .label {
+  color: #666;
+}
+
+/* SPARKLINES */
+.sparkline { 
+  float: left; 
+  height: 1em;
+  margin: 0 0.5em;
+}
+.sparkline .index { 
+  position: relative;
+  float: left; 
+  width: 2px; 
+  height: 100%; 
+}
+.sparkline .index .count { 
+  display: block; 
+  position: absolute; 
+  bottom: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 0; 
+  background: #AAA;
+  overflow: hidden; 
+  text-indent: -9999px;
+}
+
+/* SPARKLINE LISTS */
+.sparklist li { 
+  padding: 0.4em 0; 
+}

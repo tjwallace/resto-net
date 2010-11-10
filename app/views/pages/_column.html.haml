@@ -1,0 +1,6 @@
+%li(class=klass)
+  %div(title="#{first}-#{last}: #{value}")
+    %span.label
+      = "#{first}-#{last}"
+    %span.count(style="height: #{(value / @max_value.to_f * 100).round}%")
+      = "(#{value})"
