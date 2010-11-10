@@ -4,7 +4,7 @@
 fr:
   owner: "Proprietaire"
   app_title: "Resto-Net.ca : Inspections des aliments à Montréal"
-  app_sub_title: "Inspections sanitaires des établissements alimentaire montréalais"
+  app_sub_title: "Inspections sanitaires des établissements alimentaires montréalais"
   infractions: "Infractions"
   total_infractions: "Infractions"
   infraction_date: "Date de l'infraction"
@@ -27,7 +27,7 @@ fr:
   about: "À propos"
   search: "Recherche"
 
-  meta_description: "Inspections sanitaires des établissements alimentaire montréalais"
+  meta_description: "Inspections sanitaires des établissements alimentaires montréalais"
 
   date:
     formats:

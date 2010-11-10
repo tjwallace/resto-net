@@ -7,6 +7,9 @@ class PagesController < ApplicationController
     @highest_infractions = Establishment.by_highest_infractions.limit(10)
   end
 
+  def about
+  end
+
   def statistics
     # Collect the number of days between infraction and judgement
     spans = Infraction.all.map do |x|

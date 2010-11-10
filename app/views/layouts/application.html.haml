@@ -23,7 +23,7 @@
         = yield
       %div.clear
       #footer.grid_12
-        = render 'shared/footer'
+        = render 'shared/footer' unless params[:controller] == 'pages' && params[:action] == 'about'
       %div.clear
     :javascript
       var _gaq = _gaq || [];
