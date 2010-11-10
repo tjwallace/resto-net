@@ -4,4 +4,8 @@ class PagesController < ApplicationController
     @most_infractions = Establishment.by_most_infractions.limit(10)
     @highest_infractions = Establishment.by_highest_infractions.limit(10)
   end
+
+  def about
+
+  end
 end
