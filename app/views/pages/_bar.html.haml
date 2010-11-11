@@ -2,5 +2,5 @@
   %div
     = count.label
   %span.count
-    = count.count
+    = count.pretty_count
   %span.index(style="width: #{(count.count / max_count.to_f * 100).round}%")

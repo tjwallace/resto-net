@@ -21,6 +21,7 @@ en:
   infraction_amount: "Infraction amount"
   latest_infraction: "Latest infraction"
   type: "Type"
+
   charts:
     days_between_infraction_and_judgment: "Days between infraction and judgment"
     infractions_count_by_establishment_type: "Infractions by establishment type"
@@ -28,10 +29,12 @@ en:
     infractions_count_by_infraction_type: "Infractions by infraction type"
     infractions_amount_by_infraction_type: "Infraction amount by infraction type"
 
-  home: "Home"
-  all_establishments: "All establishments"
-  about: "About"
-  search: "Search"
+  menu:
+    home: "Home"
+    all_establishments: "All establishments"
+    statistics: "Statistics"
+    about: "About"
+    search: "Search"
 
   meta_description: "An open database of Montreal's health inspections"
 

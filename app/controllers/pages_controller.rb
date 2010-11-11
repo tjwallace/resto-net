@@ -1,6 +1,8 @@
 require 'enumerable_extensions'
 
 class PagesController < ApplicationController
+  caches_page :home, :about, :statistics
+
   def home
     @infractions = Infraction.includes(:establishment).latest.limit(10)
     @most_infractions = Establishment.by_most_infractions.limit(10)
@@ -72,9 +74,8 @@ class PagesController < ApplicationController
     chart + Type.all.map do |type|
       {
         :label => type.name,
-        :count => type.establishments.reduce(0) { |sum,establishment|
-          sum + establishment.infractions_count
-        }
+        :count => type.establishments.sum(:infractions_count),
+        :type => :integer
       }
     end
     chart.sort.first(10)
@@ -84,9 +85,8 @@ class PagesController < ApplicationController
     chart + Type.all.map do |type|
       {
         :label => type.name,
-        :count => type.establishments.reduce(0) { |sum,establishment|
-          sum + establishment.infractions_amount
-        }
+        :count => type.establishments.sum(:infractions_amount),
+        :type => :currency
       }
     end
     chart.sort.first(10)
