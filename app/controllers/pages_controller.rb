@@ -1,6 +1,8 @@
 require 'enumerable_extensions'
 
 class PagesController < ApplicationController
+  caches_page :home, :about, :statistics
+
   def home
     @infractions = Infraction.includes(:establishment).latest.limit(10)
     @most_infractions = Establishment.by_most_infractions.limit(10)
