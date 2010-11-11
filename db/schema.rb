@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20101104025120) do
     t.datetime "updated_at"
   end
 
-  add_index "establishments", ["name"], :name => "index_establishments_on_name", :unique => true
+  add_index "establishments", ["name", "address"], :name => "index_establishments_on_name_and_address", :unique => true
   add_index "establishments", ["type_id"], :name => "index_establishments_on_type_id"
 
   create_table "infraction_translations", :force => true do |t|
