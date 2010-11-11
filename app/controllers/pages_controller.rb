@@ -72,7 +72,8 @@ class PagesController < ApplicationController
     chart + Type.all.map do |type|
       {
         :label => type.name,
-        :count => type.establishments.sum(:infractions_count)
+        :count => type.establishments.sum(:infractions_count),
+        :type => :integer
       }
     end
     chart.sort.first(10)
@@ -82,7 +83,8 @@ class PagesController < ApplicationController
     chart + Type.all.map do |type|
       {
         :label => type.name,
-        :count => type.establishments.sum(:infractions_amount)
+        :count => type.establishments.sum(:infractions_amount),
+        :type => :currency
       }
     end
     chart.sort.first(10)
