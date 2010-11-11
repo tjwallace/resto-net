@@ -21,6 +21,7 @@ fr:
   infraction_amount: "Amende"
   latest_infraction: "Dernière infraction"
   type: "Type"
+
   charts:
     days_between_infraction_and_judgment: "Nombre de jours entre infraction et jugement"
     infractions_count_by_establishment_type: "Nombre d'infractions par type d'établissement"
@@ -28,10 +29,12 @@ fr:
     infractions_count_by_infraction_type: "Nombre d'infractions par type d'infraction"
     infractions_amount_by_infraction_type: "Valeur d'infractions par type d'infraction"
 
-  home: "Accueil"
-  all_establishments: "Tous les établissements"
-  about: "À propos"
-  search: "Recherche"
+  menu:
+    home: "Accueil"
+    all_establishments: "Tous les établissements"
+    statistics: "Statistiques"
+    about: "À propos"
+    search: "Recherche"
 
   meta_description: "Inspections sanitaires des établissements alimentaires montréalais"
 

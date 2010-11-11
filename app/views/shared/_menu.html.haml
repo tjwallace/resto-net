@@ -1,6 +1,7 @@
 .left
   %ul#nav
-    %li= link_to t(:home), root_path
-    %li= link_to t(:all_establishments), establishments_path
-    %li= link_to t(:about), about_path
+    %li= link_to t('menu.home'), root_path
+    %li= link_to t('menu.all_establishments'), establishments_path
+    %li= link_to t('menu.statistics'), statistics_path
+    %li= link_to t('menu.about'), about_path
     %li.search= render 'shared/search_form'
