@@ -76,6 +76,14 @@ h2 {
   display: block;
   height: 100%;
 }
+.columnchart li .value {
+  display: none;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 1;
+}
 .columnchart li .label {
   display: block;
   position: absolute;
@@ -103,6 +111,9 @@ h2 {
 }
 .columnchart li div:hover .count {
   background: #2d7bb2;
+}
+.columnchart li:hover .value {
+  display: block;
 }
 .columnchart .outlier div .count {
   background: #ccc;
