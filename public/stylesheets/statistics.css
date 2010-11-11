@@ -4,24 +4,6 @@ h2 {
   clear: left;
 }
 
-.side-by-side h2 {
-  float: none;
-}
-.side-by-side .chart {
-  float: left;
-  width: 100%;
-}
-.side-by-side .first {
-  float: left;
-  width: 49%;
-  padding-right: 1%;
-}
-.side-by-side .last {
-  float: left;
-  width: 49%;
-  padding-left: 1%;
-}
-
 /* BAR CHARTS */
 .barchart {
   float: left;
@@ -75,7 +57,7 @@ h2 {
 
 /* COLUMN CHARTS */
 .columnchart {
-  font-size: 0.75em;
+  font-size: 1em;
   height: 10em;
   margin-top: 2em;
   list-style-type: none;
@@ -83,9 +65,12 @@ h2 {
 .columnchart li {
   position: relative;
   float: left;
-  width: 5em;
-  margin: 0 0.2em;
+  width: 60px;
+  margin: 0 20px 0 0;
   height: 8em;
+}
+.columnchart li:last-child {
+  margin: 0;
 }
 .columnchart li a {
   display: block;
