@@ -13,12 +13,12 @@ fr:
   description: "Nature de l'infraction"
   latest_infractions: "Dernières amendes"
   most_infractions: "Le plus d'amendes"
-  highest_infractions: "Les plus grandes amendes"
-  in_infractions: "d'infractions"
-  name: "Name"
-  address: "Address"
+  highest_infractions: "Les plus fortes amendes"
+  in_infractions: "d'amendes"
+  name: "Nom"
+  address: "Adresse"
   infraction_count: "Quantité d'infractions"
-  infraction_amount: "Amende"
+  infraction_amount: "Amendes"
   latest_infraction: "Dernière infraction"
   type: "Type"
 
@@ -26,8 +26,8 @@ fr:
     days_between_infraction_and_judgment: "Nombre de jours entre infraction et jugement"
     infractions_count_by_establishment_type: "Nombre d'infractions par type d'établissement"
     infractions_amount_by_establishment_type: "Valeur d'infractions par type d'établissement"
-    infractions_count_by_infraction_type: "Nombre d'infractions par type d'infraction"
-    infractions_amount_by_infraction_type: "Valeur d'infractions par type d'infraction"
+    infractions_count_by_infraction_type: "Nombre d'infractions par type"
+    infractions_amount_by_infraction_type: "Montant des infractions par type d'infraction"
 
   menu:
     home: "Accueil"
@@ -40,6 +40,23 @@ fr:
 
   date:
     formats:
-      default: "%b %e, %Y"
+      default: "%e %b %Y"
 
     abbr_month_names: [~, Janv, Fevr, Mars, Avril, Mai, Juin, Juil, Aout, Sept, Oct, Nov, Dec]
+
+  number:
+    format:
+      separator: ","
+      delimiter: " "
+      precision: 3
+      significant: false
+      strip_insignificant_zeros: false
+    currency:
+      format:
+        format: "%n %u"
+        unit: "$"
+        separator: ","
+        delimiter: " "
+        precision: 0
+        significant: false
+        strip_insignificant_zeros: false
