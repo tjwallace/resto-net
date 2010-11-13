@@ -28,6 +28,7 @@ en:
     infractions_amount_by_establishment_type: "Infraction amount by establishment type"
     infractions_count_by_infraction_type: "Infractions by infraction type"
     infractions_amount_by_infraction_type: "Infraction amount by infraction type"
+    infraction_amounts: "Infraction amounts"
 
   menu:
     home: "Home"

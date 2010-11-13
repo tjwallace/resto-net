@@ -1,10 +1,12 @@
 - stylesheet 'statistics'
 
 .grid_6
-  = render 'pages/chart', :chart => @charts[1], :style => 'barchart wide', :kind => 'bar'
-.grid_6
   = render 'pages/chart', :chart => @charts[2], :style => 'barchart wide', :kind => 'bar'
-.grid_12
+.grid_6
   = render 'pages/chart', :chart => @charts[3], :style => 'barchart wide', :kind => 'bar'
 .grid_12
+  = render 'pages/chart', :chart => @charts[4], :style => 'barchart wide', :kind => 'bar'
+.grid_12
   = render 'pages/chart', :chart => @charts[0], :style => 'columnchart', :kind => 'column'
+.grid_12
+  = render 'pages/chart', :chart => @charts[1], :style => 'columnchart', :kind => 'column'

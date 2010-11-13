@@ -28,6 +28,7 @@ fr:
     infractions_amount_by_establishment_type: "Valeur d'infractions par type d'établissement"
     infractions_count_by_infraction_type: "Nombre d'infractions par type d'infraction"
     infractions_amount_by_infraction_type: "Valeur d'infractions par type d'infraction"
+    infraction_amounts: "Valeur d'infractions"
 
   menu:
     home: "Accueil"

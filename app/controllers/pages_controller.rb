@@ -12,40 +12,30 @@ class PagesController < ApplicationController
   def about
   end
 
-  def statistics
-    @charts = []
-
-    # --- Column charts
-
-    # Collect the number of days between infraction and judgement
-    spans = Infraction.all.map do |x|
-      (x.judgment_date - x.infraction_date).to_i
-    end.sort
-
-    # Collect the frequency of each span
-    spans_count = {}
-    spans.each do |x|
-      spans_count[x] = spans_count[x].to_i + 1
+  def column_chart(title, values, step)
+    # Collect the frequency of each value
+    counts = {}
+    values.each do |x|
+      counts[x] = counts[x].to_i + 1
     end
 
-    # Collect statistics about spans
-    max       = spans.max
-    mean      = spans.mean.round
-    deviation = spans.deviation.round
-    step      = 60 # 60 days ~ 2 months
+    # Collect statistics about values
+    max       = values.max
+    mean      = values.mean.round
+    deviation = values.deviation.round
 
     # Deliminate outliers
     first = ([mean - 2 * deviation, 0].max / step.to_f).round * step
     last  = ([mean + 2 * deviation, max].min / step.to_f).round * step
 
-    # Collect data
-    chart = Chart.new(I18n.t('charts.days_between_infraction_and_judgment'))
+    # Create chart
+    chart = Chart.new(title)
     if first > 0
       chart << {
         :kind => 'outlier',
         :label => "0-#{first - 1}",
         :count => (0..first - 1).to_a.reduce(0) { |sum,x|
-          sum + spans_count[x].to_i
+          sum + counts[x].to_i
         }
       }
     end
@@ -53,7 +43,7 @@ class PagesController < ApplicationController
       chart << {
         :label => "#{slice.first}-#{slice.last}",
         :count => slice.reduce(0) { |sum,x|
-          sum + spans_count[x].to_i
+          sum + counts[x].to_i
         }
       }
     end
@@ -62,13 +52,25 @@ class PagesController < ApplicationController
         :kind => 'outlier',
         :label => "#{last}-#{max}",
         :count => (last..max).to_a.reduce(0) { |sum,x|
-          sum + spans_count[x].to_i
+          sum + counts[x].to_i
         }
       }
     end
-    @charts << chart
+    chart
+  end
 
-    # --- Bar charts
+  def statistics
+    @charts = []
+
+    # Column charts
+
+    @charts << column_chart(I18n.t('charts.days_between_infraction_and_judgment'), Infraction.all.map { |x|
+      (x.judgment_date - x.infraction_date).to_i
+    }.sort, 60) # 60 days ~ 2 months
+
+    @charts << column_chart(I18n.t('charts.infraction_amounts'), Infraction.all.map(&:amount).sort, 500)
+
+    # Bar charts
 
     chart = Chart.new(I18n.t('charts.infractions_count_by_establishment_type'))
     chart + Type.includes(:establishments, :translations).map do |type|
@@ -110,6 +112,7 @@ class PagesController < ApplicationController
     chart.sort.first(10)
     @charts << chart
 
+=begin
     chart = Chart.new(I18n.t('charts.infractions_amount_by_infraction_type'))
     types_count = {}
     Infraction.includes(:translations).each do |infraction|
@@ -123,5 +126,6 @@ class PagesController < ApplicationController
     end
     chart.sort.first(10)
     @charts << chart
+=end
   end
 end
