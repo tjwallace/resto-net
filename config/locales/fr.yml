@@ -37,6 +37,9 @@ fr:
     about: "À propos"
     search: "Recherche"
 
+    english: "English"
+    french: "Francais"
+
   meta_description: "Inspections sanitaires des établissements alimentaires montréalais"
 
   date:

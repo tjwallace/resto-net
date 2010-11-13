@@ -37,6 +37,9 @@ en:
     about: "About"
     search: "Search"
 
+    english: "English"
+    french: "Français"
+
   meta_description: "An open database of Montreal's health inspections"
 
   date:

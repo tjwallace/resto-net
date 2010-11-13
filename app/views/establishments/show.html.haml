@@ -22,7 +22,7 @@
       %h1= @establishment.name
       %h2 #{t :total_infractions}: #{number_to_currency @establishment.infractions_amount} (#{@establishment.infractions_count.to_s})
       %h2 #{t :address}: #{@establishment.full_address}
-      %h2 #{t :type}: #{@establishment.type.name(:fr)}
+      %h2 #{t :type}: #{@establishment.type.name}
   .grid_6
     #map_canvas.box No location information
   %div.clear

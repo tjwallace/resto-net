@@ -4,4 +4,8 @@
     %li= link_to t('menu.all_establishments'), establishments_path
     %li= link_to t('menu.statistics'), statistics_path
     %li= link_to t('menu.about'), about_path
+    - if I18n.locale == :fr
+      %li= link_to t('menu.english'), :locale => :en
+    - else
+      %li= link_to t('menu.french'), :locale => :fr
     %li.search= render 'shared/search_form'

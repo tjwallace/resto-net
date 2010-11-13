@@ -1,4 +1,6 @@
 InspectionsOuvert::Application.routes.draw do
+  filter :locale
+
   resources :establishments, :only => [:index, :show]
 
   match 'about' => 'pages#about'
