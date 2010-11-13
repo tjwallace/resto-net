@@ -11,7 +11,7 @@ describe Establishment do
   %w(name address type).each do |attr|
     it { should validate_presence_of(attr) }
   end
-  it { should validate_uniqueness_of(:name) }
+  it { should validate_uniqueness_of(:address).scoped_to(:name) }
 
   describe "geocode" do
     subject { Factory.build :establishment }
@@ -19,11 +19,8 @@ describe Establishment do
     it "should geocode a good address" do
       subject.update_attribute :address, "839 Rue Sherbrooke Ouest, Montréal, Québec"
 
-      #subject.latitude.should be_within(0.00001).of(45.5039069)
-      #subject.longitude.should be_within(0.00001).of(-73.5745631)
-      subject.latitude.should be_close(45.5039060, 0.00001)
-      subject.longitude.should be_close(-73.5745631, 0.00001)
-
+      subject.latitude.should be_within(0.00001).of(45.5039069)
+      subject.longitude.should be_within(0.00001).of(-73.5745631)
       subject.street.should == "839 Rue Sherbrooke Ouest"
       subject.locality.should == "Montréal"
       subject.region.should == "QC"

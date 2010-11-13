@@ -4,7 +4,7 @@ class Establishment < ActiveRecord::Base
   has_many :owners, :through => :infractions, :uniq => true
 
   validates_presence_of :name, :address, :type
-  validates_uniqueness_of :name
+  validates_uniqueness_of :address, :scope => :name
 
   before_create :geocode
 

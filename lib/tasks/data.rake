@@ -16,7 +16,7 @@ namespace :data do
         page = DataPage.new(month, year)
         File.open page.filename, 'w' do |f|
           puts "Downloading #{year} - #{month} from #{page.url}"
-          f.write open(page.url).read
+          f.write page.content
         end unless File.exists? page.filename
       end
     end
@@ -31,8 +31,7 @@ namespace :data do
         DataPage.new($2.to_i, $1.to_i).scan.each do |data|
           owner = Owner.find_or_create_by_name data[:owner]
 
-          establishment = Establishment.find_or_create_by_name data[:name],
-            :address => data[:address],
+          establishment = Establishment.find_or_create_by_name_and_address data[:name], data[:address],
             :type_id => Type.find_or_create_by_name(data[:type]).id
 
           data[:infractions].each do |infraction|
