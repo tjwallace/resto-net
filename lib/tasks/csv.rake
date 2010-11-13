@@ -20,7 +20,7 @@ namespace :csv do
   desc 'CSV file for infraction amounts by establishment'
   task :amount => :environment do
     CSV.open('amount.csv', 'w') do |csv|
-      csv << %w(name infractions_count latitude longitude)
+      csv << %w(name infractions_amount latitude longitude)
       Establishment.all.each do |e|
         if e.infractions_amount > 0
           csv << [ e.name, e.infractions_amount, e.latitude, e.longitude ]
