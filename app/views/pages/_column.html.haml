@@ -1,8 +1,8 @@
 %li(class="#{count.kind}")
   %span.value
-    = "(#{count.pretty_count})"
-  %div(title="#{count.label}: #{count.pretty_count}")
+    = "#{count.pretty_count}"
+  %div(title="#{count.pretty_label}: #{count.pretty_count}")
     %span.label
-      = "#{count.label}"
+      = "#{count.pretty_label}"
     %span.count(style="height: #{(count.count / max_count.to_f * 100).round}%")
       = "(#{count.pretty_count})"

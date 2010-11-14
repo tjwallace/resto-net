@@ -1,12 +1,12 @@
 - stylesheet 'statistics'
 
 .grid_6
-  = render 'pages/chart', :chart => @charts[2], :style => 'barchart wide', :kind => 'bar'
+  = render 'pages/chart', :chart => @charts[:infractions_count_by_establishment_type], :id => 'infractions_count_by_establishment_type', :style => 'barchart wide', :kind => 'bar'
 .grid_6
-  = render 'pages/chart', :chart => @charts[3], :style => 'barchart wide', :kind => 'bar'
+  = render 'pages/chart', :chart => @charts[:infractions_amount_by_establishment_type], :id => 'infractions_amount_by_establishment_type', :style => 'barchart wide', :kind => 'bar'
 .grid_12
-  = render 'pages/chart', :chart => @charts[4], :style => 'barchart wide', :kind => 'bar'
+  = render 'pages/chart', :chart => @charts[:infractions_count_by_infraction_type], :id => 'infractions_count_by_infraction_type', :style => 'barchart wide', :kind => 'bar'
 .grid_12
-  = render 'pages/chart', :chart => @charts[0], :style => 'columnchart', :kind => 'column'
+  = render 'pages/chart', :chart => @charts[:days_between_infraction_and_judgment], :id => 'days_between_infraction_and_judgment', :style => 'columnchart', :kind => 'column'
 .grid_12
-  = render 'pages/chart', :chart => @charts[1], :style => 'columnchart', :kind => 'column'
+  = render 'pages/chart', :chart => @charts[:infraction_amounts], :id => 'infraction_amounts', :style => 'columnchart', :kind => 'column'

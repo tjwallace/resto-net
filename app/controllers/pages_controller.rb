@@ -12,7 +12,48 @@ class PagesController < ApplicationController
   def about
   end
 
-  def column_chart(title, values, step)
+  def statistics
+    @charts = {}
+
+    # Column charts
+
+    @charts[:days_between_infraction_and_judgment] = column_chart(I18n.t('charts.days_between_infraction_and_judgment'), Infraction.all.map { |x| (x.judgment_date - x.infraction_date).to_i }, 60) # 60 days ~ 2 months
+    @charts[:infraction_amounts] = column_chart(I18n.t('charts.infraction_amounts'), Infraction.all.map(&:amount), 500, :currency)
+
+    # Bar charts
+
+    chart = Chart.new(I18n.t('charts.infractions_count_by_establishment_type'))
+    chart + Type.includes(:establishments, :translations).map do |type|
+      { :label => type.name,
+        :count => type.establishments.reduce(0) { |memo,x| memo + x.infractions_count },
+        :count_style => :integer,
+      }
+    end
+    @charts[:infractions_count_by_establishment_type] = chart.sort.first(10)
+
+    chart = Chart.new(I18n.t('charts.infractions_amount_by_establishment_type'))
+    chart + Type.includes(:establishments, :translations).map do |type|
+      { :label => type.name,
+        :count => type.establishments.reduce(0) { |memo,x| memo + x.infractions_amount },
+        :count_style => :currency,
+      }
+    end
+    @charts[:infractions_amount_by_establishment_type] = chart.sort.first(10)
+
+    chart = Chart.new(I18n.t('charts.infractions_count_by_infraction_type'))
+    types_count = {}
+    Infraction.includes(:translations).each do |infraction|
+      types_count[infraction.description] = types_count[infraction.description].to_i + 1
+    end
+    types_count.each do |label,count|
+      chart << { :label => label, :count => count }
+    end
+    @charts[:infractions_count_by_infraction_type] = chart.sort.first(10)
+  end
+
+private
+
+  def column_chart(title, values, step, style = nil)
     # Collect the frequency of each value
     counts = {}
     values.each do |x|
@@ -31,101 +72,30 @@ class PagesController < ApplicationController
     # Create chart
     chart = Chart.new(title)
     if first > 0
+      slice = (0..first - 1).to_a
       chart << {
         :kind => 'outlier',
-        :label => "0-#{first - 1}",
-        :count => (0..first - 1).to_a.reduce(0) { |sum,x|
-          sum + counts[x].to_i
-        }
+        :span => slice,
+        :count => slice.reduce(0) { |sum,x| sum + counts[x].to_i },
+        :label_style => style,
       }
     end
     (first..last - 1).to_a.each_slice(step) do |slice|
       chart << {
-        :label => "#{slice.first}-#{slice.last}",
-        :count => slice.reduce(0) { |sum,x|
-          sum + counts[x].to_i
-        }
+        :span => slice,
+        :count => slice.reduce(0) { |sum,x| sum + counts[x].to_i },
+        :label_style => style,
       }
     end
     if last < max
+      slice = (last..max).to_a
       chart << {
         :kind => 'outlier',
-        :label => "#{last}-#{max}",
-        :count => (last..max).to_a.reduce(0) { |sum,x|
-          sum + counts[x].to_i
-        }
+        :span => slice,
+        :count => slice.reduce(0) { |sum,x| sum + counts[x].to_i },
+        :label_style => style,
       }
     end
     chart
-  end
-
-  def statistics
-    @charts = []
-
-    # Column charts
-
-    @charts << column_chart(I18n.t('charts.days_between_infraction_and_judgment'), Infraction.all.map { |x|
-      (x.judgment_date - x.infraction_date).to_i
-    }.sort, 60) # 60 days ~ 2 months
-
-    @charts << column_chart(I18n.t('charts.infraction_amounts'), Infraction.all.map(&:amount).sort, 500)
-
-    # Bar charts
-
-    chart = Chart.new(I18n.t('charts.infractions_count_by_establishment_type'))
-    chart + Type.includes(:establishments, :translations).map do |type|
-      {
-        :label => type.name,
-        :count => type.establishments.reduce(0) { |memo,x|
-          memo + x.infractions_count
-        },
-        :type => :integer
-      }
-    end
-    chart.sort.first(10)
-    @charts << chart
-
-    chart = Chart.new(I18n.t('charts.infractions_amount_by_establishment_type'))
-    chart + Type.includes(:establishments, :translations).map do |type|
-      {
-        :label => type.name,
-        :count => type.establishments.reduce(0) { |memo,x|
-          memo + x.infractions_amount
-        },
-        :type => :currency
-      }
-    end
-    chart.sort.first(10)
-    @charts << chart
-
-    chart = Chart.new(I18n.t('charts.infractions_count_by_infraction_type'))
-    types_count = {}
-    Infraction.includes(:translations).each do |infraction|
-      types_count[infraction.description] = types_count[infraction.description].to_i + 1
-    end
-    types_count.each do |label,count|
-      chart << {
-        :label => label,
-        :count => count
-      }
-    end
-    chart.sort.first(10)
-    @charts << chart
-
-=begin
-    chart = Chart.new(I18n.t('charts.infractions_amount_by_infraction_type'))
-    types_count = {}
-    Infraction.includes(:translations).each do |infraction|
-      types_count[infraction.description] = types_count[infraction.description].to_i + infraction.amount
-    end
-    types_count.each do |label,count|
-      chart << {
-        :label => label,
-        :count => count
-      }
-    end
-    chart.sort.first(10)
-    @charts << chart
-=end
   end
 end

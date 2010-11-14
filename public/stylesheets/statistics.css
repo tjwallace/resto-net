@@ -150,3 +150,7 @@ h2 {
 .sparklist li {
   padding: 0.4em 0;
 }
+
+#infraction_amounts li {
+  width: 90px;
+}
