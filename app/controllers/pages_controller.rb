@@ -15,6 +15,12 @@ class PagesController < ApplicationController
   def statistics
     @charts = {}
 
+    # Map
+
+    @establishments = Establishment.all.select{ |e| e.infractions_count.nonzero? && e.latitude && e.longitude }.map do |e|
+      { :infractions => e.infractions_count, :lat => e.latitude, :lng => e.longitude }
+    end
+
     # Column charts
 
     @charts[:days_between_infraction_and_judgment] = column_chart(I18n.t('charts.days_between_infraction_and_judgment'), Infraction.all.map { |x| (x.judgment_date - x.infraction_date).to_i }, 60) # 60 days ~ 2 months
