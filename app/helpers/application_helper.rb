@@ -12,8 +12,6 @@ module ApplicationHelper
     title ||= column.titleize
     css_class = (column == sort_column) ? "current #{sort_direction}" : nil
     direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
-    new_params = {:sort => column, :direction => direction}
-    new_params.merge!(:search => params[:search]) if searching?
-    link_to title, new_params, {:class => css_class}
+    link_to title, params.merge(:sort => column, :direction => direction, :page => nil), {:class => css_class}
   end
 end

@@ -3,12 +3,9 @@ class EstablishmentsController < ApplicationController
   helper_method :sort_column, :sort_direction, :searching?
 
   def index
-    establishments = Establishment
-
+    establishments = Establishment.scoped
     establishments = establishments.includes(:infractions) if sort_column == "infractions.judgment_date"
-    establishments = establishments.where("name LIKE :search", :search => "%#{params['search']}%") if searching?
-
-    @establishments = establishments.order(sort_column + " " + sort_direction).paginate(:per_page => 20, :page => params[:page])
+    @establishments = establishments.search(params['search']).order(sort_column + " " + sort_direction).paginate(:per_page => 20, :page => params[:page])
   end
 
   def show

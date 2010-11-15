@@ -12,6 +12,14 @@ class Establishment < ActiveRecord::Base
   scope :by_highest_infractions, order("infractions_amount DESC")
   scope :by_judgment_date, includes(:infractions).order("infractions.judgment_date DESC")
 
+  def self.search(search)
+    if search
+      where("name LIKE ?", "%#{search}%")
+    else
+      scoped
+    end
+  end
+
   def full_address
     if geocoded? && street && locality
       street << ", " << locality
