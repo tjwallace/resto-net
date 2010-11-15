@@ -31,7 +31,7 @@ $(function () {
         feature.attributes.popup = new OpenLayers.Popup(null, feature.geometry.getBounds().getCenterLonLat(), new OpenLayers.Size(100, 100), text);
         feature.attributes.popup.autoSize = true;
       }
-      return Math.max(parseInt(infractions / 2), 2);
+      return Math.max(parseInt(infractions / 2), 2); // Reduce feature width by a factor of 2.
     },
     width: function (feature) {
       return feature.cluster ? 2 : 1;
