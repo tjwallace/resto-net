@@ -6,6 +6,8 @@ class Establishment < ActiveRecord::Base
   validates_presence_of :name, :address, :type
   validates_uniqueness_of :address, :scope => :name
 
+  has_friendly_id :name, :use_slug => true
+
   before_create :geocode
 
   scope :by_most_infractions, order("infractions_count DESC")
@@ -13,11 +15,7 @@ class Establishment < ActiveRecord::Base
   scope :by_judgment_date, includes(:infractions).order("infractions.judgment_date DESC")
 
   def self.search(search)
-    if search
-      where("name LIKE ?", "%#{search}%")
-    else
-      scoped
-    end
+    search ? where("name LIKE ?", "%#{search}%") : scoped
   end
 
   def full_address

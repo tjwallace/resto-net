@@ -9,6 +9,7 @@ gem 'nokogiri'
 gem 'globalize3'
 gem 'graticule'
 gem 'routing-filter'
+gem 'friendly_id', '~> 3.1'
 
 gem 'haml-rails', :git => 'git://github.com/indirect/haml-rails.git'
 gem 'will_paginate', '~> 3.0.pre2'
