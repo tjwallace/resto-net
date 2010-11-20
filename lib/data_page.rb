@@ -59,8 +59,12 @@ class DataPage
     File.join Rails.root, 'data', sprintf("%d_%02d.html", @year, @month)
   end
 
+  def downloaded?
+    File.exists? filename
+  end
+
   def content
-    File.exists?(filename) ? File.read(filename) : open(url).read
+    downloaded? ? File.read(filename) : open(url).read
   end
 
   private

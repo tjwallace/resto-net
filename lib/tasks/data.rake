@@ -14,10 +14,12 @@ namespace :data do
     (2007..2010).each do |year|
       (1..12).each do |month|
         page = DataPage.new(month, year)
-        File.open page.filename, 'w' do |f|
-          puts "Downloading #{year} - #{month} from #{page.url}"
-          f.write page.content
-        end unless File.exists? page.filename
+        unless page.downloaded?
+          File.open page.filename, 'w' do |f|
+            puts "Downloading #{year} - #{month} from #{page.url}"
+            f.write page.content
+          end
+        end
       end
     end
   end
