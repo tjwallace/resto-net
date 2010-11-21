@@ -28,7 +28,7 @@ describe Establishment do
   describe "geocode" do
     subject { Factory.build :establishment }
 
-    it "should geocode a good address" do
+    it "geocodes a good address" do
       subject.update_attribute :address, "839 Rue Sherbrooke Ouest, Montréal, Québec"
 
       subject.latitude.should be_within(0.00001).of(45.5039069)
@@ -40,12 +40,12 @@ describe Establishment do
       subject.country.should == "CA"
     end
 
-    it "should not geocode a bad address" do
+    it "does not geocode a bad address" do
       subject.update_attribute :address, "try and geocode this google!"
       subject.should_not be_geocoded
     end
 
-    it "should recognize when it's geocoded" do
+    it "recognizes when it's geocoded" do
       subject.should_not be_geocoded
       subject.attributes = { :latitude => 1.0, :longitude => 1.0 }
       subject.should be_geocoded
@@ -53,9 +53,7 @@ describe Establishment do
   end
 
   describe "#infractions_amount" do
-    before(:each) do
-      @owner = Factory.create :owner
-    end
+    before(:each) { @owner = Factory.create :owner }
 
     it "returns 0 for no infractions" do
       subject.infractions_amount.should == 0
