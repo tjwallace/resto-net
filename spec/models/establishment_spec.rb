@@ -13,6 +13,18 @@ describe Establishment do
   end
   it { should validate_uniqueness_of(:address).scoped_to(:name) }
 
+  describe "search" do
+    it "finds establishments by name" do
+      Factory.create :establishment, :name => "Foo"
+      Factory.create :establishment, :name => "Bar"
+      Factory.create :establishment, :name => "FooBar"
+
+      Establishment.search("Foo").count.should == 2
+      Establishment.search("Bar").count.should == 2
+      Establishment.search("FooBar").count.should == 1
+    end
+  end
+
   describe "geocode" do
     subject { Factory.build :establishment }
 
