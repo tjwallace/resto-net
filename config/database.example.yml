@@ -1,0 +1,19 @@
+base: &base
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  pool: 5
+  username: restonet
+  password: "password_goes_here"
+
+development:
+  <<: *base
+  database: restonet_dev
+
+test:
+  <<: *base
+  database: restonet_test
+
+production:
+  <<: *base
+  database: restonet_prod
