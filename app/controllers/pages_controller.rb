@@ -17,7 +17,7 @@ class PagesController < ApplicationController
 
     # Map
 
-    @establishments = Establishment.all.select{ |e| e.infractions_count.nonzero? && e.latitude && e.longitude }.map do |e|
+    @establishments = Establishment.all.select{ |e| e.infractions_count.nonzero? && e.geocoded? }.map do |e|
       { :infractions => e.infractions_count, :lat => e.latitude, :lng => e.longitude }
     end
 
