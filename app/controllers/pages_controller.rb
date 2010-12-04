@@ -10,6 +10,7 @@ class PagesController < ApplicationController
   end
 
   def about
+    render "about_#{params[:locale]}"
   end
 
   def statistics
