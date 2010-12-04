@@ -6,6 +6,7 @@ InspectionsOuvert::Application.routes.draw do
 
   match 'about' => 'pages#about'
   match 'statistics' => 'pages#statistics'
+  match 'api' => 'pages#api'
 
   root :to => 'pages#home'
 end

@@ -13,6 +13,10 @@ class PagesController < ApplicationController
     render "about_#{params[:locale]}"
   end
 
+  def api
+    render "api_#{params[:locale]}"
+  end
+
   def statistics
     @charts = {}
 
