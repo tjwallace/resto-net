@@ -15,9 +15,9 @@ namespace :data do
       (1..12).each do |month|
         page = DataPage.new(month, year)
         unless page.downloaded?
+          puts "Downloading #{year} - #{month}"
           File.open page.filename, 'w' do |f|
-            puts "Downloading #{year} - #{month} from #{page.url}"
-            f.write page.content
+            f.write page.content(:remote)
           end
         end
       end

@@ -63,8 +63,15 @@ class DataPage
     File.exists? filename
   end
 
-  def content
-    downloaded? ? File.read(filename) : open(url).read
+  def content(source = nil)
+    case source
+    when :local
+      File.read filename
+    when :remote
+      open(url).read
+    else
+      downloaded? ? File.read(filename) : open(url).read
+    end
   end
 
   private
