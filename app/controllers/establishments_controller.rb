@@ -1,16 +1,18 @@
 class EstablishmentsController < ApplicationController
   caches_page :show
   helper_method :sort_column, :sort_direction
+  respond_to :html, :json, :xml
 
   def index
-    establishments = Establishment.scoped
-    establishments = establishments.includes(:infractions) if sort_column == "infractions.judgment_date"
-    @establishments = establishments.search(params['search']).order(sort_column + " " + sort_direction).paginate(:per_page => 20, :page => params[:page])
+    @establishments = Establishment.search(params['search']).order(sort_column + " " + sort_direction)
+    @establishments = @establishments.includes(:infractions) if sort_column == "infractions.judgment_date"
+    @establishments = @establishments.paginate(:per_page => 20, :page => params[:page]) unless %w(json xml).include?(params[:format])
+    respond_with @establishments
   end
 
   def show
-    @establishment = Establishment.includes(:infractions => [:translations]).find params['id']
-    @infractions = @establishment.infractions.includes(:owner).latest
+    @establishment = Establishment.includes(:infractions => [:translations]).find(params['id'])
+    respond_with @establishment, :include => :infractions
   end
 
   private

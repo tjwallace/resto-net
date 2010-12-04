@@ -8,6 +8,14 @@ GIT
       haml (~> 3.0)
       railties (~> 3.0)
 
+GIT
+  remote: git://github.com/tjwallace/globalize3.git
+  revision: 178c42ad94ad7dce6e1877fc1fabead75c2ea00e
+  specs:
+    globalize3 (0.0.10)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -52,9 +60,6 @@ GEM
       rails (>= 3.0.0.beta4)
     friendly_id (3.1.8)
       babosa (~> 0.2.0)
-    globalize3 (0.0.10)
-      activemodel (>= 3.0.0)
-      activerecord (>= 3.0.0)
     graticule (2.0.0)
       activesupport
       happymapper (>= 0.3.0)
@@ -138,7 +143,7 @@ PLATFORMS
 DEPENDENCIES
   factory_girl_rails
   friendly_id (~> 3.1)
-  globalize3
+  globalize3!
   graticule
   haml-rails!
   mysql2

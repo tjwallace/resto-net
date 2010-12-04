@@ -1,16 +1,18 @@
 require 'spec_helper'
 
-describe EstablishmentsController do
+describe OwnersController do
 
-  describe "GET 'index'" do
-    before { get :index }
+  describe "GET 'index.xml'" do
+    before { get :index, :format => :xml }
+
+    it { should respond_with_content_type(:xml) }
 
     it "should be successful" do
       response.should be_success
     end
   end
 
-  describe "GET 'index.json'" do
+  describe "GET 'show.json'" do
     before { get :index, :format => :json }
 
     it { should respond_with_content_type(:json) }
@@ -20,7 +22,7 @@ describe EstablishmentsController do
     end
   end
 
-  describe "GET 'index.xml'" do
+  describe "GET 'show.xml'" do
     before { get :index, :format => :xml }
 
     it { should respond_with_content_type(:xml) }

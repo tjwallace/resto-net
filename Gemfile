@@ -6,7 +6,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'mysql2'
 
 gem 'nokogiri'
-gem 'globalize3'
+gem 'globalize3', :git => 'git://github.com/tjwallace/globalize3.git'
 gem 'graticule'
 gem 'routing-filter'
 gem 'friendly_id', '~> 3.1'
