@@ -1,6 +1,6 @@
 class EstablishmentsController < ApplicationController
   caches_page :show
-  helper_method :sort_column, :sort_direction, :searching?
+  helper_method :sort_column, :sort_direction
 
   def index
     establishments = Establishment.scoped
@@ -25,9 +25,5 @@ class EstablishmentsController < ApplicationController
     else
       %w(asc desc).include?(params[:direction]) ? params[:direction] : "asc"
     end
-  end
-
-  def searching?
-    params[:search] && params[:search].size > 0
   end
 end
