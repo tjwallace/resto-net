@@ -45,3 +45,11 @@ en:
   date:
     formats:
       default: "%b %e, %Y"
+
+  number:
+    currency:
+      format:
+        unit: "$"
+        precision: 0
+        significant: false
+        strip_insignificant_zeros: false

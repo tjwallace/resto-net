@@ -49,12 +49,6 @@ fr:
     abbr_month_names: [~, Janv, Fevr, Mars, Avril, Mai, Juin, Juil, Aout, Sept, Oct, Nov, Dec]
 
   number:
-    format:
-      separator: ","
-      delimiter: " "
-      precision: 3
-      significant: false
-      strip_insignificant_zeros: false
     currency:
       format:
         format: "%n %u"

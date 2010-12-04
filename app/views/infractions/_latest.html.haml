@@ -1,6 +1,6 @@
 %div
   .name= link_to infraction.establishment.name, infraction.establishment
   .stat
-    %span= number_to_currency infraction.amount, :precision => 0
+    %span= number_to_currency infraction.amount
     &mdash;
     = l infraction.judgment_date
