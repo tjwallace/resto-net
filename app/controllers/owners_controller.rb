@@ -9,6 +9,6 @@ class OwnersController < ApplicationController
   end
 
   def show
-    respond_with Owner.find(params[:id])
+    respond_with Owner.find(params[:id]), :include => :infractions
   end
 end
