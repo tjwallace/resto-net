@@ -1,7 +1,10 @@
 class EstablishmentsController < ApplicationController
+  caches_action :index, :cache_path => Proc.new{ |c| c.params }
   caches_page :show
-  helper_method :sort_column, :sort_direction
+
   respond_to :html, :json, :xml
+
+  helper_method :sort_column, :sort_direction
 
   def index
     @establishments = Establishment.search(params['search']).order(sort_column + " " + sort_direction)
