@@ -1,1 +1,58 @@
-Coming soon...
+.grid10.prefix_1.suffix_1
+  :markdown
+    # Establishments
+
+    ## `GET /:language/establishments.:format`
+
+    * Supported lanauges: **en, fr**
+    * Supported formats: **json, xml**
+    * Query paramters:
+      * **search** : Establishment name to search for.
+      * **sort** : The column name to sort by.  
+        Columns: `name`, `infractions_count`, `infractions_amount`, `infractions.judgment_date`.
+      * **direction** : Sort direction. `asc` or `desc`.
+
+    ### Examples
+
+    * **JSON**: <http://resto-net.ca/en/establishments.json?sort=infractions_amount&search=rest>
+    * **XML**: <http://resto-net.ca/fr/establishments.xml?sort=name&direction=desc>
+
+    ## `GET /:language/establishments/:id.:format`
+
+    * Supported lanauges: **en, fr**
+    * Supported formats: **json, xml**
+    * Supported ids: **numeric id, ascii id**
+    * Query paramters:
+      * None
+
+    ### Examples
+
+    * **JSON**: <http://resto-net.ca/en/establishments/1.json>
+    * **XML**: <http://resto-net.ca/fr/establishments/restaurant-boustan.xml>
+
+
+    # Owners
+
+    ## `GET /:language/owners.:format`
+
+    * Supported lanauges: **en, fr**
+    * Supported formats: **json, xml**
+    * Query paramters:
+      * **search** : Owner name to search for.
+
+    ### Examples
+
+    * **JSON**: <http://resto-net.ca/en/owners.json>
+    * **XML**: <http://resto-net.ca/fr/owners.xml?search=quebec>
+
+    ## `GET /:language/owners/:id.:format`
+
+    * Supported lanauges: **en, fr**
+    * Supported formats: **json, xml**
+    * Query paramters:
+      * None
+
+    ### Examples
+
+    * **JSON**: <http://resto-net.ca/en/owners/1.json>
+    * **XML**: <http://resto-net.ca/fr/owners/15.xml>
