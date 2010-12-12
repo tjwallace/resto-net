@@ -10,7 +10,7 @@ GIT
 
 GIT
   remote: git://github.com/tjwallace/globalize3.git
-  revision: 178c42ad94ad7dce6e1877fc1fabead75c2ea00e
+  revision: eeb59abe8b8e178b37ceb8f355a832840df7782e
   specs:
     globalize3 (0.0.10)
       activemodel (>= 3.0.0)
@@ -72,9 +72,9 @@ GEM
     libxml-ruby (1.1.4)
     linecache19 (0.5.11)
       ruby_core_source (>= 0.1.4)
-    mail (2.2.11)
+    mail (2.2.12)
       activesupport (>= 2.3.6)
-      i18n (~> 0.5.0)
+      i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
