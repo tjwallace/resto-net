@@ -145,6 +145,14 @@ div.description {
   height: 460px;
 }
 
+.info_window h1 {
+  font-size: 16px;
+}
+
+.info_window ul {
+  margin: 0;
+}
+
 table.pretty {
   border-collapse: collapse;
   width: 100%;
@@ -181,4 +189,8 @@ div.stat {
 
 #nav .search {
   float: right;
+}
+
+tr.hover {
+  background: #D8D8D8;
 }

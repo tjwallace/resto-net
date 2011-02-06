@@ -9,7 +9,7 @@
         %th= sortable "infractions.judgment_date", t(:latest_infraction)
     %tbody
       - @establishments.each do |e|
-        %tr
+        %tr[e]
           %td= link_to e.name, e
           %td= e.full_address
           %td= e.infractions_count

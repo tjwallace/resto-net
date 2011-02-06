@@ -1,0 +1,9 @@
+.left
+  %ul#nav
+    %li= link_to "Resto-Net", root_path
+    %li.search
+      = form_tag embed_establishments_path, :method => :get do
+        = hidden_field_tag :direction, params[:direction]
+        = hidden_field_tag :sort, params[:sort]
+        = text_field_tag 'search', params[:search]
+        = submit_tag t('menu.search')

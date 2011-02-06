@@ -1,16 +1,19 @@
 class EstablishmentsController < ApplicationController
-  caches_action :index, :cache_path => Proc.new{ |c| c.params }
+  caches_action :index, :embed, :cache_path => Proc.new{ |c| c.params }
   caches_page :show
 
   respond_to :html, :json, :xml
 
+  before_filter :load_establishments, :only => [:index, :embed]
+
   helper_method :sort_column, :sort_direction
 
   def index
-    @establishments = Establishment.search(params['search']).order(sort_column + " " + sort_direction)
-    @establishments = @establishments.includes(:infractions) if sort_column == "infractions.judgment_date"
-    @establishments = @establishments.paginate(:per_page => 20, :page => params[:page]) unless %w(json xml).include?(params[:format])
     respond_with @establishments
+  end
+
+  def embed
+    render :layout => 'embed'
   end
 
   def show
@@ -19,6 +22,13 @@ class EstablishmentsController < ApplicationController
   end
 
   private
+
+  def load_establishments
+    per_page = params[:action] == 'index' ? 20 : 10
+    @establishments = Establishment.search(params['search']).order(sort_column + " " + sort_direction)
+    @establishments = @establishments.includes(:infractions) if sort_column == "infractions.judgment_date"
+    @establishments = @establishments.paginate(:per_page => per_page, :page => params[:page]) unless %w(json xml).include?(params[:format])
+  end
 
   def sort_column
     %w(name infractions_count infractions_amount infractions.judgment_date).include?(params[:sort]) ? params[:sort] : "name"

@@ -1,12 +1,16 @@
 require 'enumerable_extensions'
 
 class PagesController < ApplicationController
-  caches_page :home, :about, :api, :statistics
+  caches_page :home, :embed, :about, :api, :statistics
+
+  before_filter :load_infractions, :only => [:home, :embed]
 
   def home
-    @infractions = Infraction.includes(:establishment).latest.limit(10)
-    @most_infractions = Establishment.by_most_infractions.limit(10)
-    @highest_infractions = Establishment.by_highest_infractions.limit(10)
+  end
+
+  def embed
+    @establishments = Establishment.geocoded
+    render :layout => 'embed'
   end
 
   def about
@@ -22,7 +26,7 @@ class PagesController < ApplicationController
 
     # Map
 
-    @establishments = Establishment.all.select{ |e| e.infractions_count.nonzero? && e.geocoded? }.map do |e|
+    @establishments = Establishment.where("infractions_count > 0").geocoded.map do |e|
       { :infractions => e.infractions_count, :lat => e.latitude, :lng => e.longitude }
     end
 
@@ -62,7 +66,13 @@ class PagesController < ApplicationController
     @charts[:infractions_count_by_infraction_type] = chart.sort.first(10)
   end
 
-private
+  private
+
+  def load_infractions
+    @infractions = Infraction.includes(:establishment).latest.limit(10)
+    @most_infractions = Establishment.by_most_infractions.limit(10)
+    @highest_infractions = Establishment.by_highest_infractions.limit(10)
+  end
 
   def column_chart(title, values, step, style = nil)
     # Collect the frequency of each value

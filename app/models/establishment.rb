@@ -10,6 +10,7 @@ class Establishment < ActiveRecord::Base
 
   before_create :geocode
 
+  scope :geocoded, where("latitude IS NOT NULL", "longitude IS NOT NULL")
   scope :by_most_infractions, order("infractions_count DESC")
   scope :by_highest_infractions, order("infractions_amount DESC")
   scope :by_judgment_date, includes(:infractions).order("infractions.judgment_date DESC")
@@ -20,7 +21,7 @@ class Establishment < ActiveRecord::Base
 
   def full_address
     if geocoded? && street && locality
-      street << ", " << locality
+      "#{street}, #{locality}"
     else
       address
     end
