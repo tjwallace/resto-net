@@ -3,13 +3,13 @@ require 'enumerable_extensions'
 class PagesController < ApplicationController
   caches_page :home, :embed, :about, :api, :statistics
 
-  before_filter :load_infractions, :only => [:home, :embed]
-
   def home
+    load_data 10
   end
 
   def embed
-    @establishments = Establishment.geocoded
+    load_data 5
+    @establishments = Establishment.geocoded.includes(:slug)
     render :layout => 'embed'
   end
 
@@ -68,10 +68,10 @@ class PagesController < ApplicationController
 
   private
 
-  def load_infractions
-    @infractions = Infraction.includes(:establishment).latest.limit(10)
-    @most_infractions = Establishment.by_most_infractions.limit(10)
-    @highest_infractions = Establishment.by_highest_infractions.limit(10)
+  def load_data(limit)
+    @infractions = Infraction.includes(:establishment).latest.limit(limit)
+    @most_infractions = Establishment.by_most_infractions.includes(:slug).limit(limit)
+    @highest_infractions = Establishment.by_highest_infractions.includes(:slug).limit(limit)
   end
 
   def column_chart(title, values, step, style = nil)

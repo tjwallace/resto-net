@@ -4,15 +4,15 @@ class EstablishmentsController < ApplicationController
 
   respond_to :html, :json, :xml
 
-  before_filter :load_establishments, :only => [:index, :embed]
-
   helper_method :sort_column, :sort_direction
 
   def index
+    load_establishments 20
     respond_with @establishments
   end
 
   def embed
+    load_establishments 10
     render :layout => 'embed'
   end
 
@@ -23,8 +23,7 @@ class EstablishmentsController < ApplicationController
 
   private
 
-  def load_establishments
-    per_page = params[:action] == 'index' ? 20 : 10
+  def load_establishments(per_page)
     @establishments = Establishment.search(params['search']).order(sort_column + " " + sort_direction)
     @establishments = @establishments.includes(:infractions) if sort_column == "infractions.judgment_date"
     @establishments = @establishments.paginate(:per_page => per_page, :page => params[:page]) unless %w(json xml).include?(params[:format])
