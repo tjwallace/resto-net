@@ -3,14 +3,15 @@ require 'enumerable_extensions'
 class PagesController < ApplicationController
   caches_page :home, :embed, :about, :api, :statistics
 
+  before_filter :load_establishments, :only => [:home,:embed]
+
   def home
     load_data 10
   end
 
   def embed
     load_data 5
-    @establishments = Establishment.geocoded.includes(:slug)
-    render :layout => 'embed'
+    render :home, :layout => 'embed'
   end
 
   def about
@@ -67,6 +68,10 @@ class PagesController < ApplicationController
   end
 
   private
+
+  def load_establishments
+    @establishments = Establishment.geocoded.includes(:slug)
+  end
 
   def load_data(limit)
     @infractions = Infraction.includes(:establishment).latest.limit(limit)

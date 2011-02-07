@@ -77,7 +77,7 @@ div.description {
 
 div.clear {
   clear: both;
-  height: 20px;
+  height: 10px;
 }
 
 .column h1,
@@ -142,7 +142,7 @@ div.description {
 }
 
 #map_canvas {
-  height: 460px;
+  height: 400px;
 }
 
 .info_window h1 {

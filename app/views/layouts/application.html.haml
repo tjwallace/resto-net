@@ -8,22 +8,32 @@
     = stylesheet_link_tag "reset", "text", "960", "menu", "main", :cache => true
     - fonts = %w(Droid+Serif Droid+Sans).join('|')
     = stylesheet_link_tag "http://fonts.googleapis.com/css?family=#{fonts}"
-    = javascript_include_tag :defaults
+    = javascript_include_tag :defaults, :cache => true
     = content_for :head
     = csrf_meta_tag
   %body
     #main.container_12
+
       #header.grid_12
         = link_to image_tag('logo.png', :alt=>"Resto-Net"), root_path
         %h2= t :app_sub_title
       %div.clear
+
       #menu.grid_12
         = render 'shared/menu'
       %div.clear
+
+      - if content_for? :map
+        #map.grid_12
+          = content_for :map
+        %div.clear
+
       #content
         = yield
       %div.clear
+
       #footer.grid_12
         = render 'shared/footer'
       %div.clear
+
       = render 'shared/analytics' if Rails.env.production?
