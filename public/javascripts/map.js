@@ -6,27 +6,26 @@ $(function() {
     mapTypeControl: false
   });
 
-  var data = $.map(establishments, function(estab) {
-    // icons from http://code.google.com/p/google-maps-icons/
+  var data = $.map(establishments, function(e) {
     var marker = new google.maps.Marker({
-      position: new google.maps.LatLng(estab.lat, estab.lng),
-      title: estab.name,
-      icon: "http://google-maps-icons.googlecode.com/files/red" + estab.count + ".png"
+      position: new google.maps.LatLng(e.lat, e.lng),
+      title: e.name,
+      icon: e.icon
     });
 
-    marker.set('id', estab.id);
+    marker.set('id', e.id);
 
     var info_window = new google.maps.InfoWindow({
       content: "<div class='info_window'>" +
-        "<h1><a href='" + estab.url + "'>" + estab.name + "</a></h1>" +
+        "<h1><a href='" + e.url + "'>" + e.name + "</a></h1>" +
         "<ul>" +
-        "<li>" + estab.address + "</li>" +
-        "<li>" + estab.infractions_desc + "</li>" +
+        "<li>" + e.infractions_desc + "</li>" +
+        "<li>" + e.latest_infraction + "</li>" +
         "</ul>" +
         "</div>"
     });
 
-    return $.extend({}, estab, { marker: marker, info_window: info_window });
+    return $.extend({}, e, { marker: marker, info_window: info_window });
   });
 
   $.each(data, function(index, item) {
