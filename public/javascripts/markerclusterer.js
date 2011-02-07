@@ -603,6 +603,15 @@ function Cluster(markerClusterer) {
       markerClusterer.getGridSize());
 }
 
+/**
+ * Return the markers in this cluster.
+ *
+ * @return {Array.<google.maps.Marker>} array of markers.
+ */
+Cluster.prototype.getMarkers = function() {
+  return this.markers_;
+}
+
 
 /**
  * Determins if a marker is already added to the cluster.
@@ -810,6 +819,14 @@ ClusterIcon.prototype.triggerClusterClick = function() {
   }
 };
 
+/**
+ * Triggers a cluster event
+ */
+ClusterIcon.prototype.triggerClusterEvent = function(eventName) {
+  var markerClusterer = this.cluster_.getMarkerClusterer();
+  google.maps.event.trigger(markerClusterer, eventName, this.cluster_);
+};
+
 
 /**
  * Adding the cluster icon to the dom.
@@ -829,6 +846,12 @@ ClusterIcon.prototype.onAdd = function() {
   var that = this;
   google.maps.event.addDomListener(this.div_, 'click', function() {
     that.triggerClusterClick();
+  });
+  google.maps.event.addDomListener(this.div_, 'mouseover', function() {
+    that.triggerClusterEvent('mouseover');
+  });
+  google.maps.event.addDomListener(this.div_, 'mouseout', function() {
+    that.triggerClusterEvent('mouseout');
   });
 };
 

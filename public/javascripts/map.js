@@ -14,6 +14,8 @@ $(function() {
       icon: "http://google-maps-icons.googlecode.com/files/red" + estab.count + ".png"
     });
 
+    marker.set('id', estab.id);
+
     var info_window = new google.maps.InfoWindow({
       content: "<div class='info_window'>" +
         "<h1><a href='" + estab.url + "'>" + estab.name + "</a></h1>" +
@@ -55,4 +57,15 @@ $(function() {
   });
 
   var clusterer = new MarkerClusterer(map, $.map(data, function(i){ return i.marker }), { maxZoom: 15 });
+
+  google.maps.event.addListener(clusterer, 'mouseover', function(cluster) {
+    $.each(cluster.getMarkers(), function(i, marker) {
+      $('#establishment_'+marker.get('id')).addClass('hover');
+    });
+  });
+  google.maps.event.addListener(clusterer, 'mouseout', function(cluster) {
+    $.each(cluster.getMarkers(), function(i, marker) {
+      $('#establishment_'+marker.get('id')).removeClass('hover');
+    });
+  });
 });
