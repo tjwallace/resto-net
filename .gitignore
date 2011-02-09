@@ -4,4 +4,3 @@ log/*.log
 tmp/**/*
 config/config.yml
 config/database.yml
-public/stylesheets/all.css
