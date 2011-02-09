@@ -1,7 +1,15 @@
 #map_canvas {
-  height: 360px;
+  height: 500px;
+}
+
+#nav a {
+  font-size: 16px;
+}
+
+#content {
+  font-size: 11px;
 }
 
 #content h1 {
-  font-size: 18px;
+  font-size: 14px;
 }
