@@ -9,10 +9,20 @@ module MapHelper
         :lng => e.longitude,
         :name => e.name,
         :url => url_for(e),
-        :icon => "http://google-maps-icons.googlecode.com/files/red%02d.png" % [e.infractions_count],
-        :infractions_desc => "#{t :total_infractions}: #{number_to_currency e.infractions_amount} (#{e.infractions_count})",
-        :latest_infraction => "#{t :latest_infraction}: #{l i.judgment_date} (#{number_to_currency i.amount})"
+        :count => e.infractions_count,
+        :amount => number_to_currency(e.infractions_amount),
+        :latest => {
+          :date => l(i.judgment_date),
+          :amount => number_to_currency(i.amount)
+        }
       }
     end.to_json
+  end
+
+  def map_translations_json
+    {
+      :total_infractions => t(:total_infractions),
+      :latest_infraction => t(:latest_infraction)
+    }.to_json
   end
 end

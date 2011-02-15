@@ -10,7 +10,7 @@ $(function() {
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(e.lat, e.lng),
       title: e.name,
-      icon: e.icon
+      icon: sprintf('http://google-maps-icons.googlecode.com/files/red%02d.png', e.count),
     });
 
     marker.set('id', e.id);
@@ -19,8 +19,8 @@ $(function() {
       content: "<div class='info_window'>" +
         "<h1><a href='" + e.url + "'>" + e.name + "</a></h1>" +
         "<ul>" +
-        "<li>" + e.infractions_desc + "</li>" +
-        "<li>" + e.latest_infraction + "</li>" +
+        "<li>" + t.total_infractions + ": " + e.amount + " (" + e.count + ")</li>" +
+        "<li>" + t.latest_infraction + ": " + e.latest.date + " (" + e.latest.amount + ")</li>" +
         "</ul>" +
         "</div>"
     });
