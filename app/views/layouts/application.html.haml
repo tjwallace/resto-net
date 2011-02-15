@@ -8,6 +8,7 @@
     = stylesheet_link_tag "reset", "text", "960", "menu", "main", :cache => true
     - fonts = %w(Droid+Serif Droid+Sans).join('|')
     = stylesheet_link_tag "http://fonts.googleapis.com/css?family=#{fonts}"
+    = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js'
     = javascript_include_tag :defaults
     = content_for :head
     = csrf_meta_tag
