@@ -5,58 +5,43 @@ require 'open-uri'
 class DataPage
   MONTHS = %w(JANVIER FEVRIER MARS AVRIL MAI JUIN JUILLET AOUT SEPTEMBRE OCTOBRE NOVEMBRE DECEMBRE)
 
-  attr_reader :month, :year
+  attr_reader :year
 
-  def initialize(month = nil, year = nil)
-    @month = month || Date.today.month
+  def initialize(year = nil)
     @year = year || Date.today.year
   end
 
   def scan
-    establishments = []
-    establishment = nil
-    Nokogiri::HTML(content).css('#mois_resultats td td table table').each do |table|
-      header = table.css('td:nth-child(2) span')
-      unless header.empty?
-        header = header.map{ |s| s.inner_html.gsub(/<br>/, " ").strip }
-        header << table.at_css('td:nth-child(3) span').inner_html.strip
+    puts "Scanning #{year}"
+    Nokogiri.XML(content, nil, 'utf-8').xpath('//contrevenant').each do |inf|
+      Establishment.transaction do
+        owner = Owner.find_or_create_by_name get_name(inf, 'proprietaire')
 
-        establishments << establishment unless establishment.nil?
+        type_name = inf.at_xpath('categorie').text rescue 'Inconnue'
+        type = Type.find_or_create_by_name type_name
 
-        establishment = {
-          :owner => clean_name(header[0]),
-          :name => clean_name(header[1].empty? ? header[0] : header[1]),
-          :address => clean_address(header[2]),
-          :type => header[3].empty? ? 'Inconnue' : header[3],
-          :infractions => []
-        }
+        establishment = Establishment.find_or_create_by_name_and_address get_name(inf, 'etablissement'), get_address(inf, 'adresse'),
+          :type_id => type.id
+
+        establishment.infractions.create(
+          :description => inf.at_xpath('description').text,
+          :infraction_date => get_date(inf, 'date_infraction'),
+          :judgment_date => get_date(inf, 'date_jugement'),
+          :amount => inf.at_xpath('montant').text.to_i,
+          :owner_id => owner.id
+        )
       end
-
-      details = table.css('td')
-      if details.count == 6
-        details = details.map{ |s| s.content.strip }.reject{ |s| s.empty? }
-
-        establishment[:infractions] << {
-          :description => details[0],
-          :infraction_date => clean_date(details[1]),
-          :judgment_date => clean_date(details[2]),
-          :amount => details[3].to_i
-        }
-      end
+      print "."
     end
-    establishments
-  end
-
-  def month_name
-    MONTHS[@month - 1]
+    puts " DONE"
   end
 
   def url
-    URI.encode "http://ville.montreal.qc.ca/portal/page?_pageid=2136,2655580&_dad=portal&_schema=PORTAL&mois=#{month_name}&annee=#{year}"
+    URI.encode "http://ville.montreal.qc.ca/pls/portal/portalcon.contrevenants_recherche?p_mot_recherche=,tous,#{year}"
   end
 
   def filename
-    File.join Rails.root, 'data', sprintf("%d_%02d.html", @year, @month)
+    File.join Rails.root, 'data', sprintf("%d.xml", @year)
   end
 
   def downloaded?
@@ -76,22 +61,21 @@ class DataPage
 
   private
 
-  def clean_address(adr)
-    adr.mb_chars.delete(",").gsub(/Pointe-aux-Trembles/, "Montréal").gsub(/de la/i, "la").gsub(/(\w+)\./, '\1').titlecase.to_s
+  def get_name(inf, xpath)
+    inf.at_xpath(xpath).text.mb_chars.gsub(/&amp;/, '&').titlecase.gsub(/'S/, "'s").to_s
   end
 
-  def clean_name(name)
-    name.mb_chars.gsub(/&amp;/, '&').titlecase.gsub(/'S/, "'s").to_s
+  def get_address(inf, xpath)
+    inf.at_xpath(xpath).text.mb_chars.delete(",").gsub(/de la/i, "la").gsub(/(\w+)\./, '\1').titlecase.to_s
   end
 
-  def clean_date(fr_date)
-    fr_date.gsub /(\d+) (\S+) (\d+)/ do |s|
-      "#{clean_month($2)} #{$1}, #{$3}"
-    end
+  def get_date(inf, xpath)
+    d = inf.at_xpath(xpath).text.mb_chars.scan(/(\d+) (\S+) (\d+)/).flatten
+    "#{clean_month(d[1])} #{d[0]}, #{d[2]}"
   end
 
   def clean_month(fr_month)
     fr_month = fr_month.gsub(/é/, 'e').gsub(/û/, 'u').upcase
-    Date::MONTHNAMES[ MONTHS.index(fr_month) + 1 ]
+    Date::MONTHNAMES[ MONTHS.index(fr_month.to_s) + 1 ]
   end
 end
