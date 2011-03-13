@@ -1,15 +1,12 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.3'
-
-gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'rails', '3.0.4'
 gem 'mysql2'
-
 gem 'nokogiri'
 gem 'globalize3', :git => 'git://github.com/tjwallace/globalize3.git'
 gem 'graticule'
 gem 'routing-filter'
-gem 'friendly_id', '~> 3.1'
+gem 'friendly_id', '~> 3.2.1'
 gem 'rdiscount'
 gem 'haml-rails', :git => 'git://github.com/indirect/haml-rails.git'
 gem 'will_paginate', '~> 3.0.pre2'
@@ -20,5 +17,4 @@ group :development, :test do
   gem 'rspec-rails', '>= 2.0.0.rc'
   gem 'shoulda'
   gem 'factory_girl_rails'
-  gem 'ruby-debug19', :require => 'ruby-debug'
 end
