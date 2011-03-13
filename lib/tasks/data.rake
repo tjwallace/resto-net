@@ -3,12 +3,6 @@
 namespace :data do
   require 'data_page'
 
-  desc "Test the scanner"
-  task :test, :year do |t, args|
-    args.with_defaults(:year => 2007)
-    pp DataPage.new(args[:year].to_i).scan
-  end
-
   desc "Download xml files"
   task :download do
     (2007..2011).each do |year|
