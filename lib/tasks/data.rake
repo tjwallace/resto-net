@@ -3,12 +3,12 @@
 namespace :data do
   require 'data_page'
 
-  desc "Download xml files"
+  desc "Download XML data"
   task :download do
-    (2007..2011).each do |year|
+    (2007..Date.today.year).each do |year|
       page = DataPage.new(year)
       unless page.downloaded?
-        puts "Downloading #{year}"
+        puts "Downloading #{page.filename}"
         File.open page.filename, 'w' do |f|
           f.write page.content(:remote)
         end
@@ -16,12 +16,11 @@ namespace :data do
     end
   end
 
-  desc "Import data"
+  desc "Import XML data"
   task :import => :environment do
     I18n.locale = :fr
-    (2007..2011).each do |year|
-      page = DataPage.new year
-      page.scan
+    (2007..Date.today.year).each do |year|
+      DataPage.new(year).scan
     end
   end
 
