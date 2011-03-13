@@ -2,7 +2,7 @@
 require 'nokogiri'
 require 'open-uri'
 
-class DataPage
+class DataFile
   MONTHS = %w(janvier fevrier mars avril mai juin juillet aout septembre octobre novembre decembre)
 
   def initialize(year = nil, verbose = true)

@@ -1,12 +1,12 @@
 # encoding: utf-8
 
 namespace :data do
-  require 'data_page'
+  require 'data_file'
 
   desc "Download XML infraction data"
   task :download do
     (2007..Date.today.year).each do |year|
-      page = DataPage.new(year)
+      page = DataFile.new(year)
       if page.downloaded?
         puts "Skipping #{page.filename}"
       else
@@ -20,14 +20,14 @@ namespace :data do
   task :import => :environment do
     I18n.locale = :fr
     (2007..Date.today.year).each do |year|
-      DataPage.new(year).scan
+      DataFile.new(year).scan
     end
   end
 
   desc "Update infractions"
   task :update => :environment do
     I18n.locale = :fr
-    DataPage.new(Date.today.year).scan(:remote)
+    DataFile.new(Date.today.year).scan(:remote)
   end
 
 end
