@@ -3,17 +3,23 @@ require 'nokogiri'
 require 'open-uri'
 
 class DataPage
-  MONTHS = %w(JANVIER FEVRIER MARS AVRIL MAI JUIN JUILLET AOUT SEPTEMBRE OCTOBRE NOVEMBRE DECEMBRE)
+  MONTHS = %w(janvier fevrier mars avril mai juin juillet aout septembre octobre novembre decembre)
 
-  attr_reader :year
-
-  def initialize(year = nil)
+  def initialize(year = nil, verbose = true)
     @year = year || Date.today.year
+    @verbose = verbose
   end
 
-  def scan
-    puts "Scanning #{year}"
-    Nokogiri.XML(content, nil, 'utf-8').xpath('//contrevenant').each do |inf|
+  def log(msg, method = :puts)
+    send(method, msg) if @verbose
+  end
+
+  def scan(source = nil)
+    log "Importing infractions for #{@year}"
+
+    latest_judgment_date = Infraction.order("judgment_date DESC").first.judgment_date rescue Date.new
+
+    Nokogiri.XML(content(source), nil, 'utf-8').xpath('//contrevenant').each do |inf|
       Establishment.transaction do
         owner = Owner.find_or_create_by_name get_name(inf, 'proprietaire')
 
@@ -23,21 +29,28 @@ class DataPage
         establishment = Establishment.find_or_create_by_name_and_address get_name(inf, 'etablissement'), get_address(inf, 'adresse'),
           :type_id => type.id
 
-        establishment.infractions.create(
+        infraction = establishment.infractions.build(
           :description => inf.at_xpath('description').text,
           :infraction_date => get_date(inf, 'date_infraction'),
           :judgment_date => get_date(inf, 'date_jugement'),
           :amount => inf.at_xpath('montant').text.to_i,
           :owner_id => owner.id
         )
+
+        if infraction.judgment_date > latest_judgment_date
+          infraction.save!
+          log ".", :print
+        else
+          log "*", :print
+        end
       end
-      print "."
     end
-    puts " DONE"
+
+    log " Done"
   end
 
   def url
-    URI.encode "http://ville.montreal.qc.ca/pls/portal/portalcon.contrevenants_recherche?p_mot_recherche=,tous,#{year}"
+    URI.encode "http://ville.montreal.qc.ca/pls/portal/portalcon.contrevenants_recherche?p_mot_recherche=,tous,#{@year}"
   end
 
   def filename
@@ -62,7 +75,7 @@ class DataPage
   private
 
   def get_name(inf, xpath)
-    inf.at_xpath(xpath).text.mb_chars.gsub(/&amp;/, '&').titlecase.gsub(/'S/, "'s").to_s
+    inf.at_xpath(xpath).text.mb_chars.gsub(/&amp;/, '&').titlecase.gsub(/'S/, "'s").to_s rescue "Unknown"
   end
 
   def get_address(inf, xpath)
@@ -71,11 +84,7 @@ class DataPage
 
   def get_date(inf, xpath)
     d = inf.at_xpath(xpath).text.mb_chars.scan(/(\d+) (\S+) (\d+)/).flatten
-    "#{clean_month(d[1])} #{d[0]}, #{d[2]}"
-  end
-
-  def clean_month(fr_month)
-    fr_month = fr_month.gsub(/é/, 'e').gsub(/û/, 'u').upcase
-    Date::MONTHNAMES[ MONTHS.index(fr_month.to_s) + 1 ]
+    month = Date::MONTHNAMES[ MONTHS.index(d[1].gsub(/é/, 'e').gsub(/û/, 'u')) + 1 ]
+    "#{month} #{d[0]}, #{d[2]}"
   end
 end
