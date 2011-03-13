@@ -61,6 +61,12 @@ class DataPage
     File.exists? filename
   end
 
+  def download!
+    File.open filename, 'w' do |f|
+      f.write content(:remote)
+    end
+  end
+
   def content(source = nil)
     case source
     when :local

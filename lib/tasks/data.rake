@@ -11,9 +11,7 @@ namespace :data do
         puts "Skipping #{page.filename}"
       else
         puts "Downloading #{page.filename}"
-        File.open page.filename, 'w' do |f|
-          f.write page.content(:remote)
-        end
+        page.download!
       end
     end
   end
