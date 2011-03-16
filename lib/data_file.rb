@@ -26,7 +26,7 @@ class DataFile
         type_name = inf.at_xpath('categorie').text rescue 'Inconnue'
         type = Type.find_or_create_by_name type_name
 
-        establishment = Establishment.find_or_create_by_name_and_address get_name(inf, 'etablissement'), get_address(inf, 'adresse'),
+        establishment = Establishment.find_or_create_by_name_and_address get_name(inf, 'etablissement', owner.name), get_address(inf, 'adresse'),
           :type_id => type.id
 
         infraction = establishment.infractions.build(
@@ -46,7 +46,7 @@ class DataFile
       end
     end
 
-    log " Done"
+    log "Done"
   end
 
   def url
@@ -80,8 +80,8 @@ class DataFile
 
   private
 
-  def get_name(inf, xpath)
-    inf.at_xpath(xpath).text.mb_chars.gsub(/&amp;/, '&').titlecase.gsub(/'S/, "'s").to_s rescue "Unknown"
+  def get_name(inf, xpath, fallback = "Unknown")
+    inf.at_xpath(xpath).text.mb_chars.gsub(/&amp;/, '&').titlecase.gsub(/'S/, "'s").to_s rescue fallback
   end
 
   def get_address(inf, xpath)
