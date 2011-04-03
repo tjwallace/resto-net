@@ -1,8 +1,5 @@
-- content_for :head, javascript_tag("var establishments = #{@establishments.to_json};")
 - stylesheet 'statistics'
-- javascript %w(http://openlayers.org/dev/OpenLayers.js cloudmade mxn/mxn-min mxn/mxn.core-min mxn/mxn.openlayers.core-min statistics)
 
-#map
 
 .grid_6
   = render 'pages/chart', :chart => @charts[:infractions_count_by_establishment_type], :id => 'infractions_count_by_establishment_type', :style => 'barchart wide', :kind => 'bar'
