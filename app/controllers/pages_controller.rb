@@ -23,13 +23,14 @@ class PagesController < ApplicationController
   end
 
   def statistics
-    @data = Infraction.select("DATE_FORMAT(judgment_date, '%Y-%m-01') as month, COUNT(*) as count, SUM(amount) as sum").group('month').map do |i|
+    @data = Infraction.select("DATE_FORMAT(infraction_date, '%Y-%m-01') as month, COUNT(*) as count, SUM(amount) as sum").group('month').map do |i|
+      date = Time.parse(i.month)
       {
-        :date => Time.parse(i.month).to_i * 1000,
+        :date => date.to_i * 1000,
         :count => i.count.to_i,
         :amount => i.sum.to_i
-      }
-    end
+      } unless date.year < 2005
+    end.compact
 
     @charts = {}
 
