@@ -15,9 +15,9 @@ describe Establishment do
 
   describe "search" do
     it "finds establishments by name" do
-      Factory.create :establishment, :name => "Foo"
-      Factory.create :establishment, :name => "Bar"
-      Factory.create :establishment, :name => "FooBar"
+      %w(Foo Bar FooBar).each do |name|
+        Factory.create :establishment, :name => name
+      end
 
       Establishment.search("Foo").count.should == 2
       Establishment.search("Bar").count.should == 2
