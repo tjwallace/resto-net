@@ -1,5 +1,68 @@
 - stylesheet 'statistics'
+- javascript 'jquery.flot.min'
 
+.grid_12
+  %h1= t :infractions
+  #timeplot
+
+:javascript
+  var data = #{@data.to_json};
+  $(function() {
+    $.plot(
+      $("#timeplot"),
+      [
+        {
+          data: $.map(data, function(item) { return [ [item.date, item.count] ] }),
+          label: "Count"
+        },
+        {
+          data: $.map(data, function(item) { return [ [item.date, item.amount] ] }),
+          label: "Amount",
+          yaxis: 2
+        }
+      ],
+      {
+        xaxes: [ { mode: 'time', ticks: 15 } ],
+        yaxes: [
+          { min: 0, max: 70, tickSize: 10 },
+          {
+            alignTicksWithAxis: 1,
+            position: 'right',
+            tickFormatter: function (v, axis) { return "$" + v.toFixed(axis.tickDecimals) }
+          }
+        ],
+        series: {
+          points: { show: true },
+          lines: { show: true }
+        },
+        grid: { hoverable: true },
+        legend: { position: 'nw' }
+      }
+    );
+
+    var lastItem = null;
+    $('#timeplot').bind('plothover', function (event, pos, item) {
+      if (item) {
+        var check = item.dataIndex + 100 * item.seriesIndex;
+        if (lastItem != check) {
+          lastItem = check;
+
+          $('#tooltip').remove();
+          var xvalue = item.series.xaxis.tickFormatter(item.datapoint[0], item.series.xaxis),
+              yvalue = item.series.yaxis.tickFormatter(item.datapoint[1], item.series.yaxis);
+
+          $('<div id="tooltip">' + xvalue+" - "+yvalue + '</div>').css({
+            top:  item.pageY + 8,
+            left: item.pageX + 8
+          }).appendTo("body").fadeIn(200);
+        }
+      }
+      else {
+        $('#tooltip').fadeOut(200);
+        lastItem = null;
+      }
+    });
+  });
 
 .grid_6
   = render 'pages/chart', :chart => @charts[:infractions_count_by_establishment_type], :id => 'infractions_count_by_establishment_type', :style => 'barchart wide', :kind => 'bar'
