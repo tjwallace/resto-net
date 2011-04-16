@@ -6,6 +6,6 @@ class Type < ActiveRecord::Base
   translates :name
 
   def self.find_or_create_by_name(name)
-    self.find_first_by_name(name) || self.create(:name => name)
+    self.find_by_name(name) || self.create(:name => name)
   end
 end

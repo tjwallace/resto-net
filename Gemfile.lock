@@ -8,38 +8,46 @@ GIT
       haml (~> 3.0)
       railties (~> 3.0)
 
+GIT
+  remote: git://github.com/svenfuchs/globalize3.git
+  revision: cb3f638f1504d0836765c47500c7d459dba4bab9
+  specs:
+    globalize3 (0.1.0.beta)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
     abstract (1.0.0)
-    actionmailer (3.0.5)
-      actionpack (= 3.0.5)
+    actionmailer (3.0.6)
+      actionpack (= 3.0.6)
       mail (~> 2.2.15)
-    actionpack (3.0.5)
-      activemodel (= 3.0.5)
-      activesupport (= 3.0.5)
+    actionpack (3.0.6)
+      activemodel (= 3.0.6)
+      activesupport (= 3.0.6)
       builder (~> 2.1.2)
       erubis (~> 2.6.6)
-      i18n (~> 0.4)
+      i18n (~> 0.5.0)
       rack (~> 1.2.1)
-      rack-mount (~> 0.6.13)
+      rack-mount (~> 0.6.14)
       rack-test (~> 0.5.7)
       tzinfo (~> 0.3.23)
-    activemodel (3.0.5)
-      activesupport (= 3.0.5)
+    activemodel (3.0.6)
+      activesupport (= 3.0.6)
       builder (~> 2.1.2)
-      i18n (~> 0.4)
-    activerecord (3.0.5)
-      activemodel (= 3.0.5)
-      activesupport (= 3.0.5)
+      i18n (~> 0.5.0)
+    activerecord (3.0.6)
+      activemodel (= 3.0.6)
+      activesupport (= 3.0.6)
       arel (~> 2.0.2)
       tzinfo (~> 0.3.23)
-    activeresource (3.0.5)
-      activemodel (= 3.0.5)
-      activesupport (= 3.0.5)
-    activesupport (3.0.5)
+    activeresource (3.0.6)
+      activemodel (= 3.0.6)
+      activesupport (= 3.0.6)
+    activesupport (3.0.6)
     arel (2.0.9)
-    babosa (0.3.2)
+    babosa (0.3.3)
     builder (2.1.2)
     diff-lcs (1.1.2)
     erubis (2.6.6)
@@ -50,9 +58,6 @@ GEM
       railties (>= 3.0.0)
     friendly_id (3.2.1.1)
       babosa (~> 0.3.0)
-    globalize3 (0.0.11)
-      activemodel (>= 3.0.0)
-      activerecord (>= 3.0.0)
     graticule (2.0.1)
       activesupport
       happymapper (>= 0.3.0)
@@ -78,19 +83,19 @@ GEM
       rack (>= 1.0.0)
     rack-test (0.5.7)
       rack (>= 1.0)
-    rails (3.0.5)
-      actionmailer (= 3.0.5)
-      actionpack (= 3.0.5)
-      activerecord (= 3.0.5)
-      activeresource (= 3.0.5)
-      activesupport (= 3.0.5)
+    rails (3.0.6)
+      actionmailer (= 3.0.6)
+      actionpack (= 3.0.6)
+      activerecord (= 3.0.6)
+      activeresource (= 3.0.6)
+      activesupport (= 3.0.6)
       bundler (~> 1.0)
-      railties (= 3.0.5)
+      railties (= 3.0.6)
     rails3-generators (0.17.4)
       railties (>= 3.0.0)
-    railties (3.0.5)
-      actionpack (= 3.0.5)
-      activesupport (= 3.0.5)
+    railties (3.0.6)
+      actionpack (= 3.0.6)
+      activesupport (= 3.0.6)
       rake (>= 0.8.7)
       thor (~> 0.14.4)
     rake (0.8.7)
@@ -126,12 +131,12 @@ PLATFORMS
 DEPENDENCIES
   factory_girl_rails
   friendly_id (~> 3.2.1)
-  globalize3
+  globalize3!
   graticule
   haml-rails!
   mysql2
   nokogiri
-  rails (= 3.0.5)
+  rails (= 3.0.6)
   rails3-generators
   rdiscount
   routing-filter

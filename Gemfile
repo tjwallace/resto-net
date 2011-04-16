@@ -1,9 +1,9 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.5'
+gem 'rails', '3.0.6'
 gem 'mysql2'
 gem 'nokogiri'
-gem 'globalize3'
+gem 'globalize3', :git => 'git://github.com/svenfuchs/globalize3.git'
 gem 'graticule'
 gem 'routing-filter'
 gem 'friendly_id', '~> 3.2.1'
