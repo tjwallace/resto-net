@@ -5,7 +5,9 @@ class Type < ActiveRecord::Base
 
   translates :name
 
+  # Rails dynamic finder doesn't exist as name is not on Type model. Globalize3
+  # dynamic finders do not follow Rails convention.
   def self.find_or_create_by_name(name)
-    self.find_by_name(name) || self.create(:name => name)
+    find_first_by_name(name) || create(:name => name)
   end
 end
