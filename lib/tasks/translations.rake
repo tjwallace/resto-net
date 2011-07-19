@@ -28,11 +28,11 @@ namespace :translations do
     end
 
     Infraction.includes(:translations).all.each do |i|
-      i.update_attribute :description, translations[i.description(:fr)] unless i.description
+      i.update_attribute :description, translations[i.description(:fr)]
     end
 
     Type.includes(:translations).all.each do |t|
-      t.update_attribute :name, translations[t.name(:fr)] unless t.name
+      t.update_attribute :name, translations[t.name(:fr)]
     end
   end
 
