@@ -23,7 +23,13 @@ class PagesController < ApplicationController
   end
 
   def statistics
-    @data = Infraction.select("to_char(infraction_date, '%Y-%m-01') as month, COUNT(*) as count, SUM(amount) as sum").group('month').map do |i|
+    sql = case ActiveRecord::Base.connection.adapter_name
+    when 'PostgreSQL'
+      "to_char(infraction_date, 'YY-MM-01') as month, COUNT(*) as count, SUM(amount) as sum"
+    else
+      "DATE_FORMAT(infraction_date, '%Y-%m-01') as month, COUNT(*) as count, SUM(amount) as sum"
+    end
+    @data = Infraction.select(sql).group('month').map do |i|
       date = Time.parse(i.month)
       {
         :date => date.to_i * 1000,
