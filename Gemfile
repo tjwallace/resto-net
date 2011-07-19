@@ -17,8 +17,9 @@ gem 'haml-rails'
 # Routes
 gem 'routing-filter'
 
-# Lib
+# Rake
 gem 'nokogiri'
+gem 'sishen-rtranslate', :require => 'rtranslate'
 
 group :development, :test do
   gem 'sqlite3-ruby', :require => 'sqlite3'
@@ -27,7 +28,6 @@ end
 
 group :development do
   gem 'rails3-generators'
-  gem 'sishen-rtranslate', :require => 'rtranslate' # Rake
 end
 
 group :test do
