@@ -12,7 +12,7 @@ gem 'kaminari'
 
 # Views
 gem 'rdiscount'
-gem 'haml-rails', :git => 'git://github.com/indirect/haml-rails.git'
+gem 'haml-rails'
 
 # Routes
 gem 'routing-filter'
