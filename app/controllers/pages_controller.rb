@@ -31,7 +31,7 @@ class PagesController < ApplicationController
     else
       "DATE_FORMAT(infraction_date, '%Y-%m-01') as month, COUNT(*) as count, SUM(amount) as sum"
     end
-    @data = Infraction.select(sql).order(:infraction_date).group(:month).map do |i|
+    @data = Infraction.select(sql).order(:month).group(:month).map do |i|
       date = Time.parse(i.month)
       {
         :date => date.to_i * 1000,
