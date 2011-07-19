@@ -19,4 +19,4 @@
           %td= number_to_currency e.infractions_amount, :precision => 0
           %td= l e.infractions.order("judgment_date ASC").last.judgment_date
 
-  = will_paginate @establishments
+  = paginate @establishments
