@@ -28,7 +28,7 @@ class Establishment < ActiveRecord::Base
   end
 
   def geocode
-    @@geocoder ||= Graticule.service(:google).new APP_CONFIG['gmaps_api_key']
+    @@geocoder ||= Graticule.service(:google).new 'ABQIAAAACjg5EelPDHaItWLh83iDnxSTO_huFvQjFKOycbqUllPdGQkbfRRbpq18tH_FX8TyWWBPGwtlKiXNdA'
 
     begin
       location = @@geocoder.locate address
