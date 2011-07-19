@@ -31,8 +31,8 @@ describe Establishment do
     it "geocodes a good address" do
       subject.update_attribute :address, "839 Rue Sherbrooke Ouest, Montréal, Québec"
 
-      subject.latitude.should be_within(0.00001).of(45.5039069)
-      subject.longitude.should be_within(0.00001).of(-73.5745631)
+      subject.latitude.should be_within(0.00001).of(45.50390)
+      subject.longitude.should be_within(0.00001).of(-73.57456)
       subject.street.should == "839 Rue Sherbrooke Ouest"
       subject.locality.should == "Montréal"
       subject.region.should == "QC"
