@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101120194456) do
+ActiveRecord::Schema.define(:version => 20110813074941) do
 
   create_table "establishments", :force => true do |t|
     t.string   "name"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20101120194456) do
     t.string   "postal_code"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "judgment_span"
   end
 
   add_index "establishments", ["name", "address"], :name => "index_establishments_on_name_and_address", :unique => true

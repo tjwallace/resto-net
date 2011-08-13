@@ -19,6 +19,14 @@ class Establishment < ActiveRecord::Base
     search ? where("name LIKE ?", "%#{search}%") : scoped
   end
 
+  def short_address
+    if geocoded? && street
+      street
+    else
+      address
+    end
+  end
+
   def full_address
     if geocoded? && street && locality
       "#{street}, #{locality}"
@@ -52,6 +60,6 @@ class Establishment < ActiveRecord::Base
   end
 
   def update_infractions_amount!
-    update_attribute :infractions_amount, infractions.sum(:amount)
+    update_attributes :infractions_amount => infractions.sum(:amount), :judgment_span => infractions.maximum(:judgment_date) - infractions.minimum(:judgment_date)
   end
 end

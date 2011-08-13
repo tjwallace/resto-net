@@ -21,6 +21,8 @@ en:
   infraction_amount: "Infraction amount"
   latest_infraction: "Latest infraction"
   type: "Type"
+  tweet_establishment: "%{name} (%{address}) was fined a total of %{amount}"
+  tweet_infraction: "%{name} (%{address}) was fined %{amount} on %{date}"
 
   charts:
     days_between_infraction_and_judgment: "Days between infraction and judgment"
