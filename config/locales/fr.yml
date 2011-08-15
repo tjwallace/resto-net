@@ -205,8 +205,9 @@ fr:
   infraction_amount: "Amendes"
   latest_infraction: "Dernière infraction"
   type: "Type"
-  tweet_establishment: "%{name} (%{address}) a été condamné à des amendes totalisant %{amount}"
-  tweet_infraction: "%{name} (%{address}) a été condamné à une amende de %{amount} le %{date}"
+  tweet_establishment: "%{name} (%{address}) a été condamné à des amendes de salubrité totalisant %{amount}"
+  tweet_infraction: "%{name} (%{address}) a été condamné à une amende de salubrité de %{amount} le %{date}"
+  facebook_locale: fr_CA
 
   charts:
     days_between_infraction_and_judgment: "Nombre de jours entre infraction et jugement"

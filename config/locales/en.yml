@@ -23,6 +23,7 @@ en:
   type: "Type"
   tweet_establishment: "%{name} (%{address}) was fined a total of %{amount}"
   tweet_infraction: "%{name} (%{address}) was fined %{amount} on %{date}"
+  facebook_locale: en_US
 
   charts:
     days_between_infraction_and_judgment: "Days between infraction and judgment"

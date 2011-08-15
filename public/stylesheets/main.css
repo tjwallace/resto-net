@@ -194,3 +194,7 @@ div.stat {
 tr.hover {
   background: #D8D8D8;
 }
+
+#facebook-like {
+  float: right;
+}
