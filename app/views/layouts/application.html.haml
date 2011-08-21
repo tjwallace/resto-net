@@ -8,12 +8,11 @@
     <meta property="og:image" content="http://resto-net.ca/images/logo.png" />
     <meta property="og:site_name" content="Resto-Net" />
     <meta property="fb:admins" content="100002666906486" />
-    %title= content_for?(:title) ? content_for(:title) : t(:app_title)
+    %title= title
     %meta{:name => "author", :content => "Jeff Wallace"}
-    %meta{:name => "description", :content => t(:meta_description)}
+    %meta{:name => "description", :content => meta_description}
     = stylesheet_link_tag "reset", "text", "960", "menu", "main"
-    - fonts = %w(Droid+Serif Droid+Sans).join('|')
-    = stylesheet_link_tag "http://fonts.googleapis.com/css?family=#{fonts}"
+    = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Droid+Serif|Droid+Sans"
     = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js'
     = javascript_include_tag :defaults
     = content_for :head

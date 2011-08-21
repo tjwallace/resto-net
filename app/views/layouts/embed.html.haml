@@ -2,17 +2,23 @@
 %html
   %head
     %meta{"http-equiv" => "content-type", :content => "text/html;charset=utf-8"}
-    %title= content_for?(:title) ? content_for(:title) : t(:app_title)
+    <meta property="og:title" content="Resto-Net" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://resto-net.ca/" />
+    <meta property="og:image" content="http://resto-net.ca/images/logo.png" />
+    <meta property="og:site_name" content="Resto-Net" />
+    <meta property="fb:admins" content="100002666906486" />
+    %title= title
     %meta{:name => "author", :content => "Jeff Wallace"}
-    %meta{:name => "description", :content => t(:meta_description)}
+    %meta{:name => "description", :content => meta_description}
     = stylesheet_link_tag "reset", "text", "620", "menu", "main", "embed"
-    - fonts = %w(Droid+Serif Droid+Sans).join('|')
-    = stylesheet_link_tag "http://fonts.googleapis.com/css?family=#{fonts}"
-    = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js'
+    = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Droid+Serif|Droid+Sans"
+    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js'
     = javascript_include_tag :defaults, 'embed'
     = content_for :head
     = csrf_meta_tag
   %body
+    #fb-root
     #main.container_12
 
       #map.grid_12
@@ -31,4 +37,5 @@
         = render 'shared/footer'
       %div.clear
 
-      = render 'shared/analytics' if Rails.env.production?
+    = javascript_include_tag "http://connect.facebook.net/#{t :facebook_locale}/all.js#xfbml=1"
+    = render 'shared/analytics' if Rails.env.production?

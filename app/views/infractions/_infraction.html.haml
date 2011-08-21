@@ -7,5 +7,5 @@
     %li #{t :infraction_date}: #{l infraction.infraction_date}
     %li #{t :judgment_date}: #{l infraction.judgment_date}
     %li #{t :amount}: #{number_to_currency infraction.amount}
-  <a href="http://twitter.com/share" class="twitter-share-button" data-text="#{t :tweet_infraction, :name => infraction.establishment.name, :address => infraction.establishment.address, :amount => number_to_currency(infraction.amount), :date => l(infraction.judgment_date)}" data-count="horizontal" data-lang="#{I18n.locale}" data-via="resto_net"></a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="#{t :tweet_infraction, :name => infraction.establishment.name, :address => infraction.establishment.short_address, :amount => number_to_currency(infraction.amount), :date => l(infraction.judgment_date)}" data-count="horizontal" data-lang="#{I18n.locale}" data-via="resto_net"></a>
 

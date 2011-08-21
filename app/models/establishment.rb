@@ -1,6 +1,7 @@
 class Establishment < ActiveRecord::Base
   belongs_to :type
-  has_many :infractions, :dependent => :destroy, :after_remove => :update_infractions_amount!
+  has_many :infractions, :order => "infractions.judgment_date DESC, infractions.infraction_date DESC",
+    :dependent => :destroy, :after_remove => :update_infractions_amount!
   has_many :owners, :through => :infractions, :uniq => true
 
   validates_presence_of :name, :address, :type
