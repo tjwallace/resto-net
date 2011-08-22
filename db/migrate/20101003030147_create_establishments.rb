@@ -6,6 +6,7 @@ class CreateEstablishments < ActiveRecord::Migration
       t.belongs_to :type
       t.integer :infractions_amount, :default => 0
       t.integer :infractions_count, :default => 0
+      t.integer :judgment_span
       t.float :latitude
       t.float :longitude
       t.string :street
