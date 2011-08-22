@@ -27,7 +27,7 @@
       %h1= @establishment.name
       %h2 #{t :total_infractions}: #{number_to_currency @establishment.infractions_amount} (#{@establishment.infractions_count.to_s})
       %h2 #{t :address}: #{@establishment.full_address}
-      %h2 #{t :type}: #{translate_attribute @establishment.type, :name}
+      %h2 #{t :type}: #{I18n.translate_attribute @establishment.type, :name}
       <a href="http://twitter.com/share" class="twitter-share-button" data-text="#{t :tweet_establishment, :name => @establishment.name, :address => @establishment.short_address, :amount => number_to_currency(@establishment.infractions_amount)}" data-count="horizontal" data-lang="#{I18n.locale}" data-via="resto_net"></a>
   .grid_6
     #map_canvas.box No location information

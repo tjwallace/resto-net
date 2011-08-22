@@ -22,7 +22,7 @@ class CreateEstablishments < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :establishments, [:name_fingerprint, :address_fingerprint, :city_fingerprint], :unique => true
+    add_index :establishments, [:name_fingerprint, :address_fingerprint, :city_fingerprint], :unique => true, :name => 'index_establishments_on_fingerprints'
     add_index :establishments, :type_id
   end
 

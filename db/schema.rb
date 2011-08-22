@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(:version => 20101120194456) do
     t.datetime "updated_at"
   end
 
-  add_index "establishments", ["name_fingerprint", "address_fingerprint"], :name => "index_establishments_on_name_fingerprint_and_address_fingerprint", :unique => true
+  add_index "establishments", ["name_fingerprint", "address_fingerprint", "city_fingerprint"], :name => "index_establishments_on_fingerprints", :unique => true
   add_index "establishments", ["type_id"], :name => "index_establishments_on_type_id"
 
   create_table "infractions", :force => true do |t|

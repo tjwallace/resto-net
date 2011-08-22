@@ -27,7 +27,7 @@ class Establishment < ActiveRecord::Base
   end
 
   def self.find_or_create_by_name_and_address_and_city(name, address, city, attributes = {})
-    find_or_create_by_name_fingerprint_and_address_fingerprint(
+    find_or_create_by_name_fingerprint_and_address_fingerprint_and_city_fingerprint(
     name.fingerprint,
     address.fingerprint,
     city.fingerprint,

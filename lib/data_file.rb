@@ -1,8 +1,6 @@
 # coding: utf-8
 require 'fileutils'
 require 'open-uri'
-
-require 'nokogiri'
 require 'unicode_utils/titlecase'
 
 class DataFile
