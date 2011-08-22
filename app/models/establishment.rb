@@ -7,16 +7,15 @@ class Establishment < ActiveRecord::Base
   has_many :owners,
     :through => :infractions,
     :uniq => true
-
-  attr_accessible :name, :address, :type_id, :latitude, :longitude, :street,
-    :region, :locality, :country, :postal_code
-
-  validates_presence_of :name, :address, :type_id
-  validates_uniqueness_of :address, :scope => :name
-
   has_friendly_id :name, :use_slug => true
 
+  attr_accessible :name, :address, :city, :type_id
+
+  validates_presence_of :name, :address, :city, :type
+  validates_uniqueness_of :name, :scope => [:address, :city]
+
   before_create :geocode
+  before_save :update_fingerprints
 
   scope :geocoded, where('latitude IS NOT NULL', 'longitude IS NOT NULL')
   scope :by_most_infractions, order('infractions_count DESC')
@@ -27,8 +26,16 @@ class Establishment < ActiveRecord::Base
     search ? where('name LIKE ?', "%#{search}%") : scoped
   end
 
-  def self.find_or_create_by_name_and_address(name, address, attributes = {})
-    find_or_create_by_name_fingerprint_and_address_fingerprint name.fingerprint, address.fingerprint, {:name => name, :address => address}.merge(attributes)
+  def self.find_or_create_by_name_and_address_and_city(name, address, city, attributes = {})
+    find_or_create_by_name_fingerprint_and_address_fingerprint(
+    name.fingerprint,
+    address.fingerprint,
+    city.fingerprint,
+    {
+      :name => name,
+      :address => address,
+      :city => city,
+    }.merge(attributes))
   end
 
   def short_address
@@ -43,7 +50,7 @@ class Establishment < ActiveRecord::Base
     if geocoded? && street && locality
       "#{street}, #{locality}"
     else
-      address
+      "#{address}, #{city}"
     end
   end
 
@@ -51,14 +58,14 @@ class Establishment < ActiveRecord::Base
     @@geocoder ||= Graticule.service(:google).new 'ABQIAAAACjg5EelPDHaItWLh83iDnxSTO_huFvQjFKOycbqUllPdGQkbfRRbpq18tH_FX8TyWWBPGwtlKiXNdA'
 
     begin
-      location = @@geocoder.locate address
+      location = @@geocoder.locate "#{address}, #{city}"
       %w(latitude longitude street region locality country postal_code).each do |attr|
         value = location.send(attr)
         self[attr] = value.is_a?(String) ? value.force_encoding('utf-8') : value
       end
       location
     rescue
-      Rails.logger.warn "Geocoding error for '#{name}' @ '#{address}': #{$!.message}"
+      Rails.logger.warn "Geocoding error for '#{name}' @ '#{address}, #{city}': #{$!.message}"
       nil
     end
   end
@@ -71,5 +78,13 @@ class Establishment < ActiveRecord::Base
     self.infractions_amount = infractions.sum(:amount)
     self.judgment_span = infractions.maximum(:judgment_date) - infractions.minimum(:judgment_date)
     self.save!
+  end
+
+private
+
+  def update_fingerprints
+    self.name_fingerprint = name.fingerprint if name_changed?
+    self.address_fingerprint = address.fingerprint if address_changed?
+    self.city_fingerprint = city.fingerprint if city_changed?
   end
 end

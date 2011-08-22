@@ -10,14 +10,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110813074941) do
+ActiveRecord::Schema.define(:version => 20101120194456) do
 
   create_table "establishments", :force => true do |t|
     t.string   "name"
+    t.string   "name_fingerprint"
     t.string   "address"
+    t.string   "address_fingerprint"
+    t.string   "city"
+    t.string   "city_fingerprint"
     t.integer  "type_id"
-    t.integer  "infractions_amount", :default => 0
-    t.integer  "infractions_count",  :default => 0
+    t.integer  "infractions_amount",  :default => 0
+    t.integer  "infractions_count",   :default => 0
+    t.integer  "judgment_span",       :default => 0
     t.float    "latitude"
     t.float    "longitude"
     t.string   "street"
@@ -27,30 +32,20 @@ ActiveRecord::Schema.define(:version => 20110813074941) do
     t.string   "postal_code"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "judgment_span"
   end
 
-  add_index "establishments", ["name", "address"], :name => "index_establishments_on_name_and_address", :unique => true
+  add_index "establishments", ["name_fingerprint", "address_fingerprint"], :name => "index_establishments_on_name_fingerprint_and_address_fingerprint", :unique => true
   add_index "establishments", ["type_id"], :name => "index_establishments_on_type_id"
 
-  create_table "infraction_translations", :force => true do |t|
-    t.integer  "infraction_id"
-    t.string   "locale"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "infraction_translations", ["infraction_id"], :name => "index_infraction_translations_on_infraction_id"
-
   create_table "infractions", :force => true do |t|
+    t.integer  "owner_id"
     t.integer  "establishment_id"
+    t.text     "description"
     t.integer  "amount"
     t.date     "infraction_date"
     t.date     "judgment_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "owner_id"
   end
 
   add_index "infractions", ["establishment_id"], :name => "index_infractions_on_establishment_id"
@@ -58,10 +53,13 @@ ActiveRecord::Schema.define(:version => 20110813074941) do
 
   create_table "owners", :force => true do |t|
     t.string   "name"
+    t.string   "name_fingerprint"
     t.integer  "infractions_count", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "owners", ["name_fingerprint"], :name => "index_owners_on_name_fingerprint", :unique => true
 
   create_table "slugs", :force => true do |t|
     t.string   "name"
@@ -75,19 +73,12 @@ ActiveRecord::Schema.define(:version => 20110813074941) do
   add_index "slugs", ["name", "sluggable_type", "sequence", "scope"], :name => "index_slugs_on_n_s_s_and_s", :unique => true
   add_index "slugs", ["sluggable_id"], :name => "index_slugs_on_sluggable_id"
 
-  create_table "type_translations", :force => true do |t|
-    t.integer  "type_id"
-    t.string   "locale"
+  create_table "types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "type_translations", ["type_id"], :name => "index_type_translations_on_type_id"
-
-  create_table "types", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "types", ["name"], :name => "index_types_on_name", :unique => true
 
 end

@@ -5,8 +5,8 @@ class Infraction < ActiveRecord::Base
   attr_accessible :owner_id, :establishment_id, :description, :infraction_date,
     :judgment_date, :amount
 
-  validates_presence_of :owner_id, :establishment_id, :description,
-    :infraction_date, :judgment_date, :amount
+  validates_presence_of :owner, :establishment, :description, :infraction_date,
+    :judgment_date, :amount
   validates_numericality_of :amount, :only_integer => true, :greater_than => 0
 
   after_save :update_infractions_cache!

@@ -50,3 +50,4 @@ module InspectionsOuvert
 end
 
 require 'i18n_extensions'
+require 'string_extensions'

@@ -1,10 +1,11 @@
-# encoding: utf-8
-require 'nokogiri'
+# coding: utf-8
+require 'fileutils'
 require 'open-uri'
 
-class DataFile
-  MONTHS = %w(janvier fevrier mars avril mai juin juillet aout septembre octobre novembre decembre)
+require 'nokogiri'
+require 'unicode_utils/titlecase'
 
+class DataFile
   def initialize(year = nil, verbose = true)
     @year = year || Date.today.year
     @verbose = verbose
@@ -15,28 +16,24 @@ class DataFile
   end
 
   def scan(source = nil)
+    latest_judgment_date = Infraction.order('judgment_date DESC').first.judgment_date rescue Date.new
+
     log "Importing infractions for #{@year}"
-
-    latest_judgment_date = Infraction.order("judgment_date DESC").first.judgment_date rescue Date.new
-
-    Nokogiri.XML(content(source), nil, 'utf-8').xpath('//contrevenant').each do |inf|
+    Nokogiri::XML(content(source), nil, 'utf-8').xpath('//contrevenant').each do |xml|
       Establishment.transaction do
-        owner = Owner.find_or_create_by_name get_name(inf, 'proprietaire')
-
-        type_name = inf.at_xpath('categorie').text rescue 'Inconnue'
-        type = Type.find_or_create_by_name type_name
-
-        establishment = Establishment.find_or_create_by_name_and_address get_name(inf, 'etablissement', owner.name), get_address(inf, 'adresse'),
-          :type_id => type.id
-
+        owner = Owner.find_or_create_by_name get_name(xml, 'proprietaire')
+        type = Type.find_or_create_by_name xml.at_xpath('categorie').text.strip #rescue 'Inconnue'
+        establishment = Establishment.find_or_create_by_name_and_address_and_city(
+          get_name(xml, 'etablissement', owner.name),
+          xml.at_xpath('adresse').text.strip,
+          xml.at_xpath('ville').text.strip,
+          :type_id => type.id)
         infraction = establishment.infractions.build(
-          :description => inf.at_xpath('description').text,
-          :infraction_date => get_date(inf, 'date_infraction'),
-          :judgment_date => get_date(inf, 'date_jugement'),
-          :amount => inf.at_xpath('montant').text.to_i,
-          :owner_id => owner.id
-        )
-
+          :description => xml.at_xpath('description').text.strip,
+          :infraction_date => get_date(xml, 'date_infraction'),
+          :judgment_date => get_date(xml, 'date_jugement'),
+          :amount => xml.at_xpath('montant').text.strip.to_i,
+          :owner_id => owner.id)
         if infraction.judgment_date > latest_judgment_date
           infraction.save!
           log ".", :print
@@ -45,7 +42,6 @@ class DataFile
         end
       end
     end
-
     log "Done"
   end
 
@@ -54,15 +50,25 @@ class DataFile
   end
 
   def filename
-    File.join Rails.root, 'data', sprintf("%d.xml", @year)
+    File.join Rails.root, 'data', "#{@year}.xml"
   end
 
   def downloaded?
     File.exists? filename
   end
 
+  def download
+    if downloaded?
+      log "Skipping #{filename}"
+    else
+      download!
+    end
+  end
+
   def download!
-    File.open filename, 'w' do |f|
+    FileUtils.mkdir_p File.join(Rails.root, 'data')
+    log "Downloading #{filename}"
+    File.open filename, 'wb' do |f|
       f.write content(:remote)
     end
   end
@@ -78,19 +84,16 @@ class DataFile
     end
   end
 
-  private
+private
 
-  def get_name(inf, xpath, fallback = "Unknown")
-    inf.at_xpath(xpath).text.mb_chars.gsub(/&amp;/, '&').titlecase.gsub(/'S/, "'s").to_s rescue fallback
+  # Names are originally in all caps.
+  def get_name(xml, xpath, fallback = "Unknown")
+    UnicodeUtils.titlecase(xml.at_xpath(xpath).text.gsub(/&amp;/, '&'), :fr).gsub(/'S/, "'s").strip #rescue fallback
   end
 
-  def get_address(inf, xpath)
-    inf.at_xpath(xpath).text.mb_chars.delete(",").gsub(/de la/i, "la").gsub(/(\w+)\./, '\1').titlecase.to_s
-  end
-
-  def get_date(inf, xpath)
-    d = inf.at_xpath(xpath).text.mb_chars.scan(/(\d+) (\S+) (\d+)/).flatten
-    month = Date::MONTHNAMES[ MONTHS.index(d[1].gsub(/é/, 'e').gsub(/û/, 'u')) + 1 ]
-    "#{month} #{d[0]}, #{d[2]}"
+  def get_date(xml, xpath)
+    I18n.locale = :fr
+    parts = xml.at_xpath(xpath).text.match /\A(\d+) (\p{L}+) (\d+)\z/
+    "#{parts[3]}-#{I18n.t('date.month_names').index parts[2]}-#{parts[1]}"
   end
 end

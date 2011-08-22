@@ -8,14 +8,14 @@ describe Establishment do
   it { should have_many(:infractions).dependent(:destroy) }
   it { should have_many(:owners).through(:infractions) }
 
-  %w(name address type).each do |attr|
+  %w(name address city type).each do |attr|
     it { should validate_presence_of(attr) }
   end
-  it { should validate_uniqueness_of(:address).scoped_to(:name) }
+  it { should validate_uniqueness_of(:name).scoped_to(:address, :city) }
 
   describe "search" do
     it "finds establishments by name" do
-      %w(Foo Bar FooBar).each do |name|
+      ["Foo Bar", "FooBar"].each do |name|
         Factory.create :establishment, :name => name
       end
 
@@ -29,7 +29,7 @@ describe Establishment do
     subject { Factory.build :establishment }
 
     it "geocodes a good address" do
-      subject.update_attribute :address, "839 Rue Sherbrooke Ouest, Montréal, Québec"
+      subject.update_attributes :address => "839 Rue Sherbrooke Ouest", :city => "Montréal"
 
       subject.latitude.should be_within(0.00001).of(45.50390)
       subject.longitude.should be_within(0.00001).of(-73.57456)
@@ -41,13 +41,13 @@ describe Establishment do
     end
 
     it "does not geocode a bad address" do
-      subject.update_attribute :address, "try and geocode this google!"
       subject.should_not be_geocoded
     end
 
     it "recognizes when it's geocoded" do
       subject.should_not be_geocoded
-      subject.attributes = { :latitude => 1.0, :longitude => 1.0 }
+      subject.latitude = 1.0
+      subject.longitude = 1.0
       subject.should be_geocoded
     end
   end
@@ -63,9 +63,11 @@ describe Establishment do
       3.times do
         subject.infractions.create Factory.attributes_for(:infraction).merge(:owner_id => @owner.id)
       end
-      subject.reload # since subject is cached
+      subject.reload
+
       subject.infractions_count.should == 3
       subject.infractions_amount.should == subject.infractions.sum(:amount)
+      subject.judgment_span.should == 0
     end
 
     it "recalculates after infraction removal" do
@@ -73,9 +75,11 @@ describe Establishment do
         subject.infractions.create Factory.attributes_for(:infraction).merge(:owner_id => @owner.id)
       end
       subject.infractions.first.destroy
-      subject.reload # since subject is cached
+      subject.reload
+
       subject.infractions_count.should == 2
       subject.infractions_amount.should == subject.infractions.sum(:amount)
+      subject.judgment_span.should == 0
     end
   end
 end
