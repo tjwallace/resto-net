@@ -85,7 +85,7 @@ private
   end
 
   def load_data(limit)
-    @infractions = Infraction.includes(:establishment).latest.limit(limit)
+    @infractions = Infraction.includes(:establishment).order('judgment_date DESC').limit(limit)
     @most_infractions = Establishment.by_most_infractions.includes(:slug).limit(limit)
     @highest_infractions = Establishment.by_highest_infractions.includes(:slug).limit(limit)
   end

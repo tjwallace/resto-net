@@ -1,11 +1,8 @@
 class Type < ActiveRecord::Base
   has_many :establishments
 
-  validates_presence_of :name
+  attr_accessible :name
 
-  # Rails dynamic finder doesn't exist as name is not on Type model. Globalize3
-  # dynamic finders do not follow Rails convention.
-  def self.find_or_create_by_name(name)
-    find_first_by_name(name) || create(:name => name)
-  end
+  validates_presence_of :name
+  validates_uniqueness_of :name
 end

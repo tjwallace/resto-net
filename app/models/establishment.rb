@@ -1,23 +1,30 @@
 class Establishment < ActiveRecord::Base
   belongs_to :type
-  has_many :infractions, :order => "infractions.judgment_date DESC, infractions.infraction_date DESC",
-    :dependent => :destroy, :after_remove => :update_infractions_amount!
-  has_many :owners, :through => :infractions, :uniq => true
+  has_many :infractions,
+    :dependent => :destroy,
+    :after_remove => :update_infractions_cache!,
+    :order => 'infractions.judgment_date DESC, infractions.infraction_date DESC'
+  has_many :owners,
+    :through => :infractions,
+    :uniq => true
 
-  validates_presence_of :name, :address, :type
+  attr_accessible :name, :address, :type_id, :latitude, :longitude, :street,
+    :region, :locality, :country, :postal_code
+
+  validates_presence_of :name, :address, :type_id
   validates_uniqueness_of :address, :scope => :name
 
   has_friendly_id :name, :use_slug => true
 
   before_create :geocode
 
-  scope :geocoded, where("latitude IS NOT NULL", "longitude IS NOT NULL")
-  scope :by_most_infractions, order("infractions_count DESC")
-  scope :by_highest_infractions, order("infractions_amount DESC")
-  scope :by_judgment_date, includes(:infractions).order("infractions.judgment_date DESC")
+  scope :geocoded, where('latitude IS NOT NULL', 'longitude IS NOT NULL')
+  scope :by_most_infractions, order('infractions_count DESC')
+  scope :by_highest_infractions, order('infractions_amount DESC')
+  scope :by_judgment_date, includes(:infractions).order('infractions.judgment_date DESC')
 
   def self.search(search)
-    search ? where("name LIKE ?", "%#{search}%") : scoped
+    search ? where('name LIKE ?', "%#{search}%") : scoped
   end
 
   def short_address
@@ -45,22 +52,20 @@ class Establishment < ActiveRecord::Base
         value = location.send(attr)
         self[attr] = value.is_a?(String) ? value.force_encoding('utf-8') : value
       end
-      return location
+      location
     rescue
       Rails.logger.warn "Geocoding error for '#{name}' @ '#{address}': #{$!.message}"
-      return nil
+      nil
     end
   end
 
-  def geocode!
-    geocode && save!
-  end
-
   def geocoded?
-    !!(latitude && longitude)
+    latitude.present? && longitude.present?
   end
 
-  def update_infractions_amount!
-    update_attributes :infractions_amount => infractions.sum(:amount), :judgment_span => infractions.maximum(:judgment_date) - infractions.minimum(:judgment_date)
+  def update_infractions_cache!
+    self.infractions_amount = infractions.sum(:amount)
+    self.judgment_span = infractions.maximum(:judgment_date) - infractions.minimum(:judgment_date)
+    self.save!
   end
 end

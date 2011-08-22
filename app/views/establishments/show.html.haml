@@ -33,5 +33,5 @@
     #map_canvas.box No location information
   %div.clear
   #infractions.grid_12
-    = render :partial => 'infractions/infraction', :collection => @establishment.infractions.includes(:owner).latest
+    = render :partial => 'infractions/infraction', :collection => @establishment.infractions
 = javascript_include_tag 'http://platform.twitter.com/widgets.js'
