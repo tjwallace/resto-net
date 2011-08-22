@@ -112,6 +112,7 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.26)
+    unicode_utils (1.0.0)
 
 PLATFORMS
   ruby
@@ -131,3 +132,4 @@ DEPENDENCIES
   rspec-rails (>= 2.0.0.rc)
   shoulda
   sqlite3-ruby
+  unicode_utils

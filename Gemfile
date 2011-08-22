@@ -5,6 +5,7 @@ gem 'rails', '3.0.6'
 # Models
 gem 'friendly_id', '~> 3.2.1'
 gem 'graticule'
+gem 'unicode_utils'
 
 # Controllers
 gem 'kaminari'
