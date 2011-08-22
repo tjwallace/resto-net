@@ -78,7 +78,7 @@ class PagesController < ApplicationController
     @charts[:infractions_count_by_infraction_type] = chart.sort.first(10)
   end
 
-  private
+private
 
   def load_establishments
     @establishments = Establishment.geocoded.includes(:slug)

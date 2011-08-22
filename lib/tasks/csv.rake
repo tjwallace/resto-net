@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 I18n.locale = :fr
 
 namespace :csv do

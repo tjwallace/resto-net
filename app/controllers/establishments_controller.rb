@@ -21,7 +21,7 @@ class EstablishmentsController < ApplicationController
     respond_with @establishment, :include => :infractions
   end
 
-  private
+private
 
   def load_establishments
     @establishments = Establishment.search(params['search']).order(sort_column + " " + sort_direction)

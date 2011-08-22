@@ -1,4 +1,3 @@
-# encoding: utf-8
 class Count
   include ActionView::Helpers::NumberHelper
 
