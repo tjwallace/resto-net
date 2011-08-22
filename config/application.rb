@@ -48,3 +48,5 @@ module InspectionsOuvert
     end
   end
 end
+
+require 'i18n_extensions'

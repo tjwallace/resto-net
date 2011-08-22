@@ -25,18 +25,18 @@ module ApplicationHelper
 
   # icons from http://code.google.com/p/google-maps-icons/
   def establishments_json(establishments)
-    establishments.select{ |e| e.geocoded? }.map do |e|
-      i = e.infractions.latest.first
+    establishments.select{|e| e.geocoded?}.map do |establishment|
+      i = establishment.infractions.latest.first
       {
-        :id => e.id,
-        :lat => e.latitude,
-        :lng => e.longitude,
-        :name => e.name,
-        :url => url_for(e),
-        :count => e.infractions_count,
-        :amount => number_to_currency(e.infractions_amount),
+        :id     => establishment.id,
+        :lat    => establishment.latitude,
+        :lng    => establishment.longitude,
+        :name   => establishment.name,
+        :url    => url_for(establishment),
+        :count  => establishment.infractions_count,
+        :amount => number_to_currency(establishment.infractions_amount),
         :latest => {
-          :date => l(i.judgment_date),
+          :date   => l(i.judgment_date),
           :amount => number_to_currency(i.amount),
         },
       }

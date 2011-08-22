@@ -17,7 +17,7 @@ class EstablishmentsController < ApplicationController
   end
 
   def show
-    @establishment = Establishment.includes(:infractions => [:translations]).find(params['id'])
+    @establishment = Establishment.includes(:infractions).find(params['id'])
     respond_with @establishment, :include => :infractions
   end
 

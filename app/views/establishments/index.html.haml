@@ -11,12 +11,12 @@
         %th= sortable "infractions_amount", t(:infraction_amount)
         %th= sortable "infractions.judgment_date", t(:latest_infraction)
     %tbody
-      - @establishments.each do |e|
-        %tr[e]
-          %td= link_to e.name, e
-          %td= e.full_address
-          %td= e.infractions_count
-          %td= number_to_currency e.infractions_amount, :precision => 0
-          %td= l e.infractions.first.judgment_date
+      - @establishments.each do |establishment|
+        %tr[establishment]
+          %td= link_to establishment.name, establishment
+          %td= establishment.full_address
+          %td= establishment.infractions_count
+          %td= number_to_currency establishment.infractions_amount, :precision => 0
+          %td= l establishment.infractions.first.judgment_date
 
   = paginate @establishments

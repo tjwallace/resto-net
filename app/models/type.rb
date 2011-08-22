@@ -3,8 +3,6 @@ class Type < ActiveRecord::Base
 
   validates_presence_of :name
 
-  translates :name
-
   # Rails dynamic finder doesn't exist as name is not on Type model. Globalize3
   # dynamic finders do not follow Rails convention.
   def self.find_or_create_by_name(name)

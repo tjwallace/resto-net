@@ -4,7 +4,6 @@ gem 'rails', '3.0.6'
 
 # Models
 gem 'friendly_id', '~> 3.2.1'
-gem 'globalize3'
 gem 'graticule'
 
 # Controllers
@@ -19,7 +18,6 @@ gem 'routing-filter'
 
 # Rake
 gem 'nokogiri'
-gem 'sishen-rtranslate', :require => 'rtranslate'
 
 group :development, :test do
   gem 'sqlite3-ruby', :require => 'sqlite3'

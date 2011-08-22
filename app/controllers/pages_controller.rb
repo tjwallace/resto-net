@@ -50,8 +50,8 @@ class PagesController < ApplicationController
     # Bar charts
 
     chart = Chart.new(I18n.t('charts.infractions_count_by_establishment_type'))
-    chart + Type.includes(:establishments, :translations).map do |type|
-      { :label => type.name,
+    chart + Type.includes(:establishments).map do |type|
+      { :label => I18n.translate_attribute(type, :name),
         :count => type.establishments.reduce(0) { |memo,x| memo + x.infractions_count },
         :count_style => :integer,
       }
@@ -59,8 +59,8 @@ class PagesController < ApplicationController
     @charts[:infractions_count_by_establishment_type] = chart.sort.first(10)
 
     chart = Chart.new(I18n.t('charts.infractions_amount_by_establishment_type'))
-    chart + Type.includes(:establishments, :translations).map do |type|
-      { :label => type.name,
+    chart + Type.includes(:establishments).map do |type|
+      { :label => I18n.translate_attribute(type, :name),
         :count => type.establishments.reduce(0) { |memo,x| memo + x.infractions_amount },
         :count_style => :currency,
       }
@@ -68,9 +68,9 @@ class PagesController < ApplicationController
     @charts[:infractions_amount_by_establishment_type] = chart.sort.first(10)
 
     chart = Chart.new(I18n.t('charts.infractions_count_by_infraction_type'))
-    types_count = {}
-    Infraction.includes(:translations).each do |infraction|
-      types_count[infraction.description] = types_count[infraction.description].to_i + 1
+    types_count = Hash.new(0)
+    Infraction.each do |infraction|
+      types_count[I18n.translate_attribute(infraction, :description)] += 1
     end
     types_count.each do |label,count|
       chart << { :label => label, :count => count }

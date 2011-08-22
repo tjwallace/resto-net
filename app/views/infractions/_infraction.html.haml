@@ -1,7 +1,7 @@
 %div
   .description
     %h1 #{t :description}:
-    = infraction.description
+    = translate_attribute infraction, :description
   %ul
     %li #{t :owner}: #{infraction.owner.name}
     %li #{t :infraction_date}: #{l infraction.infraction_date}

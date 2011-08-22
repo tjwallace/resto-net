@@ -27,11 +27,11 @@
       %h1= @establishment.name
       %h2 #{t :total_infractions}: #{number_to_currency @establishment.infractions_amount} (#{@establishment.infractions_count.to_s})
       %h2 #{t :address}: #{@establishment.full_address}
-      %h2 #{t :type}: #{@establishment.type.name}
+      %h2 #{t :type}: #{translate_attribute @establishment.type, :name}
       <a href="http://twitter.com/share" class="twitter-share-button" data-text="#{t :tweet_establishment, :name => @establishment.name, :address => @establishment.short_address, :amount => number_to_currency(@establishment.infractions_amount)}" data-count="horizontal" data-lang="#{I18n.locale}" data-via="resto_net"></a>
   .grid_6
     #map_canvas.box No location information
   %div.clear
   #infractions.grid_12
-    = render :partial => 'infractions/infraction', :collection => @establishment.infractions.includes(:owner, :translations).latest
+    = render :partial => 'infractions/infraction', :collection => @establishment.infractions.includes(:owner).latest
 = javascript_include_tag 'http://platform.twitter.com/widgets.js'
