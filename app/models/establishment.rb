@@ -27,6 +27,10 @@ class Establishment < ActiveRecord::Base
     search ? where('name LIKE ?', "%#{search}%") : scoped
   end
 
+  def self.find_or_create_by_name_and_address(name, address, attributes = {})
+    find_or_create_by_name_fingerprint_and_address_fingerprint name.fingerprint, address.fingerprint, {:name => name, :address => address}.merge(attributes)
+  end
+
   def short_address
     if geocoded? && street
       street

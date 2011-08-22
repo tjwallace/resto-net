@@ -1,3 +1,5 @@
+# coding: utf-8
+
 class Count
   include ActionView::Helpers::NumberHelper
 
@@ -13,7 +15,7 @@ class Count
     if label
       pretty(label, label_style)
     else
-      "#{pretty(span.first, label_style)}–#{pretty(span.last, label_style)}"
+      "#{pretty(span.first, label_style)}–#{pretty(span.last, label_style)}" # Unicode n-dash
     end
   end
 

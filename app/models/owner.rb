@@ -14,6 +14,6 @@ class Owner < ActiveRecord::Base
   end
 
   def self.search(search)
-    search ? where("name LIKE ?", "%#{search}%") : scoped
+    search ? where('name LIKE ?', "%#{search}%") : scoped
   end
 end

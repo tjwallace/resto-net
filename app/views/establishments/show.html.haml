@@ -4,7 +4,7 @@
     :amount => number_to_currency(@establishment.infractions.first.amount),
     :date => l(@establishment.infractions.first.judgment_date))
 - if @establishment.geocoded?
-  - javascript "http://maps.google.com/maps/api/js?sensor=false"
+  - javascript 'http://maps.google.com/maps/api/js?sensor=false'
   :javascript
     $(function() {
       var latlng = new google.maps.LatLng(#{@establishment.latitude}, #{@establishment.longitude});

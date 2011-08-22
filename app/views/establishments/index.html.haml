@@ -5,11 +5,11 @@
   %table.pretty
     %thead
       %tr
-        %th= sortable "name", t(:name)
+        %th= sortable 'name', t(:name)
         %th= t :address
-        %th= sortable "infractions_count", t(:infraction_count)
-        %th= sortable "infractions_amount", t(:infraction_amount)
-        %th= sortable "infractions.judgment_date", t(:latest_infraction)
+        %th= sortable 'infractions_count', t(:infraction_count)
+        %th= sortable 'infractions_amount', t(:infraction_amount)
+        %th= sortable 'infractions.judgment_date', t(:latest_infraction)
     %tbody
       - @establishments.each do |establishment|
         %tr[establishment]
