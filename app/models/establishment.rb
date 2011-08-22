@@ -22,10 +22,6 @@ class Establishment < ActiveRecord::Base
   scope :by_highest_infractions, order('infractions_amount DESC')
   scope :by_judgment_date, includes(:infractions).order('infractions.judgment_date DESC')
 
-  def self.search(search)
-    search ? where('name LIKE ?', "%#{search}%") : scoped
-  end
-
   def self.find_or_create_by_name_and_address_and_city(name, address, city, attributes = {})
     find_or_create_by_name_fingerprint_and_address_fingerprint_and_city_fingerprint(
     name.fingerprint,

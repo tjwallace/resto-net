@@ -5,7 +5,9 @@ class OwnersController < ApplicationController
   respond_to :json, :xml
 
   def index
-    respond_with Owner.search(params[:search])
+    @owners = Owner.scoped
+    @owners = Owner.search(params[:search]) if params[:search].present?
+    respond_with @owners
   end
 
   def show

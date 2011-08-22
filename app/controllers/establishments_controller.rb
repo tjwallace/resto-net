@@ -24,9 +24,10 @@ class EstablishmentsController < ApplicationController
 private
 
   def load_establishments
-    @establishments = Establishment.search(params[:search]).order(sort_column + ' ' + sort_direction)
+    @establishments = Establishment.order(sort_column + ' ' + sort_direction)
     @establishments = @establishments.includes(:infractions) if sort_column == 'infractions.judgment_date'
     @establishments = @establishments.page(params[:page]).per(10) unless %w(json xml).include?(params[:format])
+    @establishments = @establishments.search(params[:search]) if params[:search].present?
   end
 
   def sort_column
