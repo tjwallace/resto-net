@@ -20,7 +20,7 @@ class DataFile
     Nokogiri::XML(content(source), nil, 'utf-8').xpath('//contrevenant').each do |xml|
       Establishment.transaction do
         owner = Owner.find_or_create_by_name get_name(xml, 'proprietaire')
-        type = Type.find_or_create_by_name xml.at_xpath('categorie').text.strip #rescue 'Inconnue'
+        type = Type.find_or_create_by_name xml.at_xpath('categorie').text.strip
         establishment = Establishment.find_or_create_by_name_and_address_and_city(
           get_name(xml, 'etablissement', owner.name),
           xml.at_xpath('adresse').text.strip,
@@ -86,7 +86,7 @@ private
 
   # Names are originally in all caps.
   def get_name(xml, xpath, fallback = "Unknown")
-    UnicodeUtils.titlecase(xml.at_xpath(xpath).text.gsub(/&amp;/, '&'), :fr).gsub(/'S/, "'s").strip #rescue fallback
+    UnicodeUtils.titlecase(xml.at_xpath(xpath).text.gsub(/&amp;/, '&'), :fr).gsub(/'S/, "'s").strip
   end
 
   def get_date(xml, xpath)
