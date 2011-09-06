@@ -15,11 +15,11 @@ class PagesController < ApplicationController
   end
 
   def about
-    render "about_#{params[:locale]}"
+    render "about_#{I18n.locale}"
   end
 
   def api
-    render "api_#{params[:locale]}"
+    render "api_#{I18n.locale}"
   end
 
   def statistics
@@ -69,7 +69,7 @@ class PagesController < ApplicationController
 
     chart = Chart.new(I18n.t('charts.infractions_count_by_infraction_type'))
     types_count = Hash.new(0)
-    Infraction.each do |infraction|
+    Infraction.all.each do |infraction|
       types_count[I18n.translate_attribute(infraction, :description)] += 1
     end
     types_count.each do |label,count|

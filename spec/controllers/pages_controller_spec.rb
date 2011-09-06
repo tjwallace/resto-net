@@ -34,7 +34,10 @@ describe PagesController do
   end
 
   describe "GET 'statistics'" do
-    before { get :statistics }
+    before {
+      Factory.create :associated_infraction
+      get :statistics
+    }
 
     it "should be successful" do
       response.should be_success

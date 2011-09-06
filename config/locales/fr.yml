@@ -32,7 +32,7 @@ fr:
   tweet_infraction: "%{name} (%{address}) a été condamné à une amende de salubrité de %{amount} le %{date}"
   facebook_locale: fr_CA
 
-  attributes:
+  values:
     infraction:
       description:
         "Avoir détenu un produit altérable à la chaleur sans le maintenir constamment à une température interne et ambiante ne dépassant pas 4°C jusqu'à sa livraison au consommateur": "Avoir détenu un produit altérable à la chaleur sans le maintenir constamment à une température interne et ambiante ne dépassant pas 4°C jusqu'à sa livraison au consommateur"
@@ -327,6 +327,8 @@ fr:
       type:
         name: nom
       infraction:
+        establishment: établissement
+        owner: propriétaire
         description: description
         amount: montant
         infraction_date: date infraction

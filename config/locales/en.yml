@@ -25,7 +25,7 @@ en:
   tweet_infraction: "%{name} (%{address}) was fined %{amount} on %{date}"
   facebook_locale: en_US
 
-  attributes:
+  values:
     infraction:
       description:
         "Avoir détenu un produit altérable à la chaleur sans le maintenir constamment à une température interne et ambiante ne dépassant pas 4°C jusqu'à sa livraison au consommateur": "Holding a perishable product without keeping it at a constant internal and surrounding temperature not exceeding 4°C until delivery to the consumer"
