@@ -39,18 +39,15 @@ Resto-Net requires PostgreSQL for its full-text search.
     sudo apt-get install postgresql libpq-dev
     sudo gem install pg
     sudo -u postgres psql template1
-    at psql prompt:
-	ALTER USER postgres with encrypted password 'your_password';
-    in config/database.yml:
-      for each environment add:
-        username: postgres
-        password: <your_password>
+    psql -c "ALTER USER postgres with encrypted password 'YOUR_PASSWORD';" postgres
 
 # Installation
 
     git clone git@github.com:tjwallace/resto-net.git
     cd resto-net
     bundle install
+    cp config/database.example.yml config/database.yml
+    # edit config/database.yml in your favorite editor
     bundle exec rake db:setup
     bundle exec rake data:import
     rails server thin
