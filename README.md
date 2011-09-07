@@ -34,6 +34,18 @@ Resto-Net requires PostgreSQL for its full-text search.
     launchctl load -w ~/Library/LaunchAgents/org.postgresql.postgres.plist
     env ARCHFLAGS="-arch x86_64" gem install pg
 
+### Ubuntu 10.04
+
+    sudo apt-get install postgresql libpq-dev
+    sudo gem install pg
+    sudo -u postgres psql template1
+    at psql prompt:
+	ALTER USER postgres with encrypted password 'your_password';
+    in config/database.yml:
+      for each environment add:
+        username: postgres
+        password: <your_password>
+
 # Installation
 
     git clone git@github.com:tjwallace/resto-net.git
