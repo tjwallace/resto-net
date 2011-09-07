@@ -8,7 +8,7 @@
 
 It is recommended to use Resto-Net with RVM. Instructions for installing RVM on OS X Lion are given below as there are a few gotchas. Follow RVM's [installation instructions](http://beginrescueend.com/rvm/install/) for other systems.
 
-### OS X
+### OS X Lion
 
 The following script assume you are using the Bash UNIX shell.
 
@@ -25,7 +25,7 @@ The following script assume you are using the Bash UNIX shell.
 
 Resto-Net requires PostgreSQL for its full-text search.
 
-### OS X
+### OS X Lion
 
     brew install postgresql
     initdb /usr/local/var/postgres
@@ -38,8 +38,7 @@ Resto-Net requires PostgreSQL for its full-text search.
 
     sudo apt-get install postgresql libpq-dev
     sudo gem install pg
-    sudo -u postgres psql template1
-    psql -c "ALTER USER postgres with encrypted password 'YOUR_PASSWORD';" postgres
+    sudo -u postgres psql -c "ALTER USER postgres WITH ENCRYPTED PASSWORD 'your_password';" template1
 
 # Installation
 
