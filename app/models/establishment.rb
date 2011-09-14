@@ -34,6 +34,16 @@ class Establishment < ActiveRecord::Base
     }.merge(attributes))
   end
 
+  def reviews
+    term = name.gsub(/ Inc\.?/i, '')
+    response = Yelp.reviews :term => term, :location => full_address
+    if response['name'] == term
+      response['reviews']
+    else
+      []
+    end
+  end
+
   def short_address
     if geocoded? && street
       street

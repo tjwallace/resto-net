@@ -1,5 +1,8 @@
 .bundle
+*.swp
+*~
 db/*.sqlite3
 log/*.log
 tmp/**/*
 config/database.yml
+config/initializers/yelp.rb

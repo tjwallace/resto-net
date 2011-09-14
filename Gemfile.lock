@@ -91,6 +91,8 @@ GEM
       thor (~> 0.14.4)
     rake (0.8.7)
     rdiscount (1.6.8)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     routing-filter (0.2.3)
       actionpack
     rspec (2.5.0)
@@ -121,6 +123,7 @@ GEM
       polyglot (>= 0.3.1)
     tzinfo (0.3.26)
     unicode_utils (1.0.0)
+    yajl-ruby (0.8.3)
 
 PLATFORMS
   ruby
@@ -136,6 +139,7 @@ DEPENDENCIES
   rails (= 3.0.6)
   rails3-generators
   rdiscount
+  rest-client
   routing-filter
   rspec-rails (>= 2.0.0.rc)
   shoulda
@@ -143,3 +147,4 @@ DEPENDENCIES
   texticle (~> 2.0)
   thin
   unicode_utils
+  yajl-ruby

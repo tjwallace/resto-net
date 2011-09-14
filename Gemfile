@@ -7,6 +7,8 @@ gem 'friendly_id', '~> 3.2.1'
 gem 'graticule'
 gem 'texticle', '~> 2.0', :require => 'texticle/rails'
 gem 'unicode_utils'
+gem 'rest-client'
+gem 'yajl-ruby', :require => 'yajl'
 
 # Controllers
 gem 'kaminari'
