@@ -2,7 +2,7 @@ namespace :data do
   require 'data_file'
 
   desc "Download XML infraction data"
-  task :download do
+  task :download => :environment do
     (2007..Date.today.year).each do |year|
       DataFile.new(year).download
     end
