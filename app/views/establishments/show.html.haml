@@ -34,4 +34,9 @@
   %div.clear
   #infractions.grid_12
     = render :partial => 'infractions/infraction', :collection => @establishment.infractions
+    %h2 Reviews from Yelp.com
+    -unless @establishment.reviews.empty?
+      = render :partial => 'review', :collection => @establishment.reviews
+    -else
+      %p No reviews could be found.  Check Back later!
 = javascript_include_tag 'http://platform.twitter.com/widgets.js'

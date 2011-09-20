@@ -198,3 +198,8 @@ tr.hover {
 #facebook-like {
   float: right;
 }
+
+img.rating {
+  padding-right: 5px;
+  float: left;
+}

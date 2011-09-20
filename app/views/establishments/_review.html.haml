@@ -1,0 +1,6 @@
+%div
+  %div
+    %img.rating{:src => review["rating_img_url"]}
+    %p= review["date"]
+  %p= review["text_excerpt"]
+  %p= link_to "Read more on Yelp", review["url"], :target => "_blank"
