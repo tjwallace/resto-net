@@ -37,7 +37,7 @@ class Establishment < ActiveRecord::Base
   def reviews
     term = name.gsub(/ Inc\.?/i, '')
     response = Yelp.reviews :term => term, :location => full_address
-    if response['name'] == term
+    if response && response['name'] == term
       response['reviews']
     else
       []
