@@ -44,7 +44,7 @@ class PagesController < ApplicationController
 
     # Column charts
 
-    @charts[:days_between_infraction_and_judgment] = column_chart(I18n.t('charts.days_between_infraction_and_judgment'), Infraction.all.map { |x| (x.judgment_date - x.infraction_date).to_i }, 60) # 60 days ~ 2 months
+    @charts[:days_between_infraction_and_judgment] = column_chart(I18n.t('charts.days_between_infraction_and_judgment'), Infraction.all.map { |x| (x.judgment_date - x.infraction_date).to_i }, 90) # 90 days ~ 3 months
     @charts[:infraction_amounts] = column_chart(I18n.t('charts.infraction_amounts'), Infraction.all.map(&:amount), 500, :currency)
 
     # Bar charts
