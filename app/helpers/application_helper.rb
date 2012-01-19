@@ -25,7 +25,7 @@ module ApplicationHelper
 
   # icons from http://code.google.com/p/google-maps-icons/
   def establishments_json(establishments)
-    establishments.select{|e| e.geocoded?}.map do |establishment|
+    establishments.select{|e| e.geocoded? && e.infractions.present?}.map do |establishment|
       infraction = establishment.infractions.first
       {
         :id     => establishment.id,
