@@ -4,8 +4,7 @@ require 'open-uri'
 require 'unicode_utils/titlecase'
 
 class DataFile
-  def initialize(year = nil, verbose = true)
-    @year = year || Date.today.year
+  def initialize(verbose = true)
     @verbose = verbose
   end
 
@@ -16,7 +15,7 @@ class DataFile
   def scan(source = nil)
     latest_judgment_date = Infraction.order('judgment_date DESC').first.judgment_date rescue Date.new
 
-    log "Importing infractions for #{@year}"
+    log 'Importing infractions'
     Nokogiri::XML(content(source), nil, 'utf-8').xpath('//contrevenant').each do |xml|
       Establishment.transaction do
         owner = Owner.find_or_create_by_name get_name(xml, 'proprietaire')
@@ -44,11 +43,11 @@ class DataFile
   end
 
   def url
-    URI.encode "http://ville.montreal.qc.ca/pls/portal/portalcon.contrevenants_recherche?p_mot_recherche=,tous,#{@year}"
+    URI.encode 'http://depot.ville.montreal.qc.ca/inspection-aliments-contrevenants/data.xml'
   end
 
   def filename
-    File.join Rails.root, 'data', "#{@year}.xml"
+    File.join Rails.root, 'data', 'data.xml'
   end
 
   def downloaded?
