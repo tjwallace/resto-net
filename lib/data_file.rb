@@ -16,7 +16,7 @@ class DataFile
     latest_judgment_date = Infraction.order('judgment_date DESC').first.judgment_date rescue Date.new
 
     log 'Importing infractions'
-    Nokogiri::XML(content(source), nil, 'utf-8').xpath('//contrevenant').each do |xml|
+    Nokogiri::XML(content(source), nil, 'ISO-8859-1').xpath('//contrevenant').each do |xml|
       Establishment.transaction do
         owner = Owner.find_or_create_by_name get_name(xml, 'proprietaire')
         type = Type.find_or_create_by_name xml.at_xpath('categorie').text.strip
